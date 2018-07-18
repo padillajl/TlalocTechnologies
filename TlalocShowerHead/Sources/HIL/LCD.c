@@ -61,7 +61,10 @@
 
 
 #define LCD_CHN									(2) //Chanel used for the timer of LCD operations 
-#define LCD_PERIOD								(1) //Timer in miliseconds of de LCD										
+#define LCD_PERIOD								(1) //Timer in miliseconds of de LCD
+
+#define LCD_REFRESH_DISPLAY_CHN					(4) 	//Chanel used for refresh the display
+#define LCD_REFRESH_DISPLAY_PERIOD				(3000) 	//3 seconds timer for refresh
 
 
 /* LCD INSTRUCTION DEFINES */
@@ -98,7 +101,8 @@
 /*************************************************************************************************/
 u08 baLCDBuffer[LCD_BUFFER_SIZE	];
 tLCDStateMachine sLCDSMStruct;
-u08	gbResult = 0;
+u08 bLCDRefreshDisplayFlag = 0;
+
 
 /* States of LCD */
 void(*apFnLCDSM[LCD_NUMBER_OF_FUNCTIONS])(void)={
@@ -140,17 +144,44 @@ void LCD_vfnInit(void)
 	sLCDSMStruct.bCurrentState = eLCD_CLEAR_DISPLAY;
 	
 	// LCD perations timer init
-	SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);	
+	SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
+	// LCD refresh timer init
+	SwTimers_vfnStartTimer(LCD_REFRESH_DISPLAY_CHN,LCD_REFRESH_DISPLAY_PERIOD);
 }
 
 void LCD_vfnTask(void)
 {
+	if(SwTimers_bfnGetStatus(LCD_REFRESH_DISPLAY_CHN))
+	{		
+		bLCDRefreshDisplayFlag = 1;
+		SwTimers_vfnStartTimer(LCD_REFRESH_DISPLAY_CHN,LCD_REFRESH_DISPLAY_PERIOD);
+	}
+	
+	//Refresh Display
+	if(bLCDRefreshDisplayFlag)
+	{
+		LCD_vfnDriver();
+	}
+}
+
+void LCD_vfnDriver(void)
+{
 	/* Run LCD state machine every LCD Period seconds */
 	if(SwTimers_bfnGetStatus(LCD_CHN))
 	{
+		
 		(*apFnLCDSM[sLCDSMStruct.bCurrentState])();
+		
+		LCD_vfnByteAssign(LCD_RS_H_RW_L,01/*pendiente*/);	
+			
+		/* Enable's trigger */
+		LCD_ENABLE_ON;
+		LCD_ENABLE_OFF;		
+
+		
 		SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
 	}
+
 }
 
 void LCD_vfnClearDisplay(void)
@@ -197,15 +228,11 @@ void LCD_vfnEntryMode(void)
 	LCD_ENABLE_OFF;
 }
 
-
-
-
 void LCD_vfnSetAddress(u08 lbCommand, u08 bAddress)
 {
 	LCD_vfnByteAssign(lbCommand,bAddress);
 	
-	/* Enable's trigger */
-	asm("nop");	
+	/* Enable's trigger */	
 	LCD_ENABLE_ON;
 	LCD_ENABLE_OFF;
 	
