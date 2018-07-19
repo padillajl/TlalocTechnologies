@@ -87,7 +87,18 @@
 /*************************************************************************************************/
 /*********************						Typedefs						**********************/
 /*************************************************************************************************/
-
+typedef enum
+{
+	eLCDDriverIdleState,				//00
+	
+	eLCDDriverConfig0State,				//01
+	eLCDDriverConfig1State,				//02
+	eLCDDriverConfig2State,				//03
+	eLCDDriverConfig3State,				//04	
+	
+	eLCDDriverPrintRow1State,			//05
+	eLCDDriverPrintRow2State			//06
+};
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
@@ -100,17 +111,19 @@
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
 u08 baLCDBuffer[LCD_BUFFER_SIZE	];
+u08 bLCDCharCounter;
+u08 *bptrLCDBuffer;
 tLCDStateMachine sLCDSMStruct;
 u08 bLCDRefreshDisplayFlag = 0;
 
 
 /* States of LCD */
 void(*apFnLCDSM[LCD_NUMBER_OF_FUNCTIONS])(void)={
-		LCD_vfnClearDisplay,
-		LCD_vfnDisplayOnOff,
-		LCD_vfnConfigMode,
-		LCD_vfnEntryMode,
-		LCD_vfnPrintString
+		vfnLCDDriverClearDisplay,
+		vfnLCDDriverDisplayOnOff,
+		vfnLCDDriverConfigMode,
+		vfnLCDDriverEntryMode,
+		vfnLCDDriverPrintString
 };
 
 /*************************************************************************************************/
@@ -125,9 +138,11 @@ void(*apFnLCDSM[LCD_NUMBER_OF_FUNCTIONS])(void)={
 /*********************						Functions						**********************/
 /*************************************************************************************************/
 
-void LCD_vfnInit(void)
+void vfnLCDDriverInit(void)
 {
 
+	bptrLCDBuffer = &baLCDBuffer[0];
+	
 	// Pin out config for 8 bits mode 	
 	LCD_CONFIG_D0;
 	LCD_CONFIG_D1;
@@ -149,7 +164,7 @@ void LCD_vfnInit(void)
 	SwTimers_vfnStartTimer(LCD_REFRESH_DISPLAY_CHN,LCD_REFRESH_DISPLAY_PERIOD);
 }
 
-void LCD_vfnTask(void)
+void vfnLCDDriverTask(void)
 {
 	if(SwTimers_bfnGetStatus(LCD_REFRESH_DISPLAY_CHN))
 	{		
@@ -160,33 +175,34 @@ void LCD_vfnTask(void)
 	//Refresh Display
 	if(bLCDRefreshDisplayFlag)
 	{
-		LCD_vfnDriver();
+		vfnLCDDriverDriver();
 	}
 }
 
-void LCD_vfnDriver(void)
+void vfnLCDDriverDriver(void)
 {
 	/* Run LCD state machine every LCD Period seconds */
 	if(SwTimers_bfnGetStatus(LCD_CHN))
-	{
-		
+	{		
 		(*apFnLCDSM[sLCDSMStruct.bCurrentState])();
 		
-		LCD_vfnByteAssign(LCD_RS_H_RW_L,01/*pendiente*/);	
-			
+		//Print each character in display
+		vfnLCDDriverByteAssign(LCD_RS_H_RW_L,bptrLCDBuffer);		
+		bLCDCharCounter++;
+		bptrLCDBuffer++;
+		
 		/* Enable's trigger */
 		LCD_ENABLE_ON;
 		LCD_ENABLE_OFF;		
-
 		
 		SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
 	}
 
 }
 
-void LCD_vfnClearDisplay(void)
+void vfnLCDDriverClearDisplay(void)
 {
-	LCD_vfnByteAssign(LCD_RS_L_RW_L,LCD_CLEAR_DISPLAY);	
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_CLEAR_DISPLAY);	
 	
 	sLCDSMStruct.bCurrentState = eLCD_DISPLAY_ONOFF;	
 	
@@ -195,9 +211,9 @@ void LCD_vfnClearDisplay(void)
 	LCD_ENABLE_OFF;
 }
 
-void LCD_vfnDisplayOnOff(void)
+void vfnLCDDriverDisplayOnOff(void)
 {
-	LCD_vfnByteAssign(LCD_RS_L_RW_L,LCD_DISPLAY_ONOFF);
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_DISPLAY_ONOFF);
 	
 	sLCDSMStruct.bCurrentState = eLCD_CONFIG_MODE;
 	
@@ -206,9 +222,9 @@ void LCD_vfnDisplayOnOff(void)
 	LCD_ENABLE_OFF;
 }
 
-void LCD_vfnConfigMode(void)
+void vfnLCDDriverConfigMode(void)
 {
-	LCD_vfnByteAssign(LCD_RS_L_RW_L,LCD_CONFIG_MODE);
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_CONFIG_MODE);
 	
 	sLCDSMStruct.bCurrentState = eLCD_ENTRY_MODE;
 	
@@ -217,9 +233,9 @@ void LCD_vfnConfigMode(void)
 	LCD_ENABLE_OFF;
 }
 
-void LCD_vfnEntryMode(void)
+void vfnLCDDriverEntryMode(void)
 {
-	LCD_vfnByteAssign(LCD_RS_L_RW_L,LCD_ENTRY_MODE);
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_ENTRY_MODE);
 	
 	sLCDSMStruct.bCurrentState = eLCD_WORDS_INIT;
 
@@ -228,9 +244,9 @@ void LCD_vfnEntryMode(void)
 	LCD_ENABLE_OFF;
 }
 
-void LCD_vfnSetAddress(u08 lbCommand, u08 bAddress)
+void vfnLCDDriverSetAddress(u08 lbCommand, u08 bAddress)
 {
-	LCD_vfnByteAssign(lbCommand,bAddress);
+	vfnLCDDriverByteAssign(lbCommand,bAddress);
 	
 	/* Enable's trigger */	
 	LCD_ENABLE_ON;
@@ -239,16 +255,16 @@ void LCD_vfnSetAddress(u08 lbCommand, u08 bAddress)
 	sLCDSMStruct.bCurrentState = eLCD_PRINT_STRING;
 }
 
-void LCD_vfnPrintString(void)
+void vfnLCDDriverPrintString(void)
 {
-	LCD_vfnByteAssign(LCD_RS_H_RW_L,01/*pendiente*/);	
+	vfnLCDDriverByteAssign(LCD_RS_H_RW_L,01/*pendiente*/);	
 		
 	/* Enable's trigger */
 	LCD_ENABLE_ON;
 	LCD_ENABLE_OFF;		
 }
 
-void LCD_vfnConvertDataToAscii(u08 lbData, u08 bSensor)
+void vfnLCDDriverConvertDataToAscii(u08 lbData, u08 bSensor)
 { 
 	u08 bTemp  = 0;
 	u08 bCentenas = 0;
@@ -263,7 +279,7 @@ void LCD_vfnConvertDataToAscii(u08 lbData, u08 bSensor)
 		
 }
 
-void LCD_vfnByteAssign(u08 lbCommand, u08 lbData)
+void vfnLCDDriverByteAssign(u08 lbCommand, u08 lbData)
 {	
 	/* BIT ZERO */
 	if((1<<0) & lbData)
