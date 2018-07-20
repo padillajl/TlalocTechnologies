@@ -42,5 +42,17 @@
 	#define	__u64__
 		typedef unsigned long  long u64;
 #endif
+		
+#ifndef __SSM__
+	#define __SSM__
+		typedef struct
+		{
+			u08 bActualState;
+			u08 bPrevState;
+			u08 bNextState;
+			u08 bErrorState;
+			u08 bLastState;
+		}SSM;
+#endif
 
 #endif /* MYTYPES_H_ */

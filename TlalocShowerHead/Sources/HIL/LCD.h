@@ -14,41 +14,16 @@
 /*************************************************************************************************/
 /*********************						Defines							**********************/
 /*************************************************************************************************/
-/* LCD COMMAND DEFINES */
-
-/* RS LOW RW LOW */
-#define LCD_RS_L_RW_L							(0x0)
-/* RS LOW RW HIGH */
-#define LCD_RS_L_RW_H							(0x1)
-/* RS HIGH RW LOW */
-#define LCD_RS_H_RW_L							(0x2)
-/* RS HIGH RW HIGH */
-#define LCD_RS_H_RW_H							(0x3)
 #define LCD_BUFFER_SIZE							(32)
-
-#define LCD_ASCII_NUM_OFFSET					(0x30)
 /*************************************************************************************************/
 /*********************						Typedefs						**********************/
 /*************************************************************************************************/
-
-typedef struct
-{
-	u08 bPreviousState;
-	u08 bCurrentState;
-	
-}tLCDStateMachine;
-
 typedef enum
 {
-	eLCD_CLEAR_DISPLAY,
-	eLCD_DISPLAY_ONOFF,
-	eLCD_CONFIG_MODE,
-	eLCD_ENTRY_MODE,
-	eLCD_WORDS_INIT,
-	eLCD_STATIC_WORDS,
-	eLCD_PRINT_STRING,
-	eLCD_WAIT_MODE	
-}teStates;
+	LCDDriverCmdConfig,							//00
+	LCDDriverCmdPrintRows						//01				
+	
+}__LCDDriverCommandFlags__;
 /*************************************************************************************************/
 /*********************			 	 Functions Like Macros					**********************/
 /*************************************************************************************************/
@@ -64,19 +39,9 @@ extern u08 baLCDBuffer[LCD_BUFFER_SIZE];
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
-void LCD_vfnInit(void);
-void LCD_vfnTask(void);
+void vfnLCDDriverInit(void);
+void vfnLCDDriver(void);
 
-void LCD_vfnClearDisplay(void);
-void LCD_vfnDisplayOnOff(void);
-void LCD_vfnConfigMode(void);
-void LCD_vfnEntryMode(void);
-void LCD_vfnPrintString(void);
-void LCD_vfnSetAddress(u08 bCommand, u08 bAddress);
-void LCD_vfnConvertDataToAscii(u08 bData, u08 bSensor);
 
-void delay(void);
-
-void LCD_vfnByteAssign(u08 bCommand, u08 bData);
 /*************************************************************************************************/
 #endif /* LCD_H_ */

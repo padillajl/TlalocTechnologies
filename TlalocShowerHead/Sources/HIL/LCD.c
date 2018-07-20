@@ -68,40 +68,87 @@
 
 
 /* LCD INSTRUCTION DEFINES */
-#define LCD_CLEAR_DISPLAY						(0x1)
-#define LCD_DISPLAY_ONOFF						(0xE)
-/* 8 bit mode ON 2 lines 5*8 font */
-#define LCD_CONFIG_MODE							(0x38)
-#define LCD_ENTRY_MODE							(0x6)
-
-/* Macros to choose line to write */
-#define LCD_FIRST_LINE_ADDRESS					(0)
-#define LCD_SECOND_LINE_ADDRESS					(1)
+#define LCD_CLEAR_DISPLAY						(0x01)	//00000001
+#define LCD_DISPLAY_ONOFF						(0x0E) 	//00001110 Display On, Cursor underline on
+#define LCD_CONFIG_MODE							(0x38)	//00111000 8 bit interface, 2 line mode, 5x7 dot format
+#define LCD_ENTRY_MODE							(0x06)	//00000110 Incremental Mod
 
 /* Address to print in second line or first line */ 
 #define LCD_FIRST_LINE_BASE_ADDRESS				(0x80)
 #define LCD_SECOND_LINE_BASE_ADDRESS			(0xC0)
 
-#define LCD_NUMBER_OF_FUNCTIONS					(5)											
+#define LCD_NUMBER_OF_FUNCTIONS					(9)		
+
+/* LCD COMMAND DEFINES */
+
+/* RS LOW RW LOW */
+#define LCD_RS_L_RW_L							(0x0)
+/* RS LOW RW HIGH */
+#define LCD_RS_L_RW_H							(0x1)
+/* RS HIGH RW LOW */
+#define LCD_RS_H_RW_L							(0x2)
+/* RS HIGH RW HIGH */
+#define LCD_RS_H_RW_H							(0x3)
+
+#define LCD_ASCII_NUM_OFFSET					(0x30)
 
 /*************************************************************************************************/
 /*********************						Typedefs						**********************/
 /*************************************************************************************************/
 typedef enum
 {
-	eLCDDriverIdleState,				//00
+	LCDDriverIdleState,							//00
 	
-	eLCDDriverConfig0State,				//01
-	eLCDDriverConfig1State,				//02
-	eLCDDriverConfig2State,				//03
-	eLCDDriverConfig3State,				//04	
+	LCDDriverConfig0State,						//01
+	LCDDriverConfig1State,						//02
+	LCDDriverConfig2State,						//03
+	LCDDriverConfig3State,						//04	
 	
-	eLCDDriverPrintRow1State,			//05
-	eLCDDriverPrintRow2State			//06
-};
+	LCDDriverSetRow1AddressState,				//05
+	LCDDriverPrintRow1State,					//06
+	LCDDriverSetRow2AddressState,				//07
+	LCDDriverPrintRow2State						//08
+	
+}__LCDDriverStateMachineStates__;
+
+typedef enum
+{
+	LCDDriverStateMachineBusy,					//00
+}__LCDDriverStateMachineStatus;
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
+void vfnLCDDriverByteAssign(u08 lbCommand, u08 lbData);
+void vfnLCDDriverSetTriggerEnableAndChangeState(u08 lbActualState);
+
+
+void vfnLCDDriverIdleState(void);				//00
+
+void vfnLCDDriverConfig0State(void); 			//01
+void vfnLCDDriverConfig1State(void);			//02
+void vfnLCDDriverConfig2State(void);			//03
+void vfnLCDDriverConfig3State(void);			//04
+
+void vfnLCDDriverSetRow1AddressState (void);	//05
+void vfnLCDDriverPrintRow1State(void);			//06
+void vfnLCDDriverSetRow2AddressState (void);	//07
+void vfnLCDDriverPrintRow2State(void);			//08
+
+/* States of LCD */
+void(* const vfnaLCDDriverStateMachineStates[LCD_NUMBER_OF_FUNCTIONS])(void)={
+		
+	vfnLCDDriverIdleState,						//00
+	//Config LCD
+	vfnLCDDriverConfig0State,					//01
+	vfnLCDDriverConfig1State,					//02
+	vfnLCDDriverConfig2State,					//03
+	vfnLCDDriverConfig3State,					//04	
+	//Print LCD States
+	vfnLCDDriverSetRow1AddressState,			//05
+	vfnLCDDriverPrintRow1State,					//06
+	vfnLCDDriverSetRow2AddressState,			//07
+	vfnLCDDriverPrintRow2State					//08
+};
 
 /*************************************************************************************************/
 /*********************					Static Variables					**********************/
@@ -110,22 +157,13 @@ typedef enum
 /*************************************************************************************************/
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
+SSM sSMLCDDriverStateMachine;
+u08 bLCDDriverStateMachineStatus;
+u08 bLCDDriverCmd;
 u08 baLCDBuffer[LCD_BUFFER_SIZE	];
 u08 bLCDCharCounter;
-u08 *bptrLCDBuffer;
-tLCDStateMachine sLCDSMStruct;
-u08 bLCDRefreshDisplayFlag = 0;
 
-
-/* States of LCD */
-void(*apFnLCDSM[LCD_NUMBER_OF_FUNCTIONS])(void)={
-		vfnLCDDriverClearDisplay,
-		vfnLCDDriverDisplayOnOff,
-		vfnLCDDriverConfigMode,
-		vfnLCDDriverEntryMode,
-		vfnLCDDriverPrintString
-};
-
+u08 bLCDRefreshDisplayFlag;
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
 /*************************************************************************************************/
@@ -137,11 +175,18 @@ void(*apFnLCDSM[LCD_NUMBER_OF_FUNCTIONS])(void)={
 /*************************************************************************************************/
 /*********************						Functions						**********************/
 /*************************************************************************************************/
-
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverInit
+	\brief	Function that initialize the pin out configuration, and start the timers for LCD operations	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
 void vfnLCDDriverInit(void)
-{
-
-	bptrLCDBuffer = &baLCDBuffer[0];
+{		
+	bLCDCharCounter = 0;
+	bLCDRefreshDisplayFlag = 0;
 	
 	// Pin out config for 8 bits mode 	
 	LCD_CONFIG_D0;
@@ -154,114 +199,236 @@ void vfnLCDDriverInit(void)
 	LCD_CONFIG_D7;
 	LCD_CONFIG_RW;
 	LCD_CONFIG_RS;
-	LCD_CONFIG_ENABLE;	
+	LCD_CONFIG_ENABLE;		
 		
-	sLCDSMStruct.bCurrentState = eLCD_CLEAR_DISPLAY;
-	
 	// LCD perations timer init
 	SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
 	// LCD refresh timer init
 	SwTimers_vfnStartTimer(LCD_REFRESH_DISPLAY_CHN,LCD_REFRESH_DISPLAY_PERIOD);
 }
 
-void vfnLCDDriverTask(void)
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriver
+	\brief	Function that drives the operations of the LCD Module	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriver(void)
 {
-	if(SwTimers_bfnGetStatus(LCD_REFRESH_DISPLAY_CHN))
-	{		
-		bLCDRefreshDisplayFlag = 1;
-		SwTimers_vfnStartTimer(LCD_REFRESH_DISPLAY_CHN,LCD_REFRESH_DISPLAY_PERIOD);
+	//Pointer to the actual state of the state machine
+	void (*lvptrRunStateMachine)(void);	
+	
+	//Check if state machine is free
+	if( !(bLCDDriverStateMachineStatus) & (1 << LCDDriverStateMachineBusy))
+	{
+		//Display configuration
+		if(bLCDDriverCmd & (1 << LCDDriverCmdConfig))
+		{
+			sSMLCDDriverStateMachine.bActualState = LCDDriverConfig0State;				
+			bLCDDriverStateMachineStatus |= (1 << LCDDriverStateMachineBusy);
+		}		
+		//Display print rows
+		else if(bLCDDriverCmd & (1 << LCDDriverCmdPrintRows))
+		{
+			sSMLCDDriverStateMachine.bActualState = LCDDriverSetRow1AddressState;
+			bLCDDriverStateMachineStatus |= (1 << LCDDriverStateMachineBusy);
+		}
 	}
 	
-	//Refresh Display
-	if(bLCDRefreshDisplayFlag)
-	{
-		vfnLCDDriverDriver();
-	}
-}
-
-void vfnLCDDriverDriver(void)
-{
-	/* Run LCD state machine every LCD Period seconds */
+	//Validate that the actual state is in range of the state machine states
+	if(sSMLCDDriverStateMachine.bActualState >= (sizeof(vfnaLCDDriverStateMachineStates)/sizeof(vfnaLCDDriverStateMachineStates[0])))
+		sSMLCDDriverStateMachine.bActualState = LCDDriverIdleState;
+	
+	//Pointer to the current state
+	lvptrRunStateMachine = vfnaLCDDriverStateMachineStates[sSMLCDDriverStateMachine.bActualState];
+	// Run LCD state machine every 1 ms*/
 	if(SwTimers_bfnGetStatus(LCD_CHN))
-	{		
-		(*apFnLCDSM[sLCDSMStruct.bCurrentState])();
-		
-		//Print each character in display
-		vfnLCDDriverByteAssign(LCD_RS_H_RW_L,bptrLCDBuffer);		
-		bLCDCharCounter++;
-		bptrLCDBuffer++;
-		
-		/* Enable's trigger */
-		LCD_ENABLE_ON;
-		LCD_ENABLE_OFF;		
-		
+	{	
+		lvptrRunStateMachine();		
 		SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
 	}
-
+		
+		
 }
 
-void vfnLCDDriverClearDisplay(void)
-{
-	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_CLEAR_DISPLAY);	
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverIdleState
+	\brief	Idle state of the state machine where the flags are released	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverIdleState(void)
+{	
+	//Restart char counter
+	bLCDCharCounter = 0;
 	
-	sLCDSMStruct.bCurrentState = eLCD_DISPLAY_ONOFF;	
-	
-	/* Enable's trigger */
-	LCD_ENABLE_ON;
-	LCD_ENABLE_OFF;
+	bLCDDriverStateMachineStatus &= ~( 1 << LCDDriverStateMachineBusy);
 }
 
-void vfnLCDDriverDisplayOnOff(void)
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverConfig0State
+	\brief	State that clears the display	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverConfig0State(void)
 {
+	//Clear display configuration
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_CLEAR_DISPLAY);
+
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverConfig1State);
+}
+
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverConfig1State
+	\brief	State that turns the display on and set the cursor underlined	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverConfig1State(void)
+{
+	//Display On, Cursor underline on
 	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_DISPLAY_ONOFF);
 	
-	sLCDSMStruct.bCurrentState = eLCD_CONFIG_MODE;
-	
-	/* Enable's trigger */
-	LCD_ENABLE_ON;
-	LCD_ENABLE_OFF;
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverConfig2State);
 }
 
-void vfnLCDDriverConfigMode(void)
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverConfig2State
+	\brief	State that configures de LCD as 8 bit interface, 2 line mode, and 5x7 dot format	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverConfig2State(void)
 {
+	//8 bit interface, 2 line mode, 5x7 dot format
 	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_CONFIG_MODE);
 	
-	sLCDSMStruct.bCurrentState = eLCD_ENTRY_MODE;
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverConfig3State);	
+}
+
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverConfig3State
+	\brief	State that sets the entry mode as incremental mode	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverConfig3State(void)
+{
+	//The entry mode is incremental
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_ENTRY_MODE);	
+
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverIdleState);
+}
+
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverSetRow1AddressState
+	\brief	State that sets the initial address to print in Row 1	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverSetRow1AddressState(void)
+{
+	//Set the initial address of Row 1
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_FIRST_LINE_BASE_ADDRESS);
+	
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverPrintRow1State);
+}
+
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverPrintRow1State
+	\brief	State that prints in Row 1	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverPrintRow1State(void)
+{	
+	//Print each character in display
+	vfnLCDDriverByteAssign(LCD_RS_H_RW_L,baLCDBuffer[bLCDCharCounter]);		
+	bLCDCharCounter++;
 	
 	/* Enable's trigger */
 	LCD_ENABLE_ON;
 	LCD_ENABLE_OFF;
+	
+	if(bLCDCharCounter >= 16)
+	{
+		bLCDCharCounter = 16;		
+		sSMLCDDriverStateMachine.bActualState = LCDDriverSetRow2AddressState;
+	}
 }
 
-void vfnLCDDriverEntryMode(void)
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverSetRow2AddressState
+	\brief	State that sets the initial address to print in Row 2	 	 	
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverSetRow2AddressState(void)
 {
-	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_ENTRY_MODE);
+	//Set the initial address of Row 1
+	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_SECOND_LINE_BASE_ADDRESS);
 	
-	sLCDSMStruct.bCurrentState = eLCD_WORDS_INIT;
-
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverPrintRow1State);
+}
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverPrintRow2State
+	\brief	State that prints in Row 2
+	\param	none
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverPrintRow2State(void)
+{
+	//Print each character in display
+	vfnLCDDriverByteAssign(LCD_RS_H_RW_L,baLCDBuffer[bLCDCharCounter]);		
+	bLCDCharCounter++;
+	
 	/* Enable's trigger */
 	LCD_ENABLE_ON;
 	LCD_ENABLE_OFF;
+	
+	if(bLCDCharCounter >= 32)
+	{		
+		sSMLCDDriverStateMachine.bActualState = LCDDriverIdleState;
+	}
+
 }
 
-void vfnLCDDriverSetAddress(u08 lbCommand, u08 bAddress)
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverSetTriggerEnableAndChangeState
+	\brief	Function that set the control trigger of the LCD and then change the state machine state
+	\param	lbActualState
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverSetTriggerEnableAndChangeState(u08 lbActualState)
 {
-	vfnLCDDriverByteAssign(lbCommand,bAddress);
-	
 	/* Enable's trigger */	
 	LCD_ENABLE_ON;
 	LCD_ENABLE_OFF;
 	
-	sLCDSMStruct.bCurrentState = eLCD_PRINT_STRING;
-}
-
-void vfnLCDDriverPrintString(void)
-{
-	vfnLCDDriverByteAssign(LCD_RS_H_RW_L,01/*pendiente*/);	
-		
-	/* Enable's trigger */
-	LCD_ENABLE_ON;
-	LCD_ENABLE_OFF;		
+	sSMLCDDriverStateMachine.bActualState = lbActualState;
 }
 
 void vfnLCDDriverConvertDataToAscii(u08 lbData, u08 bSensor)
@@ -275,9 +442,18 @@ void vfnLCDDriverConvertDataToAscii(u08 lbData, u08 bSensor)
 	bCentenas = bTemp;
 	bTemp = lbData - (bTemp*100);
 	bDecenas = bTemp / 10;
-	bUnidades = bTemp - bDecenas * 10;	
-		
+	bUnidades = bTemp - bDecenas * 10;		
 }
+
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverByteAssign
+	\brief	Function that set the control trigger of the LCD and then change the state machine state
+	\param	lbCommand: Is the Instruction command of the LCD
+	\param	lbData: Is the character that is going to be printed
+	\return	none
+*/
+/*************************************************************************************************/
 
 void vfnLCDDriverByteAssign(u08 lbCommand, u08 lbData)
 {	
@@ -369,20 +545,7 @@ void vfnLCDDriverByteAssign(u08 lbCommand, u08 lbData)
 	{
 		GPIO_WRITE_PIN(C,9,0);
 	}
-}
-
-void delay(void)
-{
-	u32 Counter = 4000000;
-	
-	while(Counter!=0)
-	{
-		Counter--;
-	}
-	
-}
-
-											
+}			
 										
 												
 												

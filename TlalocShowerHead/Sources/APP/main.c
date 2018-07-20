@@ -57,7 +57,7 @@ int main(void)
 	SwTimers_vfnInit();	
 	InfraredSensors_vfnInit();
 	SensorsControl_vfnInit();
-	LCD_vfnInit();
+	vfnLCDDriverInit();
 	
 	
 	
@@ -67,7 +67,7 @@ int main(void)
 		SwTimers_vfnTask();		
 		SensorsControl_vfnTask();
 		InfraredSensors_vfnTask();
-		LCD_vfnTask();
+		vfnLCDDriver();
 		
 						
 		if(INFRAREDSENSORS_CHECK_UP_EDGE)
@@ -76,7 +76,6 @@ int main(void)
 			INFRAREDSENSORS_CLEAR_UP_EDGE;	
 			gbPressure++;
 			GPIO_WRITE_PIN(C,17,0);			
-			LCD_vfnSetAddress(LCD_RS_L_RW_L,0xC8);
 		}
 		
 		if(INFRAREDSENSORS_CHECK_DOWN_EDGE)
@@ -84,14 +83,11 @@ int main(void)
 			GPIO_TURN_ON_BLUE_LED;
 			INFRAREDSENSORS_CLEAR_DOWN_EDGE;
 			
-			gbPressure--;		
-			
-			LCD_vfnSetAddress(LCD_RS_L_RW_L,0xC9);
+			gbPressure--;			
 		}		
 		
 		if(gbSCADCTimerStatus)
-		{			
-			LCD_vfnSetAddress(LCD_RS_L_RW_L,0x85);			
+		{							
 			gbSCADCTimerStatus = 0;
 		}
 		else if(gbSCFlowSensorStatus)
@@ -99,7 +95,6 @@ int main(void)
 			u32 ldwTempVar;
 			
 			ldwTempVar = (dwPulseCounter * 1000)/SENSORSCONTROL_PULSESPERLITER;			
-			LCD_vfnSetAddress(LCD_RS_L_RW_L,0x8D);
 			gbSCFlowSensorStatus = 0;
 		}			
 	}
