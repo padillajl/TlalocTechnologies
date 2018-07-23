@@ -431,20 +431,6 @@ void vfnLCDDriverSetTriggerEnableAndChangeState(u08 lbActualState)
 	sSMLCDDriverStateMachine.bActualState = lbActualState;
 }
 
-void vfnLCDDriverConvertDataToAscii(u08 lbData, u08 bSensor)
-{ 
-	u08 bTemp  = 0;
-	u08 bCentenas = 0;
-	u08 bDecenas = 0;
-	u08 bUnidades = 0;
-	
-	bTemp = lbData / 100;
-	bCentenas = bTemp;
-	bTemp = lbData - (bTemp*100);
-	bDecenas = bTemp / 10;
-	bUnidades = bTemp - bDecenas * 10;		
-}
-
 /*************************************************************************************************/
 /*!
 	\fn		vfnLCDDriverByteAssign
