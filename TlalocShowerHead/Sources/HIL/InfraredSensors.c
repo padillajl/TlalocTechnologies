@@ -1,5 +1,5 @@
 /*
- * InfraredSensors.c
+ * SensorsControl.c
  *
  *  Created on: Jul 29, 2017
  *      Author: Toxic
@@ -14,38 +14,14 @@
 /* Includes used in this file */
 
 /* Own includes */
-#include "InfraredSensors.h"
+#include "SensorsControl.h"
 #include "SwTimers.h"
 /*************************************************************************************************/
 /*********************						Defines							**********************/
 /*************************************************************************************************/
-#define INFRAREDSENSORS_CONFIG_UP_PIN			GPIO_ENABLE_MODULE_CLOCK(_PORTC);\
-												GPIO_CONFIG_PIN_FUNCTION(_C,12,1);\
-												GPIO_CONFIG_PULL_UP(_C,12,1);\
-												GPIO_CONFIG_PIN_AS_INPUT(C,12)
-												
-
-#define INFRAREDSENSORS_CONFIG_DOWN_PIN 		GPIO_CONFIG_PIN_FUNCTION(_C,13,1);\
-												GPIO_CONFIG_PULL_UP(_C,13,1);\
-												GPIO_CONFIG_PIN_AS_INPUT(C,13)
-
-#define INFRAREDSENSORS_CONFIG_PRESENCE_PIN		GPIO_CONFIG_PIN_FUNCTION(_C,16,1);\
-												GPIO_CONFIG_PULL_UP(_C,16,1);\
-												GPIO_CONFIG_PIN_AS_INPUT(C,16)
-
-#define INFRAREDSENSORS_CONFIG_PRESENCE_OUT		GPIO_CONFIG_PIN_FUNCTION(_C,17,1);\
-												GPIO_CONFIG_PULL_UP(_C,17,1);\
-												GPIO_CONFIG_PIN_AS_OUTPUT(C,17)
-
-#define INFRAREDSENSORS_SM_NUM_FUNCTIONS		(2)
-
-#define INFRAREDSENSORS_CHN						(1)
-#define	INFRAREDSENSORS_PERIOD					(20) /* Miliseconds */
 
 
-
-
-
+#define SENSORSCONTROL_SM_NUM_FUNCTIONS					(2)
 /*************************************************************************************************/
 /*********************						Typedefs						**********************/
 /*************************************************************************************************/
@@ -54,20 +30,7 @@
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
 
-/* State machine declaration which is used to detect two stages of edges for each
- * Infrared sensor
- * */
-void(*apFnISUpSM[INFRAREDSENSORS_SM_NUM_FUNCTIONS])(void)=
-{
-	InfraredSensors_vfnUpFirstEdge,
-	InfraredSensors_vfnUpSecondEdge
-};
 
-void(*apFnISDownSM[INFRAREDSENSORS_SM_NUM_FUNCTIONS])(void)=
-{
-	InfraredSensors_vfnDownFirstEdge,
-	InfraredSensors_vfnDownSecondEdge
-};
 
 /*************************************************************************************************/
 /*********************					Static Variables					**********************/
@@ -76,8 +39,8 @@ void(*apFnISDownSM[INFRAREDSENSORS_SM_NUM_FUNCTIONS])(void)=
 /*************************************************************************************************/
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
-u08 InfraredSensors_gbStatus;
-tInfraredSensorsSM sInfraredSensorsSM;
+u08 SENSORSCONTROL_gbStatus;
+tSensorsControlSM sSensorsControlSM;
 
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
@@ -87,28 +50,22 @@ tInfraredSensorsSM sInfraredSensorsSM;
 /*********************					Global Constants					**********************/
 /*************************************************************************************************/
 
-void InfraredSensors_vfnInit(void)
-{	/* Configuration for each pin that corresponds to each Infrared Sensor */
-	INFRAREDSENSORS_CONFIG_UP_PIN;
-	INFRAREDSENSORS_CONFIG_DOWN_PIN;
-	INFRAREDSENSORS_CONFIG_PRESENCE_PIN;
-	INFRAREDSENSORS_CONFIG_PRESENCE_OUT;
-	
+void SENSORSCONTROL_vfnInit(void)
+{
 	/* Infrared sensors Up and Down timer init */
-	SwTimers_vfnStartTimer(INFRAREDSENSORS_CHN,INFRAREDSENSORS_PERIOD);
-	
+	SwTimers_vfnStartTimer(SENSORSCONTROL_CHN,SENSORSCONTROL_PERIOD);	
 }
 
-void InfraredSensors_vfnTask(void)
+void SENSORSCONTROL_vfnTask(void)
 {
 	
-	if(SwTimers_bfnGetStatus(INFRAREDSENSORS_CHN))
+	if(SwTimers_bfnGetStatus(SENSORSCONTROL_CHN))
 	{
 		/* Run every infrared period in ms to each state machine  */
-		(*apFnISUpSM[sInfraredSensorsSM.bUpCurrentState])();		
-		(*apFnISDownSM[sInfraredSensorsSM.bDownCurrentState])();	
+		(*apFnISUpSM[sSensorsControlSM.bUpCurrentState])();		
+		(*apFnISDownSM[sSensorsControlSM.bDownCurrentState])();	
 		
-		if(!INFRAREDSENSORS_READ_PRESENCE_PIN)	
+		if(!SENSORSCONTROL_READ_PRESENCE_PIN)	
 		{			
 			GPIO_WRITE_PIN(C,17,1);		
 		}
@@ -117,62 +74,62 @@ void InfraredSensors_vfnTask(void)
 			//GPIO_WRITE_PIN(C,17,0);
 		}
 		/* Restart timer */
-		SwTimers_vfnStartTimer(INFRAREDSENSORS_CHN,INFRAREDSENSORS_PERIOD);
+		SwTimers_vfnStartTimer(SENSORSCONTROL_CHN,SENSORSCONTROL_PERIOD);
 	}
 	
 	
 }
 
 
-void InfraredSensors_vfnUpFirstEdge(void)
+void SENSORSCONTROL_vfnUpFirstEdge(void)
 {
 	/* Check for the first time */
-	if(!INFRAREDSENSORS_READ_UP_PIN)
+	if(!SENSORSCONTROL_READ_UP_PIN)
 	{		
 		/* Continue checking to confirm the edge */
-		sInfraredSensorsSM.bUpCurrentState = eINFRAREDSENSORS_SECONDEDGE;
+		sSensorsControlSM.bUpCurrentState = eSENSORSCONTROL_SECONDEDGE;
 	}
 	
 }
-void InfraredSensors_vfnUpSecondEdge(void)
+void SENSORSCONTROL_vfnUpSecondEdge(void)
 {
 	/* Check for the second time */
-	if(!INFRAREDSENSORS_READ_UP_PIN)	
+	if(!SENSORSCONTROL_READ_UP_PIN)	
 	{
 		/* Set event */
-		InfraredSensors_gbStatus |= (1<<eINFRAREDSENSORS_UP_EDGE);		
+		SENSORSCONTROL_gbStatus |= (1<<eSENSORSCONTROL_UP_EDGE);		
 	}
 	else
 	{
 		/* Return to check for the first time */
-		sInfraredSensorsSM.bUpCurrentState = eINFRAREDSENSORS_FIRSTEDGE;
+		sSensorsControlSM.bUpCurrentState = eSENSORSCONTROL_FIRSTEDGE;
 	}
 		
 	
 }
 
-void InfraredSensors_vfnDownFirstEdge(void)
+void SENSORSCONTROL_vfnDownFirstEdge(void)
 {
 	/* Check for the first time */
-	if(!INFRAREDSENSORS_READ_DOWN_PIN)
+	if(!SENSORSCONTROL_READ_DOWN_PIN)
 	{		
 		/* Continue checking to confirm the edge */
-		sInfraredSensorsSM.bDownCurrentState = eINFRAREDSENSORS_SECONDEDGE;
+		sSensorsControlSM.bDownCurrentState = eSENSORSCONTROL_SECONDEDGE;
 	}
 		
 }
-void InfraredSensors_vfnDownSecondEdge(void)
+void SENSORSCONTROL_vfnDownSecondEdge(void)
 {	
 	/* Check for the second time */
-	if(!INFRAREDSENSORS_READ_DOWN_PIN)	
+	if(!SENSORSCONTROL_READ_DOWN_PIN)	
 	{
 		/* Set event */
-		InfraredSensors_gbStatus |= (1<<eINFRAREDSENSORS_DOWN_EDGE);		
+		SENSORSCONTROL_gbStatus |= (1<<eSENSORSCONTROL_DOWN_EDGE);		
 	}
 	else
 	{
 		/* Return to check for the first time */
-		sInfraredSensorsSM.bDownCurrentState = eINFRAREDSENSORS_FIRSTEDGE;
+		sSensorsControlSM.bDownCurrentState = eSENSORSCONTROL_FIRSTEDGE;
 	}
 }
 

@@ -60,6 +60,8 @@ static u08 gbTimersEnabled = 0;
 
 static u08 gbTimersAllocated = 0;
 
+u08 baSwTimersCurrentTimers[SWTIMERS_CURRENT_TIMERS];
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //                                      Functions Section                       
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -136,8 +138,7 @@ void SwTimers_vfnStartTimer(u08 Channel, u32 Timeout)
 		/* get the timeout in time base counts */
 		Timeout = Timeout/SWTIMERS_TIME_BASE;
 		gwCounters[Channel] = Timeout;
-		ENABLE_TIMER(Channel);
-		
+		ENABLE_TIMER(Channel);		
 	}
 } 
 

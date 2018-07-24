@@ -37,7 +37,6 @@
 /*************************************************************************************************/
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
-u08 gbPressure						= 0;
 
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
@@ -73,30 +72,26 @@ int main(void)
 		if(INFRAREDSENSORS_CHECK_UP_EDGE)
 		{
 			GPIO_TURN_ON_GREEN_LED;
-			INFRAREDSENSORS_CLEAR_UP_EDGE;	
-			gbPressure++;
+			INFRAREDSENSORS_CLEAR_UP_EDGE;			
 			GPIO_WRITE_PIN(C,17,0);			
 		}
 		
 		if(INFRAREDSENSORS_CHECK_DOWN_EDGE)
 		{
 			GPIO_TURN_ON_BLUE_LED;
-			INFRAREDSENSORS_CLEAR_DOWN_EDGE;
-			
-			gbPressure--;			
+			INFRAREDSENSORS_CLEAR_DOWN_EDGE;			
 		}		
 		
-		if(gbSCADCTimerStatus)
-		{							
-			gbSCADCTimerStatus = 0;
-		}
-		else if(gbSCFlowSensorStatus)
-		{						
-			u32 ldwTempVar;
-			
-			ldwTempVar = (dwPulseCounter * 1000)/SENSORSCONTROL_PULSESPERLITER;			
+		if(bSensorsControlTimerStatus & (1<<SensorsControlADCTimerStatusFlag))									
+			bSensorsControlTimerStatus &= ~(1<<SensorsControlADCTimerStatusFlag);		
+		else if(bSensorsControlTimerStatus & (1<<SensorsControlFlowSensorTimerStatusFlag))
+		{
+			u32 ldwTempVar;			
+			ldwTempVar = (dwPulseCounter * 1000)/SENSORSCONTROL_PULSESPERLITER;
+			vfnBin32ToASCIIBCD(dwPulseCounter,&baLCDBuffer[0],10,0);
 			gbSCFlowSensorStatus = 0;
-		}			
+		}
+					
 	}
 	
 	return 0;
