@@ -1,5 +1,5 @@
 /*
- * LCD.c
+ * LCDDriver.c
  *
  *  Created on: Oct 14, 2016
  *      Author: JoséLuis
@@ -13,7 +13,7 @@
 /* Includes used in this file */
 
 /* Own includes */
-#include "LCD.h"
+#include "LCDDriver.h"
 #include "GPIODriver.h"
 #include "SwTimers.h"
 /*************************************************************************************************/

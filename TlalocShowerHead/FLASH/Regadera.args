@@ -4,13 +4,13 @@
 "./Sources/APP/sa_mtb.o"
 "./Sources/APP/main.o"
 "./Sources/APP/MiscFunctions.o"
+"./Sources/APP/MainDriver.o"
 "./Sources/HAL/TPMA.o"
 "./Sources/HAL/MCG.o"
 "./Sources/HAL/ADC.o"
 "./Sources/HIL/SwTimers.o"
-"./Sources/HIL/SensorsControl.o"
-"./Sources/HIL/LCD.o"
-"./Sources/HIL/InfraredSensors.o"
+"./Sources/HIL/SensorsDriver.o"
+"./Sources/HIL/LCDDriver.o"
 -mcpu=cortex-m0
 -mthumb
 -mfloat-abi=soft

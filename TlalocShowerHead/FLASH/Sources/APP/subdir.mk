@@ -6,42 +6,57 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS_QUOTED += \
+"../Sources/APP/MainDriver.c" \
 "../Sources/APP/MiscFunctions.c" \
 "../Sources/APP/main.c" \
 "../Sources/APP/sa_mtb.c" \
 
 C_SRCS += \
+../Sources/APP/MainDriver.c \
 ../Sources/APP/MiscFunctions.c \
 ../Sources/APP/main.c \
 ../Sources/APP/sa_mtb.c \
 
 OBJS += \
+./Sources/APP/MainDriver.o \
 ./Sources/APP/MiscFunctions.o \
 ./Sources/APP/main.o \
 ./Sources/APP/sa_mtb.o \
 
 C_DEPS += \
+./Sources/APP/MainDriver.d \
 ./Sources/APP/MiscFunctions.d \
 ./Sources/APP/main.d \
 ./Sources/APP/sa_mtb.d \
 
 OBJS_QUOTED += \
+"./Sources/APP/MainDriver.o" \
 "./Sources/APP/MiscFunctions.o" \
 "./Sources/APP/main.o" \
 "./Sources/APP/sa_mtb.o" \
 
 C_DEPS_QUOTED += \
+"./Sources/APP/MainDriver.d" \
 "./Sources/APP/MiscFunctions.d" \
 "./Sources/APP/main.d" \
 "./Sources/APP/sa_mtb.d" \
 
 OBJS_OS_FORMAT += \
+./Sources/APP/MainDriver.o \
 ./Sources/APP/MiscFunctions.o \
 ./Sources/APP/main.o \
 ./Sources/APP/sa_mtb.o \
 
 
 # Each subdirectory must supply rules for building sources it contributes
+Sources/APP/MainDriver.o: ../Sources/APP/MainDriver.c
+	@echo 'Building file: $<'
+	@echo 'Executing target #7 $<'
+	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/APP/MainDriver.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/APP/MainDriver.o"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 Sources/APP/MiscFunctions.o: ../Sources/APP/MiscFunctions.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #8 $<'

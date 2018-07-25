@@ -44,7 +44,7 @@ OBJS_OS_FORMAT += \
 # Each subdirectory must supply rules for building sources it contributes
 Sources/HAL/ADC.o: ../Sources/HAL/ADC.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #5 $<'
+	@echo 'Executing target #4 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/HAL/ADC.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/HAL/ADC.o"
 	@echo 'Finished building: $<'
@@ -52,7 +52,7 @@ Sources/HAL/ADC.o: ../Sources/HAL/ADC.c
 
 Sources/HAL/MCG.o: ../Sources/HAL/MCG.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #6 $<'
+	@echo 'Executing target #5 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/HAL/MCG.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/HAL/MCG.o"
 	@echo 'Finished building: $<'
@@ -60,7 +60,7 @@ Sources/HAL/MCG.o: ../Sources/HAL/MCG.c
 
 Sources/HAL/TPMA.o: ../Sources/HAL/TPMA.c
 	@echo 'Building file: $<'
-	@echo 'Executing target #7 $<'
+	@echo 'Executing target #6 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
 	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/HAL/TPMA.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/HAL/TPMA.o"
 	@echo 'Finished building: $<'
