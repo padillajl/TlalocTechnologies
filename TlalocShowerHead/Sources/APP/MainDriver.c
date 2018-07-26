@@ -19,7 +19,7 @@
 /*************************************************************************************************/
 /*********************						Defines							**********************/
 /*************************************************************************************************/
-#define MAINDRIVER_MAX_MESSAGES				(6)
+#define MAINDRIVER_MAX_MESSAGES				(7)
 #define MAINDRIVER_MESSAGES_SIZE			(16)
 
 /*************************************************************************************************/
@@ -29,6 +29,8 @@ typedef enum
 {
 	MainDriverShowInitScreenState,
 	MainDriverShowMainScreenState,
+	MainDriverElectrovalveOnState,
+	MainDriverElectrovalveOffState,
 	
 }__MainDriverStates_;
 
@@ -37,14 +39,20 @@ typedef enum
 /*************************************************************************************************/
 void vfnMainDriverShowInitScreenState(void);
 void vfnMainDriverShowMainScreenState(void);
+void vfnMainDriverElectrovalveOnState(void);
+void vfnMainDriverElectrovalveOffState(void);
 
 void (* const vfnptrMainDriverStates[])(void)=
 {
 	vfnMainDriverShowInitScreenState,
 	vfnMainDriverShowMainScreenState,
+	vfnMainDriverElectrovalveOnState,
+	vfnMainDriverElectrovalveOffState
 };
 
 void vfnMainDriverDisplaySetMessages(u08 *lbRow0, u08 *lbRow1);
+void vfnMainDriverRefreshMenuTimer(u08 lbTimerValue);
+void vfnMainDriverValidateMenuTimer(void);
 /*************************************************************************************************/
 /*********************					Static Variables					**********************/
 /*************************************************************************************************/
@@ -53,6 +61,7 @@ void vfnMainDriverDisplaySetMessages(u08 *lbRow0, u08 *lbRow1);
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
 SSM sSMMainDriverStateMachine;
+u08 bMainDriverMenuTimeOutTimer;
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
 /*************************************************************************************************/
@@ -67,7 +76,8 @@ const u08 baAMainDriverGeneralMessages[MAINDRIVER_MAX_MESSAGES][1][MAINDRIVER_ME
 	{{"LTS:            "}},		//02
 	{{"TEMP:           "}},		//03
 	{{"    Valve ON    "}},		//04
-	{{"    Valve OFF   "}}		//05
+	{{"    Valve OFF   "}},		//05
+	{{"                "}}		//06
 };
 
 typedef enum
@@ -77,7 +87,8 @@ typedef enum
 	Message_Liters,				//02
 	Message_Temperature,		//03
 	Message_ValveOn,			//04
-	Message_ValveOff,			//04
+	Message_ValveOff,			//05
+	Message_Blank				//06
 }__MainDriverGeneralMessages_;
 
 /*************************************************************************************************/
@@ -87,6 +98,7 @@ typedef enum
 void vfnMainDriverInit(void)
 {
 	sSMMainDriverStateMachine.bActualState = MainDriverShowInitScreenState;
+	vfnMainDriverRefreshMenuTimer(10);
 }
 void vfnMainDriverManager(void)
 {
@@ -99,20 +111,27 @@ void vfnMainDriverManager(void)
 	lvfnptrMainDriverState = vfnptrMainDriverStates[sSMMainDriverStateMachine.bActualState];	
 	lvfnptrMainDriverState();
 	
+	//Check if LCD has been configured and finished of printing
+	if(!(bLCDDriverCmd & (1 << LCDDriverCmdPrintRows)) && !(bLCDDriverCmd & (1 << LCDDriverCmdPrintRows)))
+		bLCDDriverCmd |= (1 << LCDDriverCmdPrintRows);
 	
 	//Check if a ON event has occurred			
 	if(bSensorsDriverEventStatus & (1<<SensorsDriverPinOnEventFlag))
 	{
 		GPIO_TURN_ON_GREEN_LED;						
 		GPIO_WRITE_PIN(C,17,0);
+		vfnMainDriverRefreshMenuTimer(2);
 		bSensorsDriverEventStatus &= ~(1<<SensorsDriverPinOnEventFlag);
+		sSMMainDriverStateMachine.bActualState = MainDriverElectrovalveOnState;
 	}
 	
 	if(bSensorsDriverEventStatus & (1<<SensorsDriverPinOffEventFlag))
 	{
 		GPIO_TURN_ON_BLUE_LED;
 		GPIO_WRITE_PIN(C,17,1);
-		bSensorsDriverEventStatus &= ~(1<<SensorsDriverPinOffEventFlag);			
+		vfnMainDriverRefreshMenuTimer(2);
+		bSensorsDriverEventStatus &= ~(1<<SensorsDriverPinOffEventFlag);
+		sSMMainDriverStateMachine.bActualState = MainDriverElectrovalveOffState;
 	}		
 	
 	if(bSensorsDriverTimerStatus & (1<<SensorsDriverADCTimerStatusFlag))
@@ -129,15 +148,41 @@ void vfnMainDriverShowInitScreenState (void)
 {
 	vfnMainDriverDisplaySetMessages((u08*)&baAMainDriverGeneralMessages[Message_Tlaloc],
 									(u08*)&baAMainDriverGeneralMessages[Message_Technologies]);
+	vfnMainDriverValidateMenuTimer();
 }
 void vfnMainDriverShowMainScreenState (void)
 {
 	vfnMainDriverDisplaySetMessages((u08*)&baAMainDriverGeneralMessages[Message_Liters],
-									(u08*)&baAMainDriverGeneralMessages[Message_Temperature]);
-
+									(u08*)&baAMainDriverGeneralMessages[Message_Temperature]);	
 }
+void vfnMainDriverElectrovalveOnState(void)
+{
+	vfnMainDriverDisplaySetMessages((u08*)&baAMainDriverGeneralMessages[Message_ValveOn],
+									(u08*)&baAMainDriverGeneralMessages[Message_Blank]);
+	vfnMainDriverValidateMenuTimer();
+}
+void vfnMainDriverElectrovalveOffState(void)
+{
+	vfnMainDriverDisplaySetMessages((u08*)&baAMainDriverGeneralMessages[Message_ValveOff],
+									(u08*)&baAMainDriverGeneralMessages[Message_Blank]);
+	vfnMainDriverValidateMenuTimer();
+	
+}
+
 void vfnMainDriverDisplaySetMessages(u08 *lbRow0, u08 *lbRow1)
 {
 	(void)memcpy(&baLCDBuffer[0],lbRow0,16);
 	(void)memcpy(&baLCDBuffer[16],lbRow1,16);
 }
+void vfnMainDriverRefreshMenuTimer(u08 lbTimerValue)
+{
+	bMainDriverMenuTimeOutTimer = lbTimerValue;
+}
+
+void vfnMainDriverValidateMenuTimer(void)
+{
+	if(!bMainDriverMenuTimeOutTimer)
+		sSMMainDriverStateMachine.bActualState = MainDriverShowMainScreenState;	
+		
+}
+

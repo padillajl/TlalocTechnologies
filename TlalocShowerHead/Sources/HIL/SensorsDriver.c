@@ -161,7 +161,7 @@ void vfnSensorsDriver(void)
 	{
 		// Run every infrared sensor period in ms to each state machine 
 		(*vfnaSensorsDriverOnStateMachineStates[sSMSensorsDriverOnPinStateMachine.bActualState])();		
-		(*vfnaSensorsDriverOffStateMachineStates[sSMSensorsDriverOnPinStateMachine.bActualState])();
+		(*vfnaSensorsDriverOffStateMachineStates[sSMSensorsDriverOffPinStateMachine.bActualState])();
 
 		/* Restart timer */
 		SwTimers_vfnStartTimer(baSwTimersCurrentTimers[SwTimersDriverInfraredSensorTimer],SENSORSDRIVER_IR_SENSOR_PERIOD);

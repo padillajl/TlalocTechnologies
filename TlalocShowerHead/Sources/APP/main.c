@@ -11,6 +11,7 @@
 /* System includes */
 #include "derivative.h"
 #include "MainDriver.h"
+#include "Events.h"
 /* Includes used in this file */
 
 /* Own includes */
@@ -53,6 +54,7 @@ int main(void)
 	SwTimers_vfnInit();	
 	vfnSensorsDriverInit();
 	vfnLCDDriverInit();	
+	 vfnEventsInit();
 	
 	for(;;) 
 	{			
@@ -61,6 +63,21 @@ int main(void)
 		vfnSensorsDriver();		
 		vfnLCDDriver();
 		vfnMainDriverManager();
+		vfnEventsDriver();
+		
+		//One seconds tasks
+		if(bEventsOneSecondFlag)
+		{
+			//Timer to go to main screen
+			if(bMainDriverMenuTimeOutTimer)
+				bMainDriverMenuTimeOutTimer--;
+			
+			bEventsOneSecondFlag = 0;
+		}
+		
+		
+		
+		
 					
 	}
 	

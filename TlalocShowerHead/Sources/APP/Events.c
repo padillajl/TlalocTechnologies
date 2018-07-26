@@ -37,7 +37,7 @@ void vfnEventsDriver (void);
 /*************************************************************************************************/
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
-
+u08 bEventsOneSecondFlag;
 
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
@@ -53,9 +53,16 @@ void vfnEventsDriver (void);
 /*************************************************************************************************/
 void vfnEventsInit(void)
 {
-	
+	//Get a one sec timer
+	baSwTimersCurrentTimers[SwTimersDriverEventsTimer]= SwTimers_bfnRequestTimer();
+	//Init one sec Timer
+	SwTimers_vfnStartTimer(baSwTimersCurrentTimers[SwTimersDriverEventsTimer],1000);
 }
 void vfnEventsDriver (void)
 {
-	
+	if(SwTimers_bfnGetStatus(baSwTimersCurrentTimers[SwTimersDriverEventsTimer]))
+	{
+		bEventsOneSecondFlag = 1;
+		SwTimers_vfnStartTimer(baSwTimersCurrentTimers[SwTimersDriverEventsTimer],1000);
+	}
 }

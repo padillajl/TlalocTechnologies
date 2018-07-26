@@ -60,7 +60,6 @@
 #define LCD_ENABLE_OFF							GPIO_WRITE_PIN(C,10,0)
 
 
-#define LCD_CHN									(2) //Chanel used for the timer of LCD operations 
 #define LCD_PERIOD								(1) //Timer in miliseconds of de LCD
 
 #define LCD_REFRESH_DISPLAY_CHN					(4) 	//Chanel used for refresh the display
@@ -200,11 +199,14 @@ void vfnLCDDriverInit(void)
 	LCD_CONFIG_RW;
 	LCD_CONFIG_RS;
 	LCD_CONFIG_ENABLE;		
-		
-	// LCD perations timer init
-	SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
-	// LCD refresh timer init
-	SwTimers_vfnStartTimer(LCD_REFRESH_DISPLAY_CHN,LCD_REFRESH_DISPLAY_PERIOD);
+	
+	//Start LCD configuration
+	bLCDDriverCmd |= (1 << LCDDriverCmdConfig);
+	
+	//Request LCD Timer
+	baSwTimersCurrentTimers[SwTimersDriverLCDTimer]= SwTimers_bfnRequestTimer();
+	// LCD operations timer init
+	SwTimers_vfnStartTimer(baSwTimersCurrentTimers[SwTimersDriverLCDTimer],LCD_PERIOD);
 }
 
 /*************************************************************************************************/
@@ -244,12 +246,11 @@ void vfnLCDDriver(void)
 	//Pointer to the current state
 	lvptrRunStateMachine = vfnaLCDDriverStateMachineStates[sSMLCDDriverStateMachine.bActualState];
 	// Run LCD state machine every 1 ms*/
-	if(SwTimers_bfnGetStatus(LCD_CHN))
+	if(SwTimers_bfnGetStatus(baSwTimersCurrentTimers[SwTimersDriverLCDTimer]))
 	{	
 		lvptrRunStateMachine();		
-		SwTimers_vfnStartTimer(LCD_CHN,LCD_PERIOD);
-	}
-		
+		SwTimers_vfnStartTimer(baSwTimersCurrentTimers[SwTimersDriverLCDTimer],LCD_PERIOD);
+	}		
 		
 }
 
@@ -331,6 +332,8 @@ void vfnLCDDriverConfig3State(void)
 	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_ENTRY_MODE);	
 
 	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverIdleState);
+	bLCDDriverCmd |= (1 << LCDDriverCmdPrintRows);
+	bLCDDriverCmd &= ~(1 << LCDDriverCmdConfig);
 }
 
 /*************************************************************************************************/
@@ -387,7 +390,7 @@ void vfnLCDDriverSetRow2AddressState(void)
 	//Set the initial address of Row 1
 	vfnLCDDriverByteAssign(LCD_RS_L_RW_L,LCD_SECOND_LINE_BASE_ADDRESS);
 	
-	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverPrintRow1State);
+	vfnLCDDriverSetTriggerEnableAndChangeState(LCDDriverPrintRow2State);
 }
 /*************************************************************************************************/
 /*!
@@ -410,6 +413,7 @@ void vfnLCDDriverPrintRow2State(void)
 	if(bLCDCharCounter >= 32)
 	{		
 		sSMLCDDriverStateMachine.bActualState = LCDDriverIdleState;
+		bLCDDriverCmd &= ~(1 << LCDDriverCmdPrintRows);
 	}
 
 }
