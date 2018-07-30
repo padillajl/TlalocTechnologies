@@ -98,7 +98,7 @@ typedef enum
 void vfnMainDriverInit(void)
 {
 	sSMMainDriverStateMachine.bActualState = MainDriverShowInitScreenState;
-	vfnMainDriverRefreshMenuTimer(10);
+	vfnMainDriverRefreshMenuTimer(3);
 }
 void vfnMainDriverManager(void)
 {
@@ -115,23 +115,29 @@ void vfnMainDriverManager(void)
 	if(!(bLCDDriverCmd & (1 << LCDDriverCmdPrintRows)) && !(bLCDDriverCmd & (1 << LCDDriverCmdPrintRows)))
 		bLCDDriverCmd |= (1 << LCDDriverCmdPrintRows);
 	
-	//Check if a ON event has occurred			
-	if(bSensorsDriverEventStatus & (1<<SensorsDriverPinOnEventFlag))
+	//Check if a IR event has occurred			
+	if(bSensorsDriverEventStatus & (1<<SensorsDriverIRSensorEventStatusFlag))
 	{
-		GPIO_TURN_ON_GREEN_LED;						
-		GPIO_WRITE_PIN(C,17,0);
+		//if electrovalve is off, turn on
+		if(!(bSensorsDriverEventStatus & (1<<SensorsDriverPinOnOffEventStatusFlag)))
+		{
+			//Turn on the electrovalve
+			GPIO_WRITE_PIN(C,17,0);
+			GPIO_TURN_ON_GREEN_LED;			
+			bSensorsDriverEventStatus |= (1<<SensorsDriverPinOnOffEventStatusFlag);
+			sSMMainDriverStateMachine.bActualState = MainDriverElectrovalveOnState;
+					
+		}
+		else
+		{
+			//Turn off the electrovalve
+			GPIO_WRITE_PIN(C,17,1);			
+			GPIO_TURN_ON_BLUE_LED;						
+			bSensorsDriverEventStatus &= ~(1<<SensorsDriverPinOnOffEventStatusFlag);
+			sSMMainDriverStateMachine.bActualState = MainDriverElectrovalveOffState;
+		}
 		vfnMainDriverRefreshMenuTimer(2);
-		bSensorsDriverEventStatus &= ~(1<<SensorsDriverPinOnEventFlag);
-		sSMMainDriverStateMachine.bActualState = MainDriverElectrovalveOnState;
-	}
-	
-	if(bSensorsDriverEventStatus & (1<<SensorsDriverPinOffEventFlag))
-	{
-		GPIO_TURN_ON_BLUE_LED;
-		GPIO_WRITE_PIN(C,17,1);
-		vfnMainDriverRefreshMenuTimer(2);
-		bSensorsDriverEventStatus &= ~(1<<SensorsDriverPinOffEventFlag);
-		sSMMainDriverStateMachine.bActualState = MainDriverElectrovalveOffState;
+		bSensorsDriverEventStatus &= ~(1<<SensorsDriverIRSensorEventStatusFlag);
 	}		
 	
 	if(bSensorsDriverTimerStatus & (1<<SensorsDriverADCTimerStatusFlag))

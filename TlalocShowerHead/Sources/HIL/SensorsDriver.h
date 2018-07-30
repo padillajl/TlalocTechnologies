@@ -28,8 +28,8 @@ typedef enum
 
 typedef enum
 {
-	SensorsDriverPinOnEventFlag,				//00
-	SensorsDriverPinOffEventFlag				//01	
+	SensorsDriverIRSensorEventStatusFlag,					//00
+	SensorsDriverPinOnOffEventStatusFlag,					//01		
 }__SensorsDriverEventStatusFlag_;
 
 
@@ -57,8 +57,5 @@ extern volatile u08					gbSCFlowSensorStatus;
 
 void vfnSensorsDriverInit(void);
 void vfnSensorsDriver(void);
-
-
-
 
 #endif /* SensorsDriver_H_ */

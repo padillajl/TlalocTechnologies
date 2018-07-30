@@ -54,7 +54,8 @@ int main(void)
 	SwTimers_vfnInit();	
 	vfnSensorsDriverInit();
 	vfnLCDDriverInit();	
-	 vfnEventsInit();
+	vfnEventsInit();
+	vfnMainDriverInit();
 	
 	for(;;) 
 	{			
