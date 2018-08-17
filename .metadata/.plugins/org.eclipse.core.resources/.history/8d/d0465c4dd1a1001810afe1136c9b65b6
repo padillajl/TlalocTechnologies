@@ -134,7 +134,7 @@ void vfnSensorsDriver(void)
 	// Check the timer for ADC conversion 
 	if(SwTimers_bfnGetStatus(baSwTimersCurrentTimers[SwTimersDriverADCTimer]))
 	{
-		bSensorsDriverTimerStatus |= (1<<SensorsDriverADCTimerStatusFlag);
+		bSensorsDriverTimerStatus |= SensorsDriverADCTimerStatusFlag;
 		gbSCADCData = ADC_bfnStartConversion(ADC_CHANNEL_0);
 		SwTimers_vfnStartTimer(baSwTimersCurrentTimers[SwTimersDriverADCTimer],SENSORSDRIVER_ADC_PERIOD);
 	}	

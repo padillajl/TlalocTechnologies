@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;ECGSignalOnDisplay/Sources/ECGSignal&apos; to &apos;ECGSignal.h&apos;" description="Rename resource &apos;ECGSignal&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="Sources/ECGSignal" name="ECGSignal.h" stamp="1534079396256" updateReferences="true"/>
+</session>

@@ -142,11 +142,11 @@ void vfnMainDriverManager(void)
 	
 	if(bSensorsDriverTimerStatus & (1<<SensorsDriverADCTimerStatusFlag))
 		bSensorsDriverTimerStatus &= ~(1<<SensorsDriverADCTimerStatusFlag);		
-	if(bSensorsDriverTimerStatus & (1<<SensorsDriverFlowSensorTimerStatusFlag))
+	else if(bSensorsDriverTimerStatus & (1<<SensorsDriverFlowSensorTimerStatusFlag))
 	{
 		u32 ldwTempVar;			
 		ldwTempVar = (dwSensorsDriverPulseCounter * 1000)/SENSORSDRIVER_PULSESPERLITER;
-		vfnBin32ToASCIIBCD(dwSensorsDriverPulseCounter,&baLCDBuffer[4],10,0);
+		vfnBin32ToASCIIBCD(dwSensorsDriverPulseCounter,&baLCDBuffer[0],10,0);
 		bSensorsDriverTimerStatus &= ~(1<<SensorsDriverFlowSensorTimerStatusFlag);
 	}
 }
