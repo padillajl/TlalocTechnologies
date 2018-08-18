@@ -145,8 +145,7 @@ void vfnMainDriverManager(void)
 	if(bSensorsDriverTimerStatus & (1<<SensorsDriverFlowSensorTimerStatusFlag))
 	{
 		u32 ldwTempVar;			
-		ldwTempVar = (dwSensorsDriverPulseCounter * 1000)/SENSORSDRIVER_PULSESPERLITER;
-		vfnBin32ToASCIIBCD(dwSensorsDriverPulseCounter,&baLCDBuffer[4],10,0);
+		ldwTempVar = (dwSensorsDriverPulseCounter * 1000)/SENSORSDRIVER_PULSESPERLITER;		
 		bSensorsDriverTimerStatus &= ~(1<<SensorsDriverFlowSensorTimerStatusFlag);
 	}
 }
@@ -158,8 +157,20 @@ void vfnMainDriverShowInitScreenState (void)
 }
 void vfnMainDriverShowMainScreenState (void)
 {
-	vfnMainDriverDisplaySetMessages((u08*)&baAMainDriverGeneralMessages[Message_Liters],
-									(u08*)&baAMainDriverGeneralMessages[Message_Temperature]);	
+	u08 lbaPulsesCounterBuffer[5];
+	u08 lbaBufferSizeWithOutZeros;
+	
+	vfnLCDDriverClearScreen();
+	
+	//Print the pulses on screen
+	vfnBin32ToASCIIBCD(dwSensorsDriverPulseCounter,&lbaPulsesCounterBuffer[0],5,0);
+	//Delete zeros and reorder string
+	lbaBufferSizeWithOutZeros = bfnAsciiZeroSupressAndShiftToLeft(&lbaPulsesCounterBuffer[0],5,3);
+	//Copy new buffer information to the LCD buffer
+	memcpy(&baLCDBuffer[5],&lbaPulsesCounterBuffer[0],lbaBufferSizeWithOutZeros);
+	
+	memcpy(&baLCDBuffer[0],&baAMainDriverGeneralMessages[Message_Liters],4);
+	memcpy(&baLCDBuffer[16],&baAMainDriverGeneralMessages[Message_Temperature],5);	
 }
 void vfnMainDriverElectrovalveOnState(void)
 {

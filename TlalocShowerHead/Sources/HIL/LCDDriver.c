@@ -535,8 +535,15 @@ void vfnLCDDriverByteAssign(u08 lbCommand, u08 lbData)
 	{
 		GPIO_WRITE_PIN(C,9,0);
 	}
-}			
-										
-												
-												
-												
+}
+/*************************************************************************************************/
+/*!
+	\fn		vfnLCDDriverClearScreen
+	\brief	Function that set with spaces (' ') the LCD buffer to simulate its clear	
+	\return	none
+*/
+/*************************************************************************************************/
+void vfnLCDDriverClearScreen(void)
+{
+	memset(&baLCDBuffer[0],' ',sizeof(baLCDBuffer));
+}
