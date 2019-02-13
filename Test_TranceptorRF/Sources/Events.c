@@ -141,6 +141,7 @@ void SM1_OnBlockSent(LDD_TUserData *UserDataPtr)
 void SM1_OnBlockReceived(LDD_TUserData *UserDataPtr)
 {
   /* Write your code here ... */
+	bRFCommStatus |= ( 1<<RFCommStatusRxDetected );
 }
 
 /* END Events */

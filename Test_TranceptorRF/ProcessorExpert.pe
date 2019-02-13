@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>Test_TranceptorRF</Name>
-    <SavedBy>josel</SavedBy>
-    <ModificationStamp>4</ModificationStamp>
-    <Date>2019-01-14</Date>
+    <SavedBy>Omar Ayala</SavedBy>
+    <ModificationStamp>6</ModificationStamp>
+    <Date>2019-02-13</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.2.RT6_b1446-0504</PEversion>
   </Header>
@@ -29,7 +29,7 @@
     <UseExistingModules>true</UseExistingModules>
     <RenamePeripheries>false</RenamePeripheries>
     <Autodependency>true</Autodependency>
-    <ProjectCompNumb>8</ProjectCompNumb>
+    <ProjectCompNumb>11</ProjectCompNumb>
     <DelUnusedPreviouslyGenFiles>true</DelUnusedPreviouslyGenFiles>
     <GeneratedCodeFrozen>false</GeneratedCodeFrozen>
     <AssignInitComponentNameToPrph>true</AssignInitComponentNameToPrph>
@@ -5913,8 +5913,8 @@
         <UserReadOnly>false</UserReadOnly>
         <PropertyModelIsAutomatic>false</PropertyModelIsAutomatic>
         <TypeSpecNameState>typeClockPhase</TypeSpecNameState>
-        <Index>0</Index>
-        <Value>true</Value>
+        <Index>1</Index>
+        <Value>false</Value>
       </ItemState>
       <ItemState>
         <ItemSymbol>Parity</ItemSymbol>

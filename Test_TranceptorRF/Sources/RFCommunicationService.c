@@ -40,14 +40,14 @@ u08 bRFCommRxCharCounter;
 u08 bRFCommTxCharCounter;
 
 u08 baRFCommRxBuffer[RFCommBufferSize];
-u08 baRFCommTxBuffer[RFCommBufferSize];
+u08 baRFCommTxBuffer[RFCommBufferSize] = "0123";
 
 u08 *bptrRFCommRxBuffer;
 u08 *bptrRFCommTxBuffer;
 
-u08 bRFCommCommStatus;
+u08 bRFCommStatus;
 
-LDD_TDeviceData *SPIMasterLDD;
+LDD_TDeviceData *SPISlaveLDD;
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
 /*************************************************************************************************/
@@ -61,16 +61,30 @@ LDD_TDeviceData *SPIMasterLDD;
 /*************************************************************************************************/
 void vfnRFCommInit(void)
 {
-	//Init the SPI Master 
-	SPIMasterLDD = SM1_Init(NULL);
+	//Init the SPI Slave 
+	SPISlaveLDD = SM1_Init(NULL);
+	//Turn off flag of Rx
+	bRFCommStatus &= ~( 1<<RFCommStatusRxDetected );
+	//Request data block reception
+	SM1_ReceiveBlock(SPISlaveLDD,&baRFCommRxBuffer[0],20);
+	//Start transmission/Reception
+	SM1_SendBlock(SPISlaveLDD,&baRFCommTxBuffer[0],4);
+	
 }
 void vfnRFCommTxService(void)
 {
 	
 }
-void vfnRFCommRxCallBack(u08 lbRxData)
+void vfnRFCommManager(void)
 {
-	
+	if( bRFCommStatus & ( 1<<RFCommStatusRxDetected ) )
+	{		
+		bRFCommStatus &= ~( 1<<RFCommStatusRxDetected );
+		//Request data block reception
+		SM1_ReceiveBlock(SPISlaveLDD,&baRFCommRxBuffer[0],20);
+		//Start transmission/Reception
+		SM1_SendBlock(SPISlaveLDD,&baRFCommTxBuffer[0],4);
+	}
 }
 void vfnRFCommTxMessage(u08 *lbptrBuffer, u08 lbSize)
 {

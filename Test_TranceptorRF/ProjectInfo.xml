@@ -35,44 +35,49 @@
     <FLASHsize>128k</FLASHsize>
   </PROCESSOR>
   <PATHS>
-    <LinkerCommandFile>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Project_Settings\Linker_Files\ProcessorExpert.ld</LinkerCommandFile>
+    <LinkerCommandFile>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Linker_Files\ProcessorExpert.ld</LinkerCommandFile>
     <IncludePaths>
       <Path>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\pdd\inc\</Path>
       <Path>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\iofiles\</Path>
-      <Path>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Sources\</Path>
-      <Path>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\</Path>
+      <Path>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\</Path>
+      <Path>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\</Path>
     </IncludePaths>
     <SourceCodePaths>
-      <Path>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\</Path>
-      <Path>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Project_Settings\Startup_Code\</Path>
-      <Path>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Sources\</Path>
+      <Path>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\</Path>
+      <Path>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\</Path>
+      <Path>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\</Path>
     </SourceCodePaths>
   </PATHS>
   <FILES>
     <GeneratedCs>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\Cpu.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\PE_LDD.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\SM1.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\SS1.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\Vectors.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Project_Settings\Startup_Code\__arm_end.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Project_Settings\Startup_Code\__arm_start.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Sources\Events.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Sources\main.c</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Sources\sa_mtb.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Cpu.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_LDD.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SM1.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SS1.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Vectors.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\__arm_end.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\__arm_start.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\Events.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\MiscFunctions.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\RFCommunicationService.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\main.c</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\sa_mtb.c</PathName>
     </GeneratedCs>
     <GeneratedHs>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\Cpu.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\IO_Map.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\PE_Const.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\PE_Error.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\PE_LDD.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\PE_Types.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\SM1.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Generated_Code\SS1.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Project_Headers\bme.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Project_Settings\Startup_Code\runtime_configuration.h</PathName>
-      <PathName>C:\Users\josel\Desktop\Home\Proyectos\Test_TranceptorRF\Sources\Events.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Cpu.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\IO_Map.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_Const.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_Error.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_LDD.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_Types.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SM1.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SS1.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Project_Headers\bme.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\runtime_configuration.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\Events.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\MiscFunctions.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\MyTypes.h</PathName>
+      <PathName>C:\Users\Omar Ayala\Desktop\TTWorkspace\TlalocTechnologies\Test_TranceptorRF\Sources\RFCommunicationService.h</PathName>
       <PathName>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\iofiles\MKL25Z4.h</PathName>
       <PathName>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\pdd\inc\ADC_PDD.h</PathName>
       <PathName>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\pdd\inc\CMP_PDD.h</PathName>

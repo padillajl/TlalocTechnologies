@@ -36,6 +36,7 @@
 #include "IO_Map.h"
 #include "SM1.h"
 #include "SS1.h"
+#include "RFCommunicationService.h"
 
 #ifdef __cplusplus
 extern "C" {

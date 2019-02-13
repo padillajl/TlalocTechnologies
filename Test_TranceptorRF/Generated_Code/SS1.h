@@ -6,7 +6,7 @@
 **     Component   : SPISlave_LDD
 **     Version     : Component 01.047, Driver 01.02, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-01-14, 20:56, # CodeGen: 1
+**     Date/Time   : 2019-02-13, 16:10, # CodeGen: 4
 **     Abstract    :
 **         This component "SPISlave_LDD" implements SLAVE part of synchronous
 **         serial master-slave communication.
@@ -36,7 +36,7 @@
 **              Width                                      : 8 bits
 **              MSB first                                  : yes
 **              Clock polarity                             : Low
-**              Clock phase                                : Capture on leading edge
+**              Clock phase                                : Change on leading edge
 **              Parity                                     : None
 **            HW input buffer size                         : 1
 **            HW input watermark                           : 1

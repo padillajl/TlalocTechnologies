@@ -486,7 +486,7 @@ PE_DEBUGHALT();
           <Width v="8 bits" />
           <MSB_first v="yes" />
           <Clock_polarity v="Low" />
-          <Clock_phase v="Capture on leading edge" />
+          <Clock_phase v="Change on leading edge" />
           <Parity v="None" />
         </group>
         <HW_input_buffer_size v="1" />

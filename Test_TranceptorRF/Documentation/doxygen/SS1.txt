@@ -545,7 +545,7 @@ registers of the peripheral(s) configured by the component.
 **              Width                                      : 8 bits
 **              MSB first                                  : yes
 **              Clock polarity                             : Low
-**              Clock phase                                : Capture on leading edge
+**              Clock phase                                : Change on leading edge
 **              Parity                                     : None
 **            HW input buffer size                         : 1
 **            HW input watermark                           : 1
