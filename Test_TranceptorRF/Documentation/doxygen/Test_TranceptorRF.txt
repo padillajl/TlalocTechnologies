@@ -29,7 +29,6 @@
 \page page_components Components 
 
 - \subpage SM1
-- \subpage SS1
 
 
 */
