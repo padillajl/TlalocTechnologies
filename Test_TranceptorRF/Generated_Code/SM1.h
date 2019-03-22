@@ -3,70 +3,58 @@
 **     Filename    : SM1.h
 **     Project     : Test_TranceptorRF
 **     Processor   : MKL25Z128VLK4
-**     Component   : SPIMaster_LDD
-**     Version     : Component 01.111, Driver 01.02, CPU db: 3.00.000
+**     Component   : SynchroMaster
+**     Version     : Component 02.347, Driver 01.01, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-01-14, 21:00, # CodeGen: 2
+**     Date/Time   : 2019-03-20, 14:19, # CodeGen: 8
 **     Abstract    :
-**         This component "SPIMaster_LDD" implements MASTER part of synchronous
+**         This component "SynchroMaster" implements MASTER part of synchronous
 **         serial master-slave communication.
 **     Settings    :
-**          Component name                                 : SM1
-**          Device                                         : SPI0
-**          Interrupt service/event                        : Enabled
-**            Input interrupt                              : INT_SPI0
-**            Input interrupt priority                     : medium priority
-**            Output interrupt                             : INT_SPI0
-**            Output interrupt priority                    : medium priority
-**          Settings                                       : 
-**            Input pin                                    : Enabled
-**              Pin                                        : PTA16/SPI0_MOSI/SPI0_MISO
-**              Pin signal                                 : 
-**            Output pin                                   : Enabled
-**              Pin                                        : PTA17/SPI0_MISO/SPI0_MOSI
-**              Pin signal                                 : 
-**            Clock pin                                    : 
-**              Pin                                        : PTA15/SPI0_SCK/UART0_RX
-**              Pin signal                                 : 
-**            Chip select list                             : 0
-**            Attribute set list                           : 1
-**              Attribute set 0                            : 
-**                Width                                    : 8 bits
-**                MSB first                                : yes
-**                Clock polarity                           : High
-**                Clock phase                              : Change on leading edge
-**                Parity                                   : None
-**                Chip select toggling                     : no
-**                Clock rate index                         : 0
-**            Clock rate                                   : 0.476837 µs
-**            HW input buffer size                         : 1
-**            HW input watermark                           : 1
-**            Receiver DMA                                 : Disabled
-**            HW output buffer size                        : 1
-**            HW output watermark                          : 1
-**            Transmitter DMA                              : Disabled
-**          Initialization                                 : 
-**            Initial chip select                          : 0
-**            Initial attribute set                        : 0
-**            Enabled in init. code                        : yes
-**            Auto initialization                          : no
-**            Event mask                                   : 
-**              OnBlockSent                                : Enabled
-**              OnBlockReceived                            : Enabled
-**              OnError                                    : Disabled
-**          CPU clock/configuration selection              : 
-**            Clock configuration 0                        : This component enabled
-**            Clock configuration 1                        : This component disabled
-**            Clock configuration 2                        : This component disabled
-**            Clock configuration 3                        : This component disabled
-**            Clock configuration 4                        : This component disabled
-**            Clock configuration 5                        : This component disabled
-**            Clock configuration 6                        : This component disabled
-**            Clock configuration 7                        : This component disabled
+**         Synchro type                : MASTER
+**
+**         Serial channel              : SPI1
+**
+**         Protocol
+**             Clock edge              : falling
+**             Width                   : 8 bits
+**             Empty character         : 0
+**             Empty char. on input    : RECEIVED
+**
+**         Registers
+**             Input buffer            : SPI1_D    [0x40077005]
+**             Output buffer           : SPI1_D    [0x40077005]
+**             Control register        : SPI1_C1   [0x40077000]
+**             Mode register           : SPI1_C2   [0x40077001]
+**             Baud setting reg.       : SPI1_BR   [0x40077002]
+**
+**         Input interrupt
+**             Vector name             : INT_SPI1
+**             Priority                : 2
+**
+**         Output interrupt
+**             Vector name             : INT_SPI1
+**             Priority                : 2
+**
+**         Used pins                   :
+**         ----------------------------------------------------------
+**              Function    | On package |    Name
+**         ----------------------------------------------------------
+**               Input      |     4      |  PTE3/SPI1_MISO/SPI1_MOSI
+**               Output     |     2      |  PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL
+**               Clock      |     3      |  PTE2/SPI1_SCK
+**         ----------------------------------------------------------
+**
 **     Contents    :
-**         Init         - LDD_TDeviceData* SM1_Init(LDD_TUserData *UserDataPtr);
-**         SendBlock    - LDD_TError SM1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
-**         ReceiveBlock - LDD_TError SM1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData...
+**         RecvChar        - byte SM1_RecvChar(SM1_TComData *Chr);
+**         SendChar        - byte SM1_SendChar(SM1_TComData Chr);
+**         RecvBlock       - byte SM1_RecvBlock(SM1_TComData *Ptr, word Size, word *Rcv);
+**         SendBlock       - byte SM1_SendBlock(SM1_TComData *Ptr, word Size, word *Snd);
+**         ClearRxBuf      - byte SM1_ClearRxBuf(void);
+**         ClearTxBuf      - byte SM1_ClearTxBuf(void);
+**         GetCharsInRxBuf - word SM1_GetCharsInRxBuf(void);
+**         GetCharsInTxBuf - word SM1_GetCharsInTxBuf(void);
+**         GetError        - byte SM1_GetError(SM1_TError *Err);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -101,9 +89,9 @@
 ** ###################################################################*/
 /*!
 ** @file SM1.h
-** @version 01.02
+** @version 01.01
 ** @brief
-**         This component "SPIMaster_LDD" implements MASTER part of synchronous
+**         This component "SynchroMaster" implements MASTER part of synchronous
 **         serial master-slave communication.
 */         
 /*!
@@ -111,138 +99,310 @@
 **  @{
 */         
 
-#ifndef __SM1_H
-#define __SM1_H
+#ifndef __SM1
+#define __SM1
 
 /* MODULE SM1. */
 
-/* Include shared modules, which are used for whole project */
+/*Include shared modules, which are used for whole project*/
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
 #include "IO_Map.h"
 /* Include inherited beans */
+#include "SMasterLdd1.h"
 
 #include "Cpu.h"
-#include "SPI_PDD.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif 
 
+#ifndef __BWUserType_SM1_TComData
+#define __BWUserType_SM1_TComData
+  typedef byte SM1_TComData;           /* User type for communication. */
+#endif
 
-/*! Peripheral base address of a device allocated by the component. This constant can be used directly in PDD macros. */
-#define SM1_PRPH_BASE_ADDRESS  0x40076000U
-  
-/* Methods configuration constants - generated for all enabled component's methods */
-#define SM1_Init_METHOD_ENABLED        /*!< Init method of the component SM1 is enabled (generated) */
-#define SM1_SendBlock_METHOD_ENABLED   /*!< SendBlock method of the component SM1 is enabled (generated) */
-#define SM1_ReceiveBlock_METHOD_ENABLED /*!< ReceiveBlock method of the component SM1 is enabled (generated) */
+#ifndef __BWUserType_SM1_TError
+#define __BWUserType_SM1_TError
+  typedef union {
+  byte err;
+  struct {
+    bool OverRun  : 1;   /* OverRun error flag - the data overflow on the input has been detected. Both hardware detection (if supported) and software detection (when the value of Input buffer size property is 0) is used. */
+    bool RxBufOvf : 1;   /* Rx buffer full error flag - the input circular buffer defined by the Input buffer size property has overrun. */
+    bool FaultErr : 1;   /* Fault mode error flag - only if supported by hardware */
+  }errName;
+} SM1_TError;                          /* Error flags. For languages which don't support bit access is byte access only to error flags possible.  */
+#endif
 
-/* Events configuration constants - generated for all enabled component's events */
-#define SM1_OnBlockSent_EVENT_ENABLED  /*!< OnBlockSent event of the component SM1 is enabled (generated) */
-#define SM1_OnBlockReceived_EVENT_ENABLED /*!< OnBlockReceived event of the component SM1 is enabled (generated) */
+#define SM1_EOF 0                      /* Value of the empty character defined in the <a href="SynchroMasterProperties.html#EOF">Empty character</a> property. */
+#define SM1_INP_BUF_SIZE 32U           /* Input buffer size */
+#define SM1_OUT_BUF_SIZE 32U           /* Output buffer size */
 
-#define SM1_CHIP_SELECT_COUNT 0U       /*!< Number of chip selects */
-#define SM1_CONFIGURATION_COUNT 1U     /*!< Number of predefined configurations */
-
+byte SM1_RecvChar(SM1_TComData *Chr);
 /*
 ** ===================================================================
-**     Method      :  SM1_Init (component SPIMaster_LDD)
+**     Method      :  SM1_RecvChar (component SynchroMaster)
+**     Description :
+**         If any data is received, this method returns one character,
+**         otherwise it returns an error code (it does not wait for
+**         data). 
+**         For information about SW overrun behavior please see
+**         <General info page>.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * Chr             - A pointer to the received character
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK - The valid data is received.
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode.
+**                           ERR_RXEMPTY - No data in receiver.
+**                           ERR_OVERRUN - Overrun error was detected
+**                           from the last char or block received. In
+**                           polling mode, this error code is returned
+**                           only when the hardware supports detection
+**                           of the overrun error. If interrupt service
+**                           is enabled, and input buffer allocated by
+**                           the component is full, the component
+**                           behaviour depends on <Input buffer size>
+**                           property : if property is 0, last received
+**                           data-word is preserved (and previous is
+**                           overwritten), if property is greater than 0,
+**                           new received data-word are ignored.
+**                           ERR_FAULT - Fault error was detected from
+**                           the last char or block received. In the
+**                           polling mode the ERR_FAULT is return until
+**                           the user clear the fault flag bit, but in
+**                           the interrupt mode ERR_FAULT is returned
+**                           only once after the fault error occured.
+**                           This error is supported only on the CPUs
+**                           supports the faul mode function - where
+**                           <Fault mode> property is available.
+** ===================================================================
 */
-/*!
-**     @brief
-**         Initializes the device. Allocates memory for the device data
-**         structure, allocates interrupt vectors and sets interrupt
-**         priority, sets pin routing, sets timing, etc.
-**         If the "Enable in init. code" is set to "yes" value then the
-**         device is also enabled(see the description of the Enable()
-**         method). In this case the Enable() method is not necessary
-**         and needn't to be generated. 
-**         This method can be called only once. Before the second call
-**         of Init() the Deinit() must be called first.
-**     @param
-**         UserDataPtr     - Pointer to the user or
-**                           RTOS specific data. This pointer will be
-**                           passed as an event or callback parameter.
-**     @return
-**                         - Device data structure pointer.
-*/
-/* ===================================================================*/
-LDD_TDeviceData* SM1_Init(LDD_TUserData *UserDataPtr);
 
+byte SM1_SendChar(SM1_TComData Chr);
 /*
 ** ===================================================================
-**     Method      :  SM1_ReceiveBlock (component SPIMaster_LDD)
+**     Method      :  SM1_SendChar (component SynchroMaster)
+**     Description :
+**         Sends one character to the channel.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**         Chr             - Character to send
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+**                           ERR_DISABLED - Device is disabled (only if
+**                           output DMA is supported and enabled)
+**                           ERR_TXFULL - Transmitter is full
+** ===================================================================
 */
-/*!
-**     @brief
-**         This method specifies the number of data to receive. The
-**         method returns ERR_BUSY until the specified number of
-**         characters is received. The method <CancelBlockReception>
-**         can be used to cancel a running receive operation.
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @param
-**         BufferPtr       - Pointer to A buffer where
-**                           received characters will be stored.
-**     @param
+
+byte SM1_RecvBlock(SM1_TComData *Ptr,word Size,word *Rcv);
+/*
+** ===================================================================
+**     Method      :  SM1_RecvBlock (component SynchroMaster)
+**     Description :
+**         If any data received, this method returns the block of the
+**         data and its length (and incidental error), otherwise it
+**         returns error code (it does not wait for data).
+**         If less than requested number of characters is received only
+**         the available data is copied from the receive buffer to the
+**         user specified destination and the ERR_EXEMPTY value is
+**         returned.
+**         This method is available only if non-zero length of input
+**         buffer is defined.
+**         For information about SW overrun behavior please see
+**         <General info page>.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * Ptr             - A pointer to the block of received data
+**         Size            - The size of the block
+**       * Rcv             - Pointer to a variable where an actual
+**                           number of copied characters is stored
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK - The valid data is received.
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode.
+**                           ERR_RXEMPTY - It was not possible to read
+**                           requested number of bytes from the buffer.
+**                           ERR_OVERRUN - Overrun error was detected
+**                           from the last char or block received. If
+**                           interrupt service is enabled, and input
+**                           buffer allocated by the component is full,
+**                           the component behaviour depends on <Input
+**                           buffer size> property : if property is 0,
+**                           last received data-word is preserved (and
+**                           previous is overwritten), if property is
+**                           greater than 0, new received data-word are
+**                           ignored.
+**                           ERR_FAULT - Fault error was detected from
+**                           the last char or block received. In the
+**                           polling mode the ERR_FAULT is return until
+**                           the user clear the fault flag bit, but in
+**                           the interrupt mode ERR_FAULT is returned
+**                           only once after the fault error occured.
+**                           This error is supported only on the CPUs
+**                           supports the faul mode function - where
+**                           <Fault mode> property is available.
+** ===================================================================
+*/
+
+byte SM1_SendBlock(SM1_TComData *Ptr,word Size,word *Snd);
+/*
+** ===================================================================
+**     Method      :  SM1_SendBlock (component SynchroMaster)
+**     Description :
+**         Send a block of characters to the channel. This method is
+**         only available if a non-zero length of output buffer is
+**         defined.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * Ptr             - Pointer to the block of data to send
 **         Size            - Size of the block
-**     @return
-**                         - Error code, possible codes:
+**       * Snd             - Pointer to number of data that are sent
+**                           (moved to buffer)
+**     Returns     :
+**         ---             - Error code, possible codes:
 **                           ERR_OK - OK
 **                           ERR_SPEED - This device does not work in
-**                           the active clock configuration
-**                           ERR_DISABLED - Component is disabled
-**                           ERR_BUSY - The previous receive request is
-**                           pending
+**                           the active speed mode
+**                           ERR_DISABLED - Device is disabled (only if
+**                           output DMA is supported and enabled)
+**                           ERR_TXFULL - It was not possible to send
+**                           requested number of bytes
+** ===================================================================
 */
-/* ===================================================================*/
-LDD_TError SM1_ReceiveBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *BufferPtr, uint16_t Size);
 
+byte SM1_ClearRxBuf(void);
 /*
 ** ===================================================================
-**     Method      :  SM1_SendBlock (component SPIMaster_LDD)
-*/
-/*!
-**     @brief
-**         This method sends a block of characters. The method returns
-**         ERR_BUSY when the previous block transmission is not
-**         completed. The method <CancelBlockTransmission> can be used
-**         to cancel a transmit operation.
-**     @param
-**         DeviceDataPtr   - Device data structure
-**                           pointer returned by <Init> method.
-**     @param
-**         BufferPtr       - Pointer to the block of data
-**                           to send.
-**     @param
-**         Size            - Number of characters in the buffer.
-**     @return
-**                         - Error code, possible codes:
+**     Method      :  SM1_ClearRxBuf (component SynchroMaster)
+**     Description :
+**         Clears the receive buffer. This method is available only if
+**         a non-zero length of input buffer is defined.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
 **                           ERR_OK - OK
 **                           ERR_SPEED - This device does not work in
-**                           the active clock configuration
-**                           ERR_DISABLED - Component is disabled
-**                           ERR_BUSY - The previous transmit request is
-**                           pending
+**                           the active speed mode
+** ===================================================================
 */
-/* ===================================================================*/
-LDD_TError SM1_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *BufferPtr, uint16_t Size);
 
+byte SM1_ClearTxBuf(void);
 /*
 ** ===================================================================
-**     Method      :  SM1_Interrupt (component SPIMaster_LDD)
+**     Method      :  SM1_ClearTxBuf (component SynchroMaster)
+**     Description :
+**         Clears the transmit buffer. This method is only available if
+**         a non-zero length of output buffer is defined.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Error code, possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+
+word SM1_GetCharsInRxBuf(void);
+/*
+** ===================================================================
+**     Method      :  SM1_GetCharsInRxBuf (component SynchroMaster)
+**     Description :
+**         Returns the number of characters in the input buffer.
+**         Note: If the Interrupt service is disabled, and the Ignore
+**         empty character is set to yes, and a character has been
+**         received, then this method returns 1 although it was an
+**         empty character.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Number of characters in the input buffer.
+** ===================================================================
+*/
+
+word SM1_GetCharsInTxBuf(void);
+/*
+** ===================================================================
+**     Method      :  SM1_GetCharsInTxBuf (component SynchroMaster)
+**     Description :
+**         Returns the number of characters in the output buffer.
+**     Parameters  : None
+**     Returns     :
+**         ---             - Number of characters in the output buffer.
+** ===================================================================
+*/
+
+byte SM1_GetError(SM1_TError *Err);
+/*
+** ===================================================================
+**     Method      :  SM1_GetError (component SynchroMaster)
+**     Description :
+**         Returns a set of errors on the channel (errors that cannot
+**         be returned in given methods). The component accumulates
+**         errors in a set; after calling [GetError] this set is
+**         returned and cleared. This method is available only if the
+**         "Interrupt service/event" property is enabled.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * Err             - A pointer to the returned set of errors
+**     Returns     :
+**         ---             - Error code (if GetError did not succeed),
+**                           possible codes:
+**                           ERR_OK - OK
+**                           ERR_SPEED - This device does not work in
+**                           the active speed mode
+** ===================================================================
+*/
+
+void SM1_Init(void);
+/*
+** ===================================================================
+**     Method      :  SM1_Init (component SynchroMaster)
 **
 **     Description :
-**         The ISR function handling the device receive/transmit 
-**         interrupt.
+**         Initializes the associated peripheral(s) and the component 
+**         internal variables. The method is called automatically as a 
+**         part of the application initialization code.
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
 */
-/* {Default RTOS Adapter} ISR function prototype */
-PE_ISR(SM1_Interrupt);
+
+void SMasterLdd1_OnBlockReceived(LDD_TUserData *UserDataPtr);
+/*
+** ===================================================================
+**     Method      :  SM1_SMasterLdd1_OnBlockReceived (component SynchroMaster)
+**
+**     Description :
+**         This event is called when the requested number of data is 
+**         moved to the input buffer. This method is available only if 
+**         the ReceiveBlock method is enabled. The event services the 
+**         event of the inherited component and eventually invokes other 
+**         events.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
+
+void SMasterLdd1_OnBlockSent(LDD_TUserData *UserDataPtr);
+/*
+** ===================================================================
+**     Method      :  SM1_SMasterLdd1_OnBlockSent (component SynchroMaster)
+**
+**     Description :
+**         This event is called after the last character from the output 
+**         buffer is moved to the transmitter. This event is available 
+**         only if the SendBlock method is enabled. The event services 
+**         the event of the inherited component and eventually invokes 
+**         other events.
+**         This method is internal. It is used by Processor Expert only.
+** ===================================================================
+*/
 
 /* END SM1. */
 
@@ -250,8 +410,8 @@ PE_ISR(SM1_Interrupt);
 }  /* extern "C" */
 #endif 
 
-#endif
-/* ifndef __SM1_H */
+#endif 
+/* ifndef __SM1 */
 /*!
 ** @}
 */

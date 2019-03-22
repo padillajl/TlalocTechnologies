@@ -28,7 +28,10 @@
 
 \page page_components Components 
 
-- \subpage SM1
+- \subpage BitIoLdd1
+- \subpage BitIoLdd2
+- \subpage ExtIntLdd1
+- \subpage SMasterLdd1
 
 
 */

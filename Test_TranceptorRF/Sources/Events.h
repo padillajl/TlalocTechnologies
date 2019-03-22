@@ -35,7 +35,14 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 #include "SM1.h"
-#include "RFCommunicationService.h"
+#include "SMasterLdd1.h"
+#include "RF_CE.h"
+#include "BitIoLdd1.h"
+#include "RF_CSN.h"
+#include "BitIoLdd2.h"
+#include "RF_IRQ.h"
+#include "ExtIntLdd1.h"
+#include "NRF24L01Driver.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -57,43 +64,99 @@ extern "C" {
 void Cpu_OnNMIINT(void);
 
 
+void RF_IRQ_OnInterrupt(void);
 /*
 ** ===================================================================
-**     Event       :  SM1_OnBlockSent (module Events)
+**     Event       :  RF_IRQ_OnInterrupt (module Events)
 **
-**     Component   :  SM1 [SPIMaster_LDD]
+**     Component   :  RF_IRQ [ExtInt]
+**     Description :
+**         This event is called when an active signal edge/level has
+**         occurred.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
 */
-/*!
-**     @brief
-**         This event is called after the last character from the
-**         output buffer is moved to the transmitter. This event is
-**         available only if the SendBlock method is enabled.
-**     @param
-**         UserDataPtr     - Pointer to the user or
-**                           RTOS specific data. The pointer is passed
-**                           as the parameter of Init method. 
-*/
-/* ===================================================================*/
-void SM1_OnBlockSent(LDD_TUserData *UserDataPtr);
 
+void SM1_OnRxChar(void);
 /*
 ** ===================================================================
-**     Event       :  SM1_OnBlockReceived (module Events)
+**     Event       :  SM1_OnRxChar (module Events)
 **
-**     Component   :  SM1 [SPIMaster_LDD]
+**     Component   :  SM1 [SynchroMaster]
+**     Description :
+**         This event is called after a correct character is received.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
 */
-/*!
-**     @brief
-**         This event is called when the requested number of data is
-**         moved to the input buffer. This method is available only if
-**         the ReceiveBlock method is enabled.
-**     @param
-**         UserDataPtr     - Pointer to the user or
-**                           RTOS specific data. The pointer is passed
-**                           as the parameter of Init method. 
+
+void SM1_OnTxChar(void);
+/*
+** ===================================================================
+**     Event       :  SM1_OnTxChar (module Events)
+**
+**     Component   :  SM1 [SynchroMaster]
+**     Description :
+**         This event is called after a character is transmitted.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
 */
-/* ===================================================================*/
-void SM1_OnBlockReceived(LDD_TUserData *UserDataPtr);
+
+void SM1_OnFullRxBuf(void);
+/*
+** ===================================================================
+**     Event       :  SM1_OnFullRxBuf (module Events)
+**
+**     Component   :  SM1 [SynchroMaster]
+**     Description :
+**         This event is called when the input buffer is full, i.e.
+**         after reception of the last character that was successfully
+**         placed into input buffer.
+**         This event is available only when the <Interrupt
+**         service/event> property is enabled and the <Input buffer
+**         size> property is set to non-zero value.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void SM1_OnFreeTxBuf(void);
+/*
+** ===================================================================
+**     Event       :  SM1_OnFreeTxBuf (module Events)
+**
+**     Component   :  SM1 [SynchroMaster]
+**     Description :
+**         This event is called after the last character in output
+**         buffer is transmitted.
+**         This event is available only when the <Interrupt
+**         service/event> property is enabled and the <Output buffer
+**         size> property is set to non-zero value.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
+
+void SM1_OnError(void);
+/*
+** ===================================================================
+**     Event       :  SM1_OnError (module Events)
+**
+**     Component   :  SM1 [SynchroMaster]
+**     Description :
+**         This event is called when a channel error (not the error
+**         returned by a given method) occurs. The errors can be read
+**         using <GetError> method.
+**         The event is available only when the <Interrupt
+**         service/event> property is enabled.
+**     Parameters  : None
+**     Returns     : Nothing
+** ===================================================================
+*/
 
 /* END Events */
 

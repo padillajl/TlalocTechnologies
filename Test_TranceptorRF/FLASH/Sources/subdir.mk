@@ -8,49 +8,49 @@
 C_SRCS_QUOTED += \
 "../Sources/Events.c" \
 "../Sources/MiscFunctions.c" \
-"../Sources/RFCommunicationService.c" \
+"../Sources/NRF24L01Driver.c" \
 "../Sources/main.c" \
 "../Sources/sa_mtb.c" \
 
 C_SRCS += \
 ../Sources/Events.c \
 ../Sources/MiscFunctions.c \
-../Sources/RFCommunicationService.c \
+../Sources/NRF24L01Driver.c \
 ../Sources/main.c \
 ../Sources/sa_mtb.c \
 
 OBJS += \
 ./Sources/Events.o \
 ./Sources/MiscFunctions.o \
-./Sources/RFCommunicationService.o \
+./Sources/NRF24L01Driver.o \
 ./Sources/main.o \
 ./Sources/sa_mtb.o \
 
 C_DEPS += \
 ./Sources/Events.d \
 ./Sources/MiscFunctions.d \
-./Sources/RFCommunicationService.d \
+./Sources/NRF24L01Driver.d \
 ./Sources/main.d \
 ./Sources/sa_mtb.d \
 
 OBJS_QUOTED += \
 "./Sources/Events.o" \
 "./Sources/MiscFunctions.o" \
-"./Sources/RFCommunicationService.o" \
+"./Sources/NRF24L01Driver.o" \
 "./Sources/main.o" \
 "./Sources/sa_mtb.o" \
 
 C_DEPS_QUOTED += \
 "./Sources/Events.d" \
 "./Sources/MiscFunctions.d" \
-"./Sources/RFCommunicationService.d" \
+"./Sources/NRF24L01Driver.d" \
 "./Sources/main.d" \
 "./Sources/sa_mtb.d" \
 
 OBJS_OS_FORMAT += \
 ./Sources/Events.o \
 ./Sources/MiscFunctions.o \
-./Sources/RFCommunicationService.o \
+./Sources/NRF24L01Driver.o \
 ./Sources/main.o \
 ./Sources/sa_mtb.o \
 
@@ -72,11 +72,11 @@ Sources/MiscFunctions.o: ../Sources/MiscFunctions.c
 	@echo 'Finished building: $<'
 	@echo ' '
 
-Sources/RFCommunicationService.o: ../Sources/RFCommunicationService.c
+Sources/NRF24L01Driver.o: ../Sources/NRF24L01Driver.c
 	@echo 'Building file: $<'
 	@echo 'Executing target #3 $<'
 	@echo 'Invoking: ARM Ltd Windows GCC C Compiler'
-	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/RFCommunicationService.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/RFCommunicationService.o"
+	"$(ARMSourceryDirEnv)/arm-none-eabi-gcc" "$<" @"Sources/NRF24L01Driver.args" -MMD -MP -MF"$(@:%.o=%.d)" -o"Sources/NRF24L01Driver.o"
 	@echo 'Finished building: $<'
 	@echo ' '
 

@@ -5,7 +5,7 @@
 **     Processor   : MKL25Z128VLK4
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-02-19, 09:14, # CodeGen: 6
+**     Date/Time   : 2019-03-20, 14:19, # CodeGen: 8
 **     Abstract    :
 **
 **     Settings    :
@@ -60,7 +60,14 @@
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
+#include "RF_CE.h"
+#include "BitIoLdd1.h"
+#include "RF_CSN.h"
+#include "BitIoLdd2.h"
+#include "RF_IRQ.h"
+#include "ExtIntLdd1.h"
 #include "SM1.h"
+#include "SMasterLdd1.h"
 
 
 /*
