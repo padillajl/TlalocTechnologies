@@ -238,5 +238,6 @@ void vfnNRF24L01DriverManager(void);
 void vfnNRF24L01DriverWriteRegister(u08 lbRegister,u08 lbValue);
 void vfnNRF24L01DriverWriteRegisterData(u08 lbRegister,const u08 *lbBufferData,u08 lbBufferSize);
 void vfnNRF24L01DriverTxMessage(u08 *lbptrBuffer, u08 lbSize);
+void vfnNRF24L01DriverResetStatusIRQ(u08 lbFlags);
 /*************************************************************************************************/
 #endif /* NRF24L01DRIVER_H_ */

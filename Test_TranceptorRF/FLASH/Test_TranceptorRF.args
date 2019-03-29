@@ -15,6 +15,7 @@
 "./Sources/main.o"
 "./Sources/NRF24L01Driver.o"
 "./Sources/MiscFunctions.o"
+"./Sources/MainDriver.o"
 "./Sources/Events.o"
 -mcpu=cortex-m0
 -mthumb

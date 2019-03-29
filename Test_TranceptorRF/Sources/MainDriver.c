@@ -68,7 +68,7 @@ void vfnMainDriverInit(void)
 	vfnNRF24L01DriverWriteRegister(NRF24L01DRIVER_REG_RF_CH,MAINDRIVER_CHANNEL_NO);
 	/* Handle automatic acknowledge */
 	/* Receive address data pipe 5 bytes maximum length */  
-	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_RX_ADDR_P0,&MainDriverDeviceAddress[0],sizeof(MainDriverDeviceAddress));
+	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_RX_ADDR_P0,&baMainDriverDeviceAddress[0],sizeof(baMainDriverDeviceAddress));
 	/* Transmit address. Set RX Address equal to this address to handle automatic acknowledge */
 	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_TX_ADDR,&MainDriverDeviceAddress[0],sizeof(MainDriverDeviceAddress));
 	
