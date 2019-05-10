@@ -32,6 +32,8 @@
 #include "Events.h"
 #include "SM1.h"
 #include "SMasterLdd1.h"
+#include "WAIT1.h"
+#include "MCUC1.h"
 #include "RF_CE.h"
 #include "BitIoLdd1.h"
 #include "RF_CSN.h"
@@ -46,6 +48,7 @@
 
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
+#include "MainDriver.h"
 
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
 int main(void)

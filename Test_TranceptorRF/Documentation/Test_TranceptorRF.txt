@@ -56,6 +56,23 @@ Module "SM1"       (component SynchroMaster)
                 accumulates errors in a set; after calling [GetError] this set is returned and cleared. This method is 
                 available only if the "Interrupt service/event" property is enabled.
 
+Module "WAIT1"     (component Wait)
+   - WAIT1_Wait10Cycles -Wait for 10 CPU cycles.
+   - WAIT1_Wait100Cycles -Wait for 100 CPU cycles.
+   - WAIT1_WaitCycles -Wait for a specified number of CPU cycles (16bit data type).
+   - WAIT1_WaitLongCycles -Wait for a specified number of CPU cycles (32bit data type).
+   - WAIT1_Waitms -Wait for a specified time in milliseconds.
+   - WAIT1_Waitus -Wait for a specified time in microseconds.
+   - WAIT1_Waitns -Wait for a specified time in nano seconds.
+   - WAIT1_WaitOSms -If an RTOS is enabled, this routine will use a non-blocking wait method. Otherwise it will do a 
+                busy/blocking wait.
+   - WAIT1_Init -Driver initialization routine.
+   - WAIT1_DeInit -Driver de-initialization routine
+
+Module "MCUC1"     (component McuLibConfig)
+   - MCUC1_Init -Driver initialization method
+   - MCUC1_Deinit -Driver deinitialization method
+
 Module "Cpu"       (component MKL25Z128LK4)
 
 ===================================================================================

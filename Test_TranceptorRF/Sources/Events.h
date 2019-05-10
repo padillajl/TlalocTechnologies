@@ -36,6 +36,8 @@
 #include "IO_Map.h"
 #include "SM1.h"
 #include "SMasterLdd1.h"
+#include "WAIT1.h"
+#include "MCUC1.h"
 #include "RF_CE.h"
 #include "BitIoLdd1.h"
 #include "RF_CSN.h"
@@ -43,6 +45,8 @@
 #include "RF_IRQ.h"
 #include "ExtIntLdd1.h"
 #include "NRF24L01Driver.h"
+
+#include "MainDriver.h"
 
 #ifdef __cplusplus
 extern "C" {

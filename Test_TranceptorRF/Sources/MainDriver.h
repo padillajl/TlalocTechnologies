@@ -9,5 +9,8 @@
 #define MAINDRIVER_H_
 
 
+void vfnMainDriverInit(void);
+void vfnMainDriverManager(void);
+void vfnMainDriver_ISR(void);
 
 #endif /* MAINDRIVER_H_ */

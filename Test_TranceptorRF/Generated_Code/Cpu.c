@@ -7,7 +7,7 @@
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : KL25P80M48SF0RM, Rev.3, Sep 2012
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-03-20, 14:19, # CodeGen: 8
+**     Date/Time   : 2019-05-07, 09:15, # CodeGen: 13
 **     Abstract    :
 **
 **     Settings    :
@@ -68,6 +68,8 @@
 #include "ExtIntLdd1.h"
 #include "SM1.h"
 #include "SMasterLdd1.h"
+#include "WAIT1.h"
+#include "MCUC1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -147,12 +149,8 @@ void __init_hardware(void)
   SIM_SOPT2 &= (uint32_t)~(uint32_t)(SIM_SOPT2_PLLFLLSEL_MASK); /* Select FLL as a clock source for various peripherals */
   /* SIM_SOPT1: OSC32KSEL=3 */
   SIM_SOPT1 |= SIM_SOPT1_OSC32KSEL(0x03); /* LPO 1kHz oscillator drives 32 kHz clock for various peripherals */
-  /* SIM_SOPT2: TPMSRC=1 */
-  SIM_SOPT2 = (uint32_t)((SIM_SOPT2 & (uint32_t)~(uint32_t)(
-               SIM_SOPT2_TPMSRC(0x02)
-              )) | (uint32_t)(
-               SIM_SOPT2_TPMSRC(0x01)
-              ));                      /* Set the TPM clock */
+  /* SIM_SOPT2: TPMSRC=0 */
+  SIM_SOPT2 &= (uint32_t)~(uint32_t)(SIM_SOPT2_TPMSRC(0x03)); /* Set the TPM clock */
   /* Switch to FEI Mode */
   /* MCG_C1: CLKS=0,FRDIV=0,IREFS=1,IRCLKEN=1,IREFSTEN=0 */
   MCG_C1 = MCG_C1_CLKS(0x00) |
@@ -256,6 +254,8 @@ void PE_low_level_init(void)
   (void)ExtIntLdd1_Init(NULL);
   /* ### SynchroMaster "SM1" init code ... */
   SM1_Init();
+  MCUC1_Init(); /* ### McuLibConfig "MCUC1" init code ... */
+  WAIT1_Init(); /* ### Wait "WAIT1" init code ... */
   __EI();
 }
   /* Flash configuration field */

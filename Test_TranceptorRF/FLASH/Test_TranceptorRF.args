@@ -1,3 +1,4 @@
+"./Generated_Code/WAIT1.o"
 "./Generated_Code/Vectors.o"
 "./Generated_Code/SMasterLdd1.o"
 "./Generated_Code/SM1.o"
@@ -5,6 +6,7 @@
 "./Generated_Code/RF_CSN.o"
 "./Generated_Code/RF_CE.o"
 "./Generated_Code/PE_LDD.o"
+"./Generated_Code/MCUC1.o"
 "./Generated_Code/ExtIntLdd1.o"
 "./Generated_Code/Cpu.o"
 "./Generated_Code/BitIoLdd2.o"

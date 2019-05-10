@@ -5,7 +5,7 @@
 **     Processor   : MKL25Z128VLK4
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-03-20, 14:19, # CodeGen: 8
+**     Date/Time   : 2019-05-07, 09:15, # CodeGen: 13
 **     Abstract    :
 **
 **     Settings    :
@@ -62,6 +62,8 @@
   #include "ExtIntLdd1.h"
   #include "SM1.h"
   #include "SMasterLdd1.h"
+  #include "WAIT1.h"
+  #include "MCUC1.h"
   #include "Events.h"
 
 

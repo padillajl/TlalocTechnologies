@@ -70,6 +70,7 @@ void Cpu_OnNMIINT(void)
 void RF_IRQ_OnInterrupt(void)
 {
   /* Write your code here ... */
+	vfnMainDriver_ISR();
 }
 
 /*

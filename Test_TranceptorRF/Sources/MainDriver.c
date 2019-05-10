@@ -13,6 +13,7 @@
 
 /* Own includes */
 #include "NRF24L01Driver.h"
+#include "MainDriver.h"
 
 /*************************************************************************************************/
 /*********************						Defines							**********************/
@@ -35,7 +36,7 @@
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
-
+void vfnMainDriverConfigurationTest(void);
 /*************************************************************************************************/
 /*********************					Static Variables					**********************/
 /*************************************************************************************************/
@@ -43,6 +44,8 @@
 /*************************************************************************************************/
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
+u08 baMainDriverTestBuffer[19];
+
 static u08 baMainDriverPayloadBuffer[MAINDRIVER_PAYLOAD_SIZE]= "PACKET NUMBER:  ";
 static volatile u08 bMainDriverISRFlag;
 /*************************************************************************************************/
@@ -70,7 +73,7 @@ void vfnMainDriverInit(void)
 	/* Receive address data pipe 5 bytes maximum length */  
 	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_RX_ADDR_P0,&baMainDriverDeviceAddress[0],sizeof(baMainDriverDeviceAddress));
 	/* Transmit address. Set RX Address equal to this address to handle automatic acknowledge */
-	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_TX_ADDR,&MainDriverDeviceAddress[0],sizeof(MainDriverDeviceAddress));
+	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_TX_ADDR,&baMainDriverDeviceAddress[0],sizeof(baMainDriverDeviceAddress));
 	
 	/* Enable RX_ADDR_P0 address matching */
 	vfnNRF24L01DriverWriteRegister(NRF24L01DRIVER_REG_EN_RXADDR,NRF24L01DRIVER_EN_RXADDR_ERX_P0); /* Enable data pipe 0 */
@@ -92,6 +95,9 @@ void vfnMainDriverInit(void)
 	/* High level to listen for packets */
 	NRF24L01DRIVER_CE_HIGH();
 #endif
+	
+	/* Driver configuration Test */
+	vfnMainDriverConfigurationTest();
 }
 
 void vfnMainDriverManager(void)
@@ -136,6 +142,18 @@ void vfnMainDriverManager(void)
 	}
 	
 #endif	
+}
+
+void vfnMainDriverConfigurationTest(void)
+{
+	baMainDriverTestBuffer[0] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_RF_SETUP);
+	baMainDriverTestBuffer[1] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_RX_PW_P0);
+	baMainDriverTestBuffer[2] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_RF_CH);
+	baMainDriverTestBuffer[3] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_EN_RXADDR); /* Enable data pipe 0 */
+	/* TX */
+	baMainDriverTestBuffer[4] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_EN_AA);
+	baMainDriverTestBuffer[5] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_SETUP_RETR);
+	baMainDriverTestBuffer[6] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_CONFIG);
 }
 /************************************************************************************************************************/
 /*!

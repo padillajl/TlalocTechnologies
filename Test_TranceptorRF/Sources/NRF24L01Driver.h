@@ -16,10 +16,13 @@
 #include "SM1.h"
 #include "RF_CE.h"
 #include "RF_CSN.h"
+#include "WAIT1.h"
 /*************************************************************************************************/
 /*********************						Defines							**********************/
 /*************************************************************************************************/
 //Macros to hide low level functionality
+#define NRF24L01DRIVER_WAIT_US(x)	 WAIT1_Waitus(x) /* Wait for the given number of micro-seconds */
+#define NRF24L01DRIVER_WAIT_MS(x)	 WAIT1_Waitms(x) /* Wait for the given number of milli-seconds */
 #define NRF24L01DRIVER_CE_LOW()		 RF_CE_ClrVal()
 #define NRF24L01DRIVER_CE_HIGH()	 RF_CE_SetVal()
 #define NRF24L01DRIVER_CSN_LOW()	 RF_CSN_ClrVal()
@@ -236,8 +239,11 @@ extern u08 bNRF24L01DriverStatus;
 void vfnNRF24L01DriverInit(void);
 void vfnNRF24L01DriverManager(void);
 void vfnNRF24L01DriverWriteRegister(u08 lbRegister,u08 lbValue);
+u08 bfnNRF24L01DriverReadRegister(u08 lbRegister);
 void vfnNRF24L01DriverWriteRegisterData(u08 lbRegister,const u08 *lbBufferData,u08 lbBufferSize);
+void vfnNRF24L01DriverTransmitPayload(u08 *lbBufferPayload,u08 lbPayloadSize);
 void vfnNRF24L01DriverTxMessage(u08 *lbptrBuffer, u08 lbSize);
+u08 bfnNRF24L01DriverGetStatus(void);
 void vfnNRF24L01DriverResetStatusIRQ(u08 lbFlags);
 /*************************************************************************************************/
 #endif /* NRF24L01DRIVER_H_ */

@@ -54,6 +54,7 @@
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd2.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Cpu.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\ExtIntLdd1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\MCUC1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_LDD.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_CE.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_CSN.c</PathName>
@@ -61,6 +62,7 @@
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SM1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SMasterLdd1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Vectors.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\WAIT1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\__arm_end.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\__arm_start.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Sources\Events.c</PathName>
@@ -76,6 +78,8 @@
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Cpu.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\ExtIntLdd1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\IO_Map.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\MCUC1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\MCUC1config.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_Const.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_Error.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_LDD.h</PathName>
@@ -85,6 +89,8 @@
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_IRQ.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SM1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SMasterLdd1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\WAIT1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\WAIT1config.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Project_Headers\bme.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Project_Settings\Startup_Code\runtime_configuration.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Sources\Events.h</PathName>

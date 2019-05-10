@@ -81,11 +81,11 @@ static void SPI_WriteBuffer(const u08 *lbBufferData,u08 lbBufferSize)
 	}
 }
 
-static void SPI_WriteReadBuffer(const u08 *lbBufferData,u08 lbBufferSize)
+static void SPI_WriteReadBuffer(u08 *lbBufferDataOut ,u08 *lbBufferDataIn ,u08 lbBufferSize)
 {
 	while(lbBufferSize)
 	{
-		SPI_WriteRead(*lbBufferData++); /* Send byte per byte */
+		(*lbBufferDataIn++) = SPI_WriteRead(*lbBufferDataOut++); /* Send byte per byte */
 		lbBufferSize--;
 	}
 }
@@ -111,14 +111,13 @@ void vfnNRF24L01DriverTransmitPayload(u08 *lbBufferPayload,u08 lbPayloadSize)
 	vfnNRF24L01DriverWriteRegisterData(NRF24L01DRIVER_W_TX_PAYLOAD,lbBufferPayload,lbPayloadSize);
 	/* Start transmission */
 	NRF24L01DRIVER_CE_HIGH(); /* Is nedeed a high pulse on the CE for more than 10us */
-	/* Keep signal high for 15 micro-seconds */
+	NRF24L01DRIVER_WAIT_US(15); /* Keep signal high for 15 micro-seconds */	
 	NRF24L01DRIVER_CE_LOW(); /* End high pulse */	
 }
 
 void vfnNRF24L01DriverReceivePayload(u08 *lbBufferPayload,u08 lbPayloadSize)
 {
-	NRF24L01DRIVER_CSN_LOW(); /* CSN Low: intiate command sequence*/
-	(void)SPI_WriteRead(lbData);
+	NRF24L01DRIVER_CSN_LOW(); /* CSN Low: intiate command sequence*/	
 	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
 }
 
@@ -133,6 +132,18 @@ void vfnNRF24L01DriverWriteRegister(u08 lbRegister,u08 lbValue)
 	(void)SPI_WriteRead(NRF24L01DRIVER_W_REGISTER|lbRegister); /* Write register command */
 	(void)SPI_WriteRead(lbValue); /* Write value */
 	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
+	NRF24L01DRIVER_WAIT_US(10); /* Insert a delay until next command */
+}
+u08 bfnNRF24L01DriverReadRegister(u08 lbRegister)
+{
+	u08 lbRegisterValue = 0;
+	
+	NRF24L01DRIVER_CSN_LOW(); /* CSN Low: intiate command sequence*/
+	lbRegisterValue = SPI_WriteRead(NRF24L01DRIVER_R_REGISTER|lbRegister); /* Read register command */	
+	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
+	NRF24L01DRIVER_WAIT_US(10); /* Insert a delay until next command */
+	
+	return lbRegisterValue;
 }
 
 void vfnNRF24L01DriverWriteRegisterData(u08 lbRegister,const u08 *lbBufferData,u08 lbBufferSize)
@@ -141,6 +152,7 @@ void vfnNRF24L01DriverWriteRegisterData(u08 lbRegister,const u08 *lbBufferData,u
 	(void)SPI_WriteRead(NRF24L01DRIVER_W_REGISTER|lbRegister); /* Write register command */	
 	SPI_WriteBuffer(lbBufferData,lbBufferSize);	/* Send complete buffer */
 	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
+	NRF24L01DRIVER_WAIT_US(10); /* Insert a delay */
 }
 void vfnNRF24L01DriverReadRegisterData(u08 lbRegister,u08 *lbBufferData,u08 lbBufferSize)
 {
@@ -148,10 +160,25 @@ void vfnNRF24L01DriverReadRegisterData(u08 lbRegister,u08 *lbBufferData,u08 lbBu
 	(void)SPI_WriteRead(NRF24L01DRIVER_R_RX_PAYLOAD|lbRegister); /* Write register command */	
 	SPI_WriteBuffer(lbBufferData,lbBufferSize);	/* Send complete buffer */
 	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
+	NRF24L01DRIVER_WAIT_US(10); /* Insert a delay */
 }
-void vfnNRF24L01DriverResetStatusIRQ(u08 lbFlags)
+
+u08 vfnNRF24L01DriverWriteRead(u08 lbByteToWrite)
 {
 	NRF24L01DRIVER_CSN_LOW(); /* CSN Low: intiate command sequence*/
-	vfnNRF24L01DriverWriteRegister(NRF24L01DRIVER_REG_STATUS,lbFlags)
+	lbByteToWrite = SPI_WriteRead(lbByteToWrite); /* Write register command */
 	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
+	NRF24L01DRIVER_WAIT_US(10); /* Insert a delay */
+	return lbByteToWrite;	
+}
+
+void vfnNRF24L01DriverResetStatusIRQ(u08 lbFlags)
+{
+	NRF24L01DRIVER_WAIT_US(10);
+	NRF24L01DRIVER_CSN_LOW(); /* CSN Low: intiate command sequence*/
+	NRF24L01DRIVER_WAIT_US(10);
+	vfnNRF24L01DriverWriteRegister(NRF24L01DRIVER_REG_STATUS,lbFlags); /* Reset all IRQ in status register */
+	NRF24L01DRIVER_WAIT_US(10);
+	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
+	NRF24L01DRIVER_WAIT_US(10);
 }
