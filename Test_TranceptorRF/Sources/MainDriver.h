@@ -8,6 +8,7 @@
 #ifndef MAINDRIVER_H_
 #define MAINDRIVER_H_
 
+#include "MiscFunctions.h"
 
 void vfnMainDriverInit(void);
 void vfnMainDriverManager(void);

@@ -139,7 +139,7 @@
     </GenFiles>
     <SignalListFile>Documentation\Test_TranceptorRF_SIGNALS.txt</SignalListFile>
     <DestinationCompiler>GNUC</DestinationCompiler>
-    <ProjectModificationStamp>14</ProjectModificationStamp>
+    <ProjectModificationStamp>16</ProjectModificationStamp>
   </Options>
   <CpuID_2>
     <Generated>true</Generated>
@@ -789,8 +789,8 @@
     <GenComponentVersion>02.347</GenComponentVersion>
     <GenDriverVersion>01.01</GenDriverVersion>
     <GenEventModule>Events</GenEventModule>
-    <HeaderAge>1319586301</HeaderAge>
-    <CodeAge>1316254322</CodeAge>
+    <HeaderAge>1320054539</HeaderAge>
+    <CodeAge>1320054539</CodeAge>
     <AsemblAge>-1</AsemblAge>
     <GenNumMethods>19</GenNumMethods>
     <Enable>false</Enable>

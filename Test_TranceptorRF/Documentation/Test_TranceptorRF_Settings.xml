@@ -556,10 +556,10 @@ PE_DEBUGHALT();
       <group name="Settings">
         <Width v="8 bits" />
         <boolgroup name="Input pin" v="Enabled">
-          <Pin v="PTE3/SPI1_MISO/SPI1_MOSI" />
+          <Pin v="PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL" />
         </boolgroup>
         <boolgroup name="Output pin" v="Enabled">
-          <Pin v="PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL" />
+          <Pin v="PTE3/SPI1_MISO/SPI1_MOSI" />
         </boolgroup>
         <group name="Clock pin">
           <Pin v="PTE2/SPI1_SCK" />

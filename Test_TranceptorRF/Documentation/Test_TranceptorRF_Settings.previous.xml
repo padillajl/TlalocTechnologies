@@ -244,7 +244,7 @@
             <Core_clock v="20.971520000000" />
             <Bus_clock_prescaler v="Auto select" />
             <Bus_clock v="20.971520000000" />
-            <enumgroup name="PLL/FLL clock selection" v="FLL clock">
+            <enumgroup name="PLL/FLL clock selection" v="Auto select">
               <Clock_frequency__MHz_ v="20.971520000000" />
             </enumgroup>
             <enumgroup name="TPM clock selection" v="Disabled">

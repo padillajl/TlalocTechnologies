@@ -6,7 +6,7 @@
 **     Component   : SynchroMaster
 **     Version     : Component 02.347, Driver 01.01, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-05-07, 09:15, # CodeGen: 13
+**     Date/Time   : 2019-05-14, 13:56, # CodeGen: 19
 **     Abstract    :
 **         This component "SynchroMaster" implements MASTER part of synchronous
 **         serial master-slave communication.
@@ -40,8 +40,8 @@
 **         ----------------------------------------------------------
 **              Function    | On package |    Name
 **         ----------------------------------------------------------
-**               Input      |     4      |  PTE3/SPI1_MISO/SPI1_MOSI
-**               Output     |     2      |  PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL
+**               Input      |     2      |  PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL
+**               Output     |     4      |  PTE3/SPI1_MISO/SPI1_MOSI
 **               Clock      |     3      |  PTE2/SPI1_SCK
 **         ----------------------------------------------------------
 **

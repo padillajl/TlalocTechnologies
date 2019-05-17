@@ -139,7 +139,8 @@ u08 bfnNRF24L01DriverReadRegister(u08 lbRegister)
 	u08 lbRegisterValue = 0;
 	
 	NRF24L01DRIVER_CSN_LOW(); /* CSN Low: intiate command sequence*/
-	lbRegisterValue = SPI_WriteRead(NRF24L01DRIVER_R_REGISTER|lbRegister); /* Read register command */	
+	(void)SPI_WriteRead(NRF24L01DRIVER_R_REGISTER|lbRegister); /* Read register command */
+	lbRegisterValue = SPI_WriteRead(0); /* Write Dummy */	
 	NRF24L01DRIVER_CSN_HIGH(); /* CSN High: end command sequence*/
 	NRF24L01DRIVER_WAIT_US(10); /* Insert a delay until next command */
 	
