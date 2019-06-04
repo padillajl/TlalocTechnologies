@@ -9,6 +9,10 @@
 #define MAINDRIVER_H_
 
 #include "MiscFunctions.h"
+#include "BlueLED.h"
+#include "GreenLED.h"
+#include "RedLED.h"
+
 
 void vfnMainDriverInit(void);
 void vfnMainDriverManager(void);

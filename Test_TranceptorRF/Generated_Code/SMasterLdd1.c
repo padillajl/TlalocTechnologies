@@ -6,7 +6,7 @@
 **     Component   : SPIMaster_LDD
 **     Version     : Component 01.111, Driver 01.02, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-03-20, 14:19, # CodeGen: 8
+**     Date/Time   : 2019-05-20, 17:29, # CodeGen: 38
 **     Abstract    :
 **         This component "SPIMaster_LDD" implements MASTER part of synchronous
 **         serial master-slave communication.
@@ -23,7 +23,7 @@
 **              Pin                                        : PTE1/SPI1_MOSI/UART1_RX/SPI1_MISO/I2C1_SCL
 **              Pin signal                                 : 
 **            Output pin                                   : Enabled
-**              Pin                                        : PTE3/SPI1_MISO/SPI1_MOSI
+**              Pin                                        : PTD7/SPI1_MISO/UART0_TX/SPI1_MOSI
 **              Pin signal                                 : 
 **            Clock pin                                    : 
 **              Pin                                        : PTE2/SPI1_SCK
@@ -207,8 +207,8 @@ LDD_TDeviceData* SMasterLdd1_Init(LDD_TUserData *UserDataPtr)
                )) | (uint32_t)(
                 PORT_PCR_MUX(0x05)
                ));
-  /* PORTE_PCR3: ISF=0,MUX=5 */
-  PORTE_PCR3 = (uint32_t)((PORTE_PCR3 & (uint32_t)~(uint32_t)(
+  /* PORTD_PCR7: ISF=0,MUX=5 */
+  PORTD_PCR7 = (uint32_t)((PORTD_PCR7 & (uint32_t)~(uint32_t)(
                 PORT_PCR_ISF_MASK |
                 PORT_PCR_MUX(0x02)
                )) | (uint32_t)(

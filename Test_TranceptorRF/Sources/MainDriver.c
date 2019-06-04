@@ -73,6 +73,11 @@ void vfnMainDriverInit(void)
 {
 	vfnNRF24L01DriverInit();
 	
+	/* Init LED's in off state */
+	GreenLED_SetVal();
+	RedLED_SetVal();
+	BlueLED_SetVal();
+	
 	baMainDriverConfigBuffer[0] = MAINDRIVER_RXTX_CONFIG_1;
 	vfnNRF24L01DriverWriteRegister(NRF24L01DRIVER_REG_RF_SETUP,MAINDRIVER_RXTX_CONFIG_1); /* RXTX Config 1 */
 	
@@ -115,7 +120,12 @@ void vfnMainDriverInit(void)
 	#endif
 	
 	/* Driver Validation */
-	bfnMainDriverValidateConfiguration();
+	if( bfnMainDriverValidateConfiguration() )
+		GreenLED_ClrVal();
+	else
+		RedLED_ClrVal();
+	
+	
 }
 
 void vfnMainDriverManager(void)
@@ -171,8 +181,11 @@ void vfnMainDriverManager(void)
 u08 bfnMainDriverValidateConfiguration(void)
 {
 	u08 lbaMainDriverReadConfigBuffer[7];
-	u08 lbConfigIndex;
+	u08 lbConfigIndex = 0;
 	u08 lbConfigTotal;
+	
+	//Clean local buffer
+	memset(&lbaMainDriverReadConfigBuffer[0],0,sizeof(lbaMainDriverReadConfigBuffer));
 	
 	lbaMainDriverReadConfigBuffer[0] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_REG_RF_SETUP);
 	lbaMainDriverReadConfigBuffer[1] = bfnNRF24L01DriverReadRegister(NRF24L01DRIVER_RX_PW_P0);

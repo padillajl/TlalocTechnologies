@@ -19,17 +19,17 @@ by the component.
 <tr><td colspan="4" class="ttitle1">BitIoLdd2 Initialization</td></tr>
 <tr><td class="ttitle2">Address</td><td class="ttitle2">Register</td><td class="ttitle2">Register Value</td><td class="ttitle2">Register Description</td></tr>
 <tr><td>0x400FF0D4</td><td>GPIOD_PDDR</td><td>
-    0x00000021
+    0x00000005
  </td><td>GPIOD_PDDR register, peripheral BitIoLdd2.</td></tr>
 <tr><td>0x400FF0C0</td><td>GPIOD_PDOR</td><td>
-    0x00000020
+    0x00000004
  </td><td>GPIOD_PDOR register, peripheral BitIoLdd2.</td></tr>
 <tr><td>0x4004C000</td><td>PORTD_PCR0</td><td>
     0x00000100
  </td><td>PORTD_PCR0 register, peripheral BitIoLdd2.</td></tr>
-<tr><td>0x4004C014</td><td>PORTD_PCR5</td><td>
+<tr><td>0x4004C008</td><td>PORTD_PCR2</td><td>
     0x00000100
- </td><td>PORTD_PCR5 register, peripheral BitIoLdd2.</td></tr>
+ </td><td>PORTD_PCR2 register, peripheral BitIoLdd2.</td></tr>
 </table>
 <br/>
 \page BitIoLdd2_regs_details Register Initialization Details
@@ -73,7 +73,7 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x400FF0D4</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000021</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000005</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>0 - 31</td><td>PDD</td><td>0x00</td><td>Port Data Direction</td>
@@ -115,7 +115,7 @@ registers of the peripheral(s) configured by the component.
         
 </div>
 <table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x400FF0C0</td></tr>
-<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000020</td></tr>
+<tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000004</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
 <tr><td>0 - 31</td><td>PDO</td><td>0x00</td><td>Port Data Output</td>
@@ -177,7 +177,7 @@ registers of the peripheral(s) configured by the component.
 <tr><td>1</td><td>PE</td><td>0x00</td><td>Pull Enable</td>
 <tr><td>0</td><td>PS</td><td>0x00</td><td>Pull Select</td>
 </tr></table>
-<div class="reghdr1">PORTD_PCR5</div>
+<div class="reghdr1">PORTD_PCR2</div>
 <div class="regdiag">
 <table class="regtbl">
 <tr class="trd1r">
@@ -221,7 +221,7 @@ registers of the peripheral(s) configured by the component.
 </table>
         
 </div>
-<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004C014</td></tr>
+<table class="regtbl2"><tr><td class="trowtit" colspan="2">Address</td><td colspan="2">0x4004C008</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">Initial value</td><td colspan="2">0x00000100</td></tr>
 <tr class="trowtit"><td  class="trowtit" colspan="2">After-reset value</td><td colspan="2">0x00000000</td></tr>
 <tr><td class="ttitle2">Bit</td><td class="ttitle2">Field</td><td class="ttitle2">Value</td><td class="ttitle2">Description</td></tr>
@@ -239,7 +239,7 @@ registers of the peripheral(s) configured by the component.
 \page BitIoLdd2_settings Component Settings
 \code
 **          Component name                                 : BitIoLdd2
-**          Pin for I/O                                    : ADC0_SE6b/PTD5/SPI1_SCK/UART2_TX/TPM0_CH5
+**          Pin for I/O                                    : PTD2/SPI0_MOSI/UART2_RX/TPM0_CH2/SPI0_MISO
 **          Pin signal                                     : 
 **          Direction                                      : Input/Output
 **          Initialization                                 : 

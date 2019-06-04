@@ -52,13 +52,19 @@
     <GeneratedCs>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd2.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd3.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd4.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd5.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BlueLED.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Cpu.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\ExtIntLdd1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\GreenLED.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\MCUC1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\PE_LDD.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_CE.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_CSN.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_IRQ.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RedLED.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SM1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SMasterLdd1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Vectors.c</PathName>
@@ -75,8 +81,13 @@
     <GeneratedHs>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd2.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd3.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd4.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BitIoLdd5.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\BlueLED.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\Cpu.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\ExtIntLdd1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\GreenLED.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\IO_Map.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\MCUC1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\MCUC1config.h</PathName>
@@ -87,6 +98,7 @@
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_CE.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_CSN.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RF_IRQ.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\RedLED.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SM1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\SMasterLdd1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_TranceptorRF\Generated_Code\WAIT1.h</PathName>
