@@ -6,7 +6,7 @@
 **     Component   : PE_Types
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-03, 14:16, # CodeGen: 0
+**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
 **     Abstract    :
 **         PE_Types.h - contains definitions of basic types,
 **         register access macros and hardware specific macros
@@ -198,6 +198,15 @@ typedef unsigned long int       uint32;
 #define PE_LDD_GetDeviceStructure(ComponentIndex) (PE_LDD_DeviceDataList[ComponentIndex])
 
 /*
+** ===========================================================================
+** LDD component ID specifying the component instance in the project. This ID
+** is used internally as an index to the array of LDD device structures.
+** ===========================================================================
+*/
+#define PE_LDD_COMPONENT_ASerialLdd1_ID          0x00U
+#define PE_LDD_COMPONENT_ASerialLdd2_ID          0x01U
+
+/*
 ** ===================================================================
 ** Global HAL types and constants
 ** ===================================================================
@@ -224,6 +233,8 @@ typedef uint16_t LDD_TDriverState;     /*!< Driver state type. */
 typedef void LDD_TCallbackParam;       /*!< Pointer to this type specifies the user data to be passed as a callback parameter. */
 typedef void (* LDD_TCallback)(LDD_TCallbackParam *CallbackParam); /*!< Callback type used for definition of callback functions. */
 
+extern LDD_TDeviceData *PE_LDD_DeviceDataList[]; /*!< Array of LDD component device structures */
+
 
 /* Fills a memory area block by a specified value. Function defined in PE_LDD.c */
 extern void PE_FillMemory(register void* SourceAddressPtr, register uint8_t c, register uint32_t len);
@@ -234,7 +245,7 @@ extern void PE_FillMemory(register void* SourceAddressPtr, register uint8_t c, r
 ** RTOS specific types and constants
 ** ===================================================================
 */
-/* {Default RTOS Adapter} RTOS specific definition of type of Ioctl() command constants */
+/* {FreeRTOS RTOS Adapter} RTOS specific definition of type of Ioctl() command constants */
 
 
 /*
@@ -242,7 +253,7 @@ extern void PE_FillMemory(register void* SourceAddressPtr, register uint8_t c, r
 ** Published RTOS settings and constants
 ** ===================================================================
 */
-/* {Default RTOS Adapter} No published RTOS settings */
+/* {FreeRTOS RTOS Adapter} No published RTOS settings */
 
 
 /*

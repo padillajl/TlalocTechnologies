@@ -2,22 +2,22 @@
 #define __CLS1_CONFIG_H
 
 #ifndef CLS1_CONFIG_BLOCKING_SEND_ENABLED
-  #define CLS1_CONFIG_BLOCKING_SEND_ENABLED  (0)
+  #define CLS1_CONFIG_BLOCKING_SEND_ENABLED  (1)
     /*!< 1: Sending is blocking (with an optional timeout); 0: Do not block on sending */
 #endif
 
 #ifndef CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_MS
-  #define CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_MS  (0)
+  #define CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_MS  (5)
     /*!< Total blocking time (timeout) in milliseconds, uses 0 for blocking without a timeout */
 #endif
 
 #ifndef CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_WAIT_MS
-  #define CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_WAIT_MS  (0)
+  #define CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_WAIT_MS  (10)
     /*!< waiting time during blocking, use 0 (zero) for polling */
 #endif
 
 #ifndef CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT
-  #define CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT  (0)
+  #define CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT  (1)
     /*!< 1: Use WaitmsOS() instead of Waitms(); 0: Use Waitms() instead of WaitOSms() */
 #endif
 
@@ -32,18 +32,18 @@
 #endif
 
 #ifndef CLS1_CONFIG_DEFAULT_SERIAL
-  #define CLS1_CONFIG_DEFAULT_SERIAL  (0)
+  #define CLS1_CONFIG_DEFAULT_SERIAL  (1)
     /*!< 1: the shell implements its own StdIO which is returned by GetStdio(); 0: The shell does not implement its own standard I/O */
 #endif
 
 #if CLS1_CONFIG_DEFAULT_SERIAL
-  #define CLS1_CONFIG_DEFAULT_SERIAL_RECEIVE_FCT_NAME   RecvChar
+  #define CLS1_CONFIG_DEFAULT_SERIAL_RECEIVE_FCT_NAME   ShellSerial_RecvChar
     /*!< Function name to read a character and returning ERR_OK if it was successful */
 
-  #define CLS1_CONFIG_DEFAULT_SERIAL_SEND_FCT_NAME   SendChar
+  #define CLS1_CONFIG_DEFAULT_SERIAL_SEND_FCT_NAME   ShellSerial_SendChar
     /*!< Function name to send a character and returning ERR_OK if it was successful */
 
-  #define CLS1_CONFIG_DEFAULT_SERIAL_RXAVAIL_FCT_NAME   GetCharsInRxBuf
+  #define CLS1_CONFIG_DEFAULT_SERIAL_RXAVAIL_FCT_NAME   ShellSerial_GetCharsInRxBuf
     /*!< Function name to check if there is anything available to receive and returns TRUE, otherwise FALSE */
 #endif
 
@@ -52,7 +52,7 @@
 #endif
 
 #ifndef CLS1_CONFIG_PROJECT_NAME_STRING
-  #define CLS1_CONFIG_PROJECT_NAME_STRING    "My Project Name"
+  #define CLS1_CONFIG_PROJECT_NAME_STRING    "ESP8266 with FRDM-KL25Z"
 #endif
 
 

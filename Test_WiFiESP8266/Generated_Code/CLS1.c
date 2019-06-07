@@ -6,22 +6,27 @@
 **     Component   : Shell
 **     Version     : Component 01.098, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-04, 14:09, # CodeGen: 1
+**     Date/Time   : 2019-06-07, 11:19, # CodeGen: 6
 **     Abstract    :
 **         Module implementing a command line shell.
 **     Settings    :
 **          Component name                                 : CLS1
 **          Echo                                           : no
 **          Prompt                                         : "CMD> "
-**          Project Name                                   : My Project Name
+**          Project Name                                   : ESP8266 with FRDM-KL25Z
 **          Silent Mode Prefix                             : #
 **          Buffer Size                                    : 48
-**          Blocking Send                                  : Disabled
+**          Blocking Send                                  : Enabled
+**            Wait                                         : WAIT1
+**            Timeout (ms)                                 : 5
+**            Wait Time (ms)                               : 10
+**            RTOS Wait                                    : yes
 **          Status Colon Pos                               : 13
 **          Help Semicolon Pos                             : 26
 **          Multi Command                                  : Disabled
 **          Utility                                        : UTIL1
-**          Default Serial                                 : Disabled
+**          Default Serial                                 : Enabled
+**            Console Interface                            : ShellSerial
 **          Semaphore                                      : no
 **          Critical Section                               : CS1
 **          History                                        : no
@@ -1261,9 +1266,9 @@ void CLS1_SendCharFct(uint8_t ch, uint8_t (*fct)(uint8_t ch))
   #if CLS1_CONFIG_BLOCKING_SEND_TIMEOUT_WAIT_MS
     if (res==ERR_TXFULL) {
     #if CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT
-      McuWait_WaitOSms(CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT);
+      WAIT1_WaitOSms(CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT);
     #else
-      MCUWait_Waitms(CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT);
+      WAIT1_Waitms(CLS1_CONFIG_BLOCKING_SEND_RTOS_WAIT);
     #endif
     }
   #endif

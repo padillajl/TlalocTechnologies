@@ -7,7 +7,7 @@
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : KL25P80M48SF0RM, Rev.3, Sep 2012
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-04, 14:09, # CodeGen: 1
+**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
 **     Abstract    :
 **
 **     Settings    :
@@ -59,12 +59,18 @@
 
 /* MODULE Cpu. */
 
-/* {Default RTOS Adapter} No RTOS includes */
+#include "FreeRTOS.h" /* FreeRTOS interface */
 #include "CLS1.h"
 #include "CS1.h"
 #include "XF1.h"
 #include "UTIL1.h"
 #include "MCUC1.h"
+#include "WAIT1.h"
+#include "ShellSerial.h"
+#include "ASerialLdd1.h"
+#include "WiFiSerial.h"
+#include "ASerialLdd2.h"
+#include "FRTOS1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -130,18 +136,18 @@ void __init_hardware(void)
   /* System clock initialization */
   /* SIM_CLKDIV1: OUTDIV1=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,OUTDIV4=3,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0 */
   SIM_CLKDIV1 = (SIM_CLKDIV1_OUTDIV1(0x00) | SIM_CLKDIV1_OUTDIV4(0x03)); /* Set the system prescalers to safe value */
-  /* SIM_SCGC5: PORTA=1 */
-  SIM_SCGC5 |= SIM_SCGC5_PORTA_MASK;   /* Enable clock gate for ports to enable pin routing */
+  /* SIM_SCGC5: PORTE=1,PORTA=1 */
+  SIM_SCGC5 |= (SIM_SCGC5_PORTE_MASK | SIM_SCGC5_PORTA_MASK); /* Enable clock gate for ports to enable pin routing */
   if ((PMC_REGSC & PMC_REGSC_ACKISO_MASK) != 0x0U) {
     /* PMC_REGSC: ACKISO=1 */
     PMC_REGSC |= PMC_REGSC_ACKISO_MASK; /* Release IO pads after wakeup from VLLS mode. */
   }
-  /* SIM_CLKDIV1: OUTDIV1=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,OUTDIV4=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0 */
-  SIM_CLKDIV1 = (SIM_CLKDIV1_OUTDIV1(0x00) | SIM_CLKDIV1_OUTDIV4(0x00)); /* Update system prescalers */
+  /* SIM_CLKDIV1: OUTDIV1=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,OUTDIV4=1,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0,??=0 */
+  SIM_CLKDIV1 = (SIM_CLKDIV1_OUTDIV1(0x00) | SIM_CLKDIV1_OUTDIV4(0x01)); /* Update system prescalers */
   /* SIM_SOPT2: PLLFLLSEL=0 */
   SIM_SOPT2 &= (uint32_t)~(uint32_t)(SIM_SOPT2_PLLFLLSEL_MASK); /* Select FLL as a clock source for various peripherals */
-  /* SIM_SOPT1: OSC32KSEL=3 */
-  SIM_SOPT1 |= SIM_SOPT1_OSC32KSEL(0x03); /* LPO 1kHz oscillator drives 32 kHz clock for various peripherals */
+  /* SIM_SOPT1: OSC32KSEL=0 */
+  SIM_SOPT1 &= (uint32_t)~(uint32_t)(SIM_SOPT1_OSC32KSEL(0x03)); /* System oscillator drives 32 kHz clock for various peripherals */
   /* SIM_SOPT2: TPMSRC=1 */
   SIM_SOPT2 = (uint32_t)((SIM_SOPT2 & (uint32_t)~(uint32_t)(
                SIM_SOPT2_TPMSRC(0x02)
@@ -149,17 +155,19 @@ void __init_hardware(void)
                SIM_SOPT2_TPMSRC(0x01)
               ));                      /* Set the TPM clock */
   /* Switch to FEI Mode */
-  /* MCG_C1: CLKS=0,FRDIV=0,IREFS=1,IRCLKEN=1,IREFSTEN=0 */
-  MCG_C1 = MCG_C1_CLKS(0x00) |
-           MCG_C1_FRDIV(0x00) |
-           MCG_C1_IREFS_MASK |
-           MCG_C1_IRCLKEN_MASK;
+  /* MCG_C1: CLKS=0,FRDIV=0,IREFS=1,IRCLKEN=0,IREFSTEN=0 */
+  MCG_C1 = (MCG_C1_CLKS(0x00) | MCG_C1_FRDIV(0x00) | MCG_C1_IREFS_MASK);
   /* MCG_C2: LOCRE0=0,??=0,RANGE0=0,HGO0=0,EREFS0=0,LP=0,IRCS=0 */
   MCG_C2 = MCG_C2_RANGE0(0x00);
-  /* MCG_C4: DMX32=0,DRST_DRS=0 */
-  MCG_C4 &= (uint8_t)~(uint8_t)((MCG_C4_DMX32_MASK | MCG_C4_DRST_DRS(0x03)));
-  /* OSC0_CR: ERCLKEN=1,??=0,EREFSTEN=0,??=0,SC2P=0,SC4P=0,SC8P=0,SC16P=0 */
-  OSC0_CR = OSC_CR_ERCLKEN_MASK;
+  /* MCG_C4: DMX32=1,DRST_DRS=1 */
+  MCG_C4 = (uint8_t)((MCG_C4 & (uint8_t)~(uint8_t)(
+            MCG_C4_DRST_DRS(0x02)
+           )) | (uint8_t)(
+            MCG_C4_DMX32_MASK |
+            MCG_C4_DRST_DRS(0x01)
+           ));
+  /* OSC0_CR: ERCLKEN=1,??=0,EREFSTEN=1,??=0,SC2P=0,SC4P=0,SC8P=0,SC16P=0 */
+  OSC0_CR = (OSC_CR_ERCLKEN_MASK | OSC_CR_EREFSTEN_MASK);
   /* MCG_C5: ??=0,PLLCLKEN0=0,PLLSTEN0=0,PRDIV0=0 */
   MCG_C5 = MCG_C5_PRDIV0(0x00);
   /* MCG_C6: LOLIE0=0,PLLS=0,CME0=0,VDIV0=0 */
@@ -245,8 +253,15 @@ void PE_low_level_init(void)
   CS1_Init(); /* ### CriticalSection "CS1" init code ... */
   XF1_Init(); /* ### XFormat "XF1" init code ... */
   UTIL1_Init(); /* ### Utility "UTIL1" init code ... */
+  WAIT1_Init(); /* ### Wait "WAIT1" init code ... */
+  /* ### Asynchro serial "ShellSerial" init code ... */
+  ShellSerial_Init();
   CLS1_Init(); /* ### Shell "CLS1" init code ... */
-  __EI();
+  /* ### Asynchro serial "WiFiSerial" init code ... */
+  WiFiSerial_Init();
+  /* PEX_RTOS_INIT() is a macro should already have been called either from main()
+     or Processor Expert startup code. So we don't call it here again. */
+  /* PEX_RTOS_INIT(); */ /* ### FreeRTOS "FRTOS1" init code ... */
 }
   /* Flash configuration field */
   __attribute__ ((section (".cfmconfig"))) const uint8_t _cfm[0x10] = {

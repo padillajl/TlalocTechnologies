@@ -5,7 +5,7 @@
 **     Processor   : MKL25Z128VLK4
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-03, 14:16, # CodeGen: 0
+**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
 **     Abstract    :
 **
 **     Settings    :
@@ -55,13 +55,23 @@
 
 /* MODULE PE_LDD. */
 
-/* {Default RTOS Adapter} No RTOS includes */
-/* {Default RTOS Adapter} No RTOS driver includes */
+#include "FreeRTOS.h" /* FreeRTOS interface */
+/* {FreeRTOS RTOS Adapter} No RTOS driver includes */
 
 #include "PE_LDD.h"
 #include "Cpu.h"
 
 /*lint -esym(765,PE_PeripheralUsed,LDD_SetClockConfiguration,PE_CpuClockConfigurations,PE_FillMemory) Disable MISRA rule (8.10) checking for symbols (PE_PeripheralUsed,LDD_SetClockConfiguration,PE_CpuClockConfigurations,PE_FillMemory). */
+
+/*
+** ===========================================================================
+** Array of initialized device structures of LDD components.
+** ===========================================================================
+*/
+LDD_TDeviceData *PE_LDD_DeviceDataList[2] = {
+    NULL,
+    NULL
+  };
 
 /*
 ** ===========================================================================
@@ -127,8 +137,19 @@ void PE_FillMemory(register void* SourceAddressPtr, register uint8_t c, register
 /* ===================================================================*/
 bool PE_PeripheralUsed(uint32_t PrphBaseAddress)
 {
-  (void)PrphBaseAddress;               /*!< Parameter is not used, suppress unused argument warning */
-  return FALSE;
+  bool result = FALSE;
+
+  switch (PrphBaseAddress) {
+    /* Base address allocated by peripheral(s) UART0 */
+    case 0x4006A000UL:
+    /* Base address allocated by peripheral(s) UART1 */
+    case 0x4006B000UL:
+      result = TRUE;
+      break;
+    default:
+      break;
+  }
+  return result;
 }
 
 /*

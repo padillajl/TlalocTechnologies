@@ -6,14 +6,14 @@
 **     Component   : CriticalSection
 **     Version     : Component 01.013, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-04, 14:09, # CodeGen: 1
+**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
 **     Abstract    :
 **
 **     Settings    :
 **          Component name                                 : CS1
 **          SDK                                            : MCUC1
 **          Use Processor Expert Default                   : no
-**          Use FreeRTOS                                   : no
+**          Use FreeRTOS                                   : yes
 **     Contents    :
 **         CriticalVariable - void CS1_CriticalVariable(void);
 **         EnterCritical    - void CS1_EnterCritical(void);
