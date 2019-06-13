@@ -6,7 +6,7 @@
 **     Component   : Serial_LDD
 **     Version     : Component 01.187, Driver 01.13, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
+**     Date/Time   : 2019-06-10, 13:28, # CodeGen: 15
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -281,7 +281,7 @@ LDD_TError ASerialLdd2_SendBlock(LDD_TDeviceData *DeviceDataPtr, LDD_TData *Buff
 **         This method is internal. It is used by Processor Expert only.
 ** ===================================================================
 */
-/* {FreeRTOS RTOS Adapter} ISR function prototype */
+/* {Default RTOS Adapter} ISR function prototype */
 PE_ISR(ASerialLdd2_Interrupt);
 
 /*

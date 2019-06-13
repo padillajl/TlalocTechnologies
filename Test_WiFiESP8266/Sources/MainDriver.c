@@ -26,7 +26,7 @@
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
-static portTASK_FUNCTION(Task1,pvParameters);
+
 /*************************************************************************************************/
 /*********************					Static Variables					**********************/
 /*************************************************************************************************/
@@ -48,24 +48,9 @@ static portTASK_FUNCTION(Task1,pvParameters);
 /*************************************************************************************************/
 void vfnMainDriverInit(void)
 {
-	/* Init shell */
-	SHELL_vfnInit();
-}
-
-static portTASK_FUNCTION(Task1,pvParameters)
-{
-	(void)pvParameters;
-	for(;;)
-	{
-		FRTOS1_vTaskDelay(1000/portTICK_RATE_MS);
-	}
+	vfnShellInit();
 }
 void vfnMainDriverManager(void)
 {
-	if(FRTOS1_xTaskCreate(Task1,"Task1",configMINIMAL_STACK_SIZE,(void*)NULL,tskIDLE_PRIORITY,(xTaskHandle*)NULL)!= pdPASS)
-	{
-		for(;;){};
-	}
-	
-	  FRTOS1_vTaskStartScheduler();
+	vfnShellTask();
 }

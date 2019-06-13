@@ -7,7 +7,7 @@
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : KL25P80M48SF0RM, Rev.3, Sep 2012
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
+**     Date/Time   : 2019-06-10, 13:28, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
@@ -158,7 +158,7 @@ extern volatile uint8_t SR_lock;
 */
 void PE_low_level_init(void);
 
-/* {FreeRTOS RTOS Adapter} ISR function prototype */
+/* {Default RTOS Adapter} ISR function prototype */
 PE_ISR(Cpu_INT_NMIInterrupt);
 /*
 ** ===================================================================

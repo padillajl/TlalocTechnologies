@@ -7,7 +7,7 @@
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Datasheet   : KL25P80M48SF0RM, Rev.3, Sep 2012
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
+**     Date/Time   : 2019-06-10, 13:28, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
@@ -59,7 +59,7 @@
 
 /* MODULE Cpu. */
 
-#include "FreeRTOS.h" /* FreeRTOS interface */
+/* {Default RTOS Adapter} No RTOS includes */
 #include "CLS1.h"
 #include "CS1.h"
 #include "XF1.h"
@@ -70,7 +70,6 @@
 #include "ASerialLdd1.h"
 #include "WiFiSerial.h"
 #include "ASerialLdd2.h"
-#include "FRTOS1.h"
 #include "PE_Types.h"
 #include "PE_Error.h"
 #include "PE_Const.h"
@@ -259,9 +258,7 @@ void PE_low_level_init(void)
   CLS1_Init(); /* ### Shell "CLS1" init code ... */
   /* ### Asynchro serial "WiFiSerial" init code ... */
   WiFiSerial_Init();
-  /* PEX_RTOS_INIT() is a macro should already have been called either from main()
-     or Processor Expert startup code. So we don't call it here again. */
-  /* PEX_RTOS_INIT(); */ /* ### FreeRTOS "FRTOS1" init code ... */
+  __EI();
 }
   /* Flash configuration field */
   __attribute__ ((section (".cfmconfig"))) const uint8_t _cfm[0x10] = {

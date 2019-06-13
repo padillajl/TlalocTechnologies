@@ -5,7 +5,7 @@
 **     Processor   : MKL25Z128VLK4
 **     Version     : Component 01.025, Driver 01.04, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
+**     Date/Time   : 2019-06-10, 13:28, # CodeGen: 15
 **     Abstract    :
 **
 **     Settings    :
@@ -70,7 +70,6 @@
 #include "ASerialLdd1.h"
 #include "WiFiSerial.h"
 #include "ASerialLdd2.h"
-#include "FRTOS1.h"
 
 
 /*

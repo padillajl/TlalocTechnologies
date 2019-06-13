@@ -6,14 +6,14 @@
 **     Component   : Shell
 **     Version     : Component 01.098, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 11:19, # CodeGen: 6
+**     Date/Time   : 2019-06-10, 14:21, # CodeGen: 17
 **     Abstract    :
 **         Module implementing a command line shell.
 **     Settings    :
 **          Component name                                 : CLS1
-**          Echo                                           : no
+**          Echo                                           : yes
 **          Prompt                                         : "CMD> "
-**          Project Name                                   : ESP8266 with FRDM-KL25Z
+**          Project Name                                   : Shell with FRDM-KL25Z
 **          Silent Mode Prefix                             : #
 **          Buffer Size                                    : 48
 **          Blocking Send                                  : Enabled
@@ -184,7 +184,7 @@
 #define CLS1_MULTI_CMD_CHAR      ';' /* separation character */
 
 /* settings for local echo */
-#define CLS1_ECHO_ENABLED  0           /* 1: enabled, 0: disabled */
+#define CLS1_ECHO_ENABLED  1           /* 1: enabled, 0: disabled */
 
 #define CLS1_DEFAULT_SERIAL  CLS1_CONFIG_DEFAULT_SERIAL /* If set to 1, then the shell implements its own StdIO which is returned by CLS1_GetStdio(); */
 

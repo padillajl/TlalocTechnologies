@@ -6,7 +6,7 @@
 **     Component   : PE_Types
 **     Version     : Driver 01.01
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
+**     Date/Time   : 2019-06-10, 13:28, # CodeGen: 15
 **     Abstract    :
 **         PE_Types.h - contains definitions of basic types,
 **         register access macros and hardware specific macros
@@ -245,7 +245,7 @@ extern void PE_FillMemory(register void* SourceAddressPtr, register uint8_t c, r
 ** RTOS specific types and constants
 ** ===================================================================
 */
-/* {FreeRTOS RTOS Adapter} RTOS specific definition of type of Ioctl() command constants */
+/* {Default RTOS Adapter} RTOS specific definition of type of Ioctl() command constants */
 
 
 /*
@@ -253,7 +253,7 @@ extern void PE_FillMemory(register void* SourceAddressPtr, register uint8_t c, r
 ** Published RTOS settings and constants
 ** ===================================================================
 */
-/* {FreeRTOS RTOS Adapter} No published RTOS settings */
+/* {Default RTOS Adapter} No published RTOS settings */
 
 
 /*

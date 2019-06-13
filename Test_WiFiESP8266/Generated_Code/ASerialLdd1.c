@@ -6,7 +6,7 @@
 **     Component   : Serial_LDD
 **     Version     : Component 01.187, Driver 01.13, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 12:58, # CodeGen: 11
+**     Date/Time   : 2019-06-10, 13:28, # CodeGen: 15
 **     Abstract    :
 **         This component "Serial_LDD" implements an asynchronous serial
 **         communication. The component supports different settings of
@@ -114,7 +114,7 @@
 /* MODULE ASerialLdd1. */
 /*lint -save  -e926 -e927 -e928 -e929 -e572 Disable MISRA rule (11.4,12.8) checking. */
 
-#include "FreeRTOS.h" /* FreeRTOS interface */
+/* {Default RTOS Adapter} No RTOS includes */
 #include "ASerialLdd1.h"
 #include "ShellSerial.h"
 #include "UART0_PDD.h"
@@ -127,7 +127,7 @@ extern "C" {
 /*! The mask of available events used to enable/disable events during runtime. */
 #define AVAILABLE_EVENTS_MASK (LDD_SERIAL_ON_BREAK)
 
-/* {FreeRTOS RTOS Adapter} Static object used for simulation of dynamic driver memory allocation */
+/* {Default RTOS Adapter} Static object used for simulation of dynamic driver memory allocation */
 static ASerialLdd1_TDeviceData DeviceDataPrv__DEFAULT_RTOS_ALLOC;
 
 /*
@@ -155,7 +155,7 @@ LDD_TDeviceData* ASerialLdd1_Init(LDD_TUserData *UserDataPtr)
 {
   /* Allocate device structure */
   ASerialLdd1_TDeviceDataPtr DeviceDataPrv;
-  /* {FreeRTOS RTOS Adapter} Driver memory allocation: Dynamic allocation is simulated by a pointer to the static object */
+  /* {Default RTOS Adapter} Driver memory allocation: Dynamic allocation is simulated by a pointer to the static object */
   DeviceDataPrv = &DeviceDataPrv__DEFAULT_RTOS_ALLOC;
 
   /* Clear the receive counters and pointer */

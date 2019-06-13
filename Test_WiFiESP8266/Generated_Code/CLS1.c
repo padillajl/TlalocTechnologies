@@ -6,14 +6,14 @@
 **     Component   : Shell
 **     Version     : Component 01.098, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-07, 11:19, # CodeGen: 6
+**     Date/Time   : 2019-06-10, 14:26, # CodeGen: 18
 **     Abstract    :
 **         Module implementing a command line shell.
 **     Settings    :
 **          Component name                                 : CLS1
-**          Echo                                           : no
+**          Echo                                           : yes
 **          Prompt                                         : "CMD> "
-**          Project Name                                   : ESP8266 with FRDM-KL25Z
+**          Project Name                                   : Shell with FRDM-KL25Z
 **          Silent Mode Prefix                             : #
 **          Buffer Size                                    : 48
 **          Blocking Send                                  : Enabled

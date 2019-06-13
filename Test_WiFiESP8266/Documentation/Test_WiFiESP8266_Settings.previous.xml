@@ -356,7 +356,7 @@ PE_DEBUGHALT();
     <Enabled v="Y" />
     <Properties>
       <Component_name v="CLS1" />
-      <Echo v="no" />
+      <Echo v="yes" />
       <Prompt v="&amp;quot;CMD&amp;gt; &amp;quot;" />
       <Project_Name v="ESP8266 with FRDM-KL25Z" />
       <Silent_Mode_Prefix v="#" />
