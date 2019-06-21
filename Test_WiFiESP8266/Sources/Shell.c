@@ -152,7 +152,7 @@ static u08 bfnParseCommand(const u08 *lbCmd, bool *lhandled, const CLS1_StdIOTyp
 static void vfnPrintHelp(const CLS1_StdIOType *lInputOutput)
 {
 	/* Send tittle string */
-	CLS1_SendStr((unsigned char*)"Group of CLS1 commands\r\n", lInputOutput->stdOut);
+	CLS1_SendStr((unsigned char*)"\rGroup of shell commands\r\n", lInputOutput->stdOut);
 	/* Print command list */
 	CLS1_SendHelpStr((unsigned char*)"help", (const unsigned char*)"Print help information\r\n", lInputOutput->stdOut);
 	CLS1_SendHelpStr((unsigned char*)"status", (const unsigned char*)"Print status information\r\n", lInputOutput->stdOut);
@@ -170,7 +170,8 @@ static void vfnPrintHelp(const CLS1_StdIOType *lInputOutput)
 /*******************************************************************************/
 static void vfnPrintStatus(const CLS1_StdIOType *lInputOutput)
 {
-	CLS1_SendStatusStr((const unsigned char*)"CLS1", (const unsigned char*)"\r\n", lInputOutput->stdOut);
+	/* Send tittle description */
+	CLS1_SendStr((unsigned char*)"\rShell Status\r\n", lInputOutput->stdOut);
 	CLS1_SendStatusStr((const unsigned char*)"Build", (const unsigned char*)__DATE__, lInputOutput->stdOut);
 	CLS1_SendStr((unsigned char*)" ", lInputOutput->stdOut);
 	CLS1_SendStr((unsigned char*)__TIME__, lInputOutput->stdOut);
