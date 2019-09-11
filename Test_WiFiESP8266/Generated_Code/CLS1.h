@@ -4,9 +4,9 @@
 **     Project     : Test_WiFiESP8266
 **     Processor   : MKL25Z128VLK4
 **     Component   : Shell
-**     Version     : Component 01.098, Driver 01.00, CPU db: 3.00.000
+**     Version     : Component 01.106, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-06-10, 14:21, # CodeGen: 17
+**     Date/Time   : 2019-08-17, 20:09, # CodeGen: 21
 **     Abstract    :
 **         Module implementing a command line shell.
 **     Settings    :
@@ -41,6 +41,7 @@
 **         SendNum32s                   - void CLS1_SendNum32s(int32_t val, CLS1_StdIO_OutErr_FctType io);
 **         SendCh                       - void CLS1_SendCh(uint8_t ch, CLS1_StdIO_OutErr_FctType io);
 **         SendStr                      - void CLS1_SendStr(const uint8_t *str, CLS1_StdIO_OutErr_FctType io);
+**         PrintMemory                  - uint8_t CLS1_PrintMemory(void *hndl, uint32_t startAddr, uint32_t endAddr,...
 **         printfIO                     - unsigned CLS1_printfIO(CLS1_ConstStdIOType *io, const char *fmt, ...);
 **         printf                       - unsigned CLS1_printf(const char *fmt, ...);
 **         SendData                     - void CLS1_SendData(const uint8_t *data, uint16_t dataSize,...
@@ -718,6 +719,30 @@ void CLS1_SendCharFct(uint8_t ch, uint8_t (*fct)(uint8_t ch));
 **       * fct             - Function pointer to output function: takes
 **                           a byte to write and returns error code.
 **     Returns     : Nothing
+** ===================================================================
+*/
+
+uint8_t CLS1_PrintMemory(void *hndl, uint32_t startAddr, uint32_t endAddr, uint8_t addrSize, uint8_t bytesPerLine, uint8_t (*readfp)(void *, uint32_t, uint8_t*, size_t), CLS1_ConstStdIOType *io);
+/*
+** ===================================================================
+**     Method      :  CLS1_PrintMemory (component Shell)
+**     Description :
+**         Prints a chunk of memory bytes in a formatted way.
+**     Parameters  :
+**         NAME            - DESCRIPTION
+**       * hndl            - Pointer to 
+**         startAddr       - Memory start address
+**         endAddr         - Memory end address
+**         addrSize        - Number of bytes for the address
+**                           (1, 2, 3 or 4)
+**         bytesPerLine    - Number of bytes per line
+**         readfp          - Function pointer to read the memory.
+**                           Returns error code, uses a device handle,
+**                           32bit address with a pointer to a buffer
+**                           and a buffer size.
+**       * io              - Pointer to I/O to be used
+**     Returns     :
+**         ---             - Error code
 ** ===================================================================
 */
 

@@ -48,6 +48,7 @@
 /*************************************************************************************************/
 void vfnMainDriverInit(void)
 {
+	
 	vfnShellInit();
 }
 void vfnMainDriverManager(void)

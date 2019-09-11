@@ -1,6 +1,6 @@
 <Analysispoints>
 	<Name>AnalysispointsManager</Name>
-	<ProjectPath>C:/Users/johernandezpc/Desktop/Home/Workspace TT/TlalocTechnologies/Test_WiFiESP8266/SaAnalysispointsManager.apconfig</ProjectPath>
+	<ProjectPath>C:/Users/josel/Documents/GitHub/TlalocTechnologies/Test_WiFiESP8266/SaAnalysispointsManager.apconfig</ProjectPath>
 	<MaxNumberOfCores>1</MaxNumberOfCores>
 	<Comments>Analysispoints Manager</Comments>
 	<IgnoreAll>false</IgnoreAll>

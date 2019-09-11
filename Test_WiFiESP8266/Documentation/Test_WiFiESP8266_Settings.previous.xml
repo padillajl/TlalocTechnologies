@@ -358,7 +358,7 @@ PE_DEBUGHALT();
       <Component_name v="CLS1" />
       <Echo v="yes" />
       <Prompt v="&amp;quot;CMD&amp;gt; &amp;quot;" />
-      <Project_Name v="ESP8266 with FRDM-KL25Z" />
+      <Project_Name v="Shell with FRDM-KL25Z" />
       <Silent_Mode_Prefix v="#" />
       <Buffer_Size v="48" />
       <boolgroup name="Blocking Send" v="Enabled">
