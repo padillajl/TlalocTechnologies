@@ -15,6 +15,7 @@
 #include "Shell.h"
 #include "UTIL1.h"
 #include "CLS1.h"
+#include "ESP8266Driver.h"
 
 
 /*************************************************************************************************/
@@ -30,7 +31,7 @@
 /*************************************************************************************************/
 /*********************					Function Prototypes					**********************/
 /*************************************************************************************************/
-static u08 bfnParseCommand(const u08 *lbCmd, bool *lhandled, const CLS1_StdIOType *lInputOutput);
+u08 bfnParseCommand(const u08 *lbCmd, bool *lhandled, const CLS1_StdIOType *lInputOutput);
 
 /* Shell Commands */
 static void vfnPrintHelp(const CLS1_StdIOType *lInputOutput);
@@ -43,6 +44,7 @@ static void vfnPrintStatus(const CLS1_StdIOType *lInputOutput);
 /*************************************************************************************************/
 /*********************					Global Variables					**********************/
 /*************************************************************************************************/
+u08 baCmdBuffer[32];
 u08 bEchoEnabled;
 /*************************************************************************************************/
 /*********************					Static Constants					**********************/
@@ -50,6 +52,7 @@ u08 bEchoEnabled;
 static const CLS1_ParseCommandCallback CmdParserTable[] = 
 {
 	bfnParseCommand, /* My own parser */
+	ESP8266Driver_ParseCommand, 
 	NULL
 };
 /*************************************************************************************************/
@@ -69,6 +72,21 @@ static const CLS1_ParseCommandCallback CmdParserTable[] =
 /*******************************************************************************/
 void vfnShellInit(void)
 {
+	const CLS1_StdIOType *lInputOutput;
+	/* Points to the stdio channel */
+	lInputOutput = CLS1_GetStdio();
+	/* Print welcome message */
+	CLS1_SendStr((u08*)"\r\n------------------------------------------\r\n", lInputOutput->stdOut);
+	CLS1_SendStr((u08*)"ESP8266 with FRDM-KL25Z\r\n", lInputOutput->stdOut);
+	CLS1_SendStr((u08*)"------------------------------------------\r\n", lInputOutput->stdOut);
+	
+	/* Print command list and prints as well the prompt */
+	/* the command list is attached to CLS1_CMD_HELP */
+	(void)CLS1_ParseWithCommandTable((u08*)CLS1_CMD_HELP,CLS1_GetStdio(),CmdParserTable);
+	
+	/* Init buffer */
+	baCmdBuffer[0] = '\0';
+	
 #if CLS1_ECHO_ENABLED                   
 	bEchoEnabled = 1;
 #else
@@ -85,19 +103,9 @@ void vfnShellInit(void)
 */
 /*******************************************************************************/
 void vfnShellTask(void)
-{
-	u08 baCmdBuffer[32];
-	/* Init buffer */
-	baCmdBuffer[0] = '\0';
-	/* Print command list and prints as well the prompt */
-	/* the command list is attached to CLS1_CMD_HELP */
-	(void)CLS1_ParseWithCommandTable((u08*)CLS1_CMD_HELP,CLS1_GetStdio(),CmdParserTable);
-	
-	for(;;)
-	{
-		/* Wait for input and parse it */
-		(void)CLS1_ReadAndParseWithCommandTable(baCmdBuffer,sizeof(baCmdBuffer),CLS1_GetStdio(),CmdParserTable);
-	}	
+{	
+	/* Wait for input and parse it */
+	(void)CLS1_ReadAndParseWithCommandTable(baCmdBuffer,sizeof(baCmdBuffer),CLS1_GetStdio(),CmdParserTable);	
 }
 
 /*******************************************************************************/
@@ -110,7 +118,7 @@ void vfnShellTask(void)
       \return   Error code, ERR_OK if everything was fine
 */
 /*******************************************************************************/
-static u08 bfnParseCommand(const u08 *lbCmd, bool *lhandled, const CLS1_StdIOType *lInputOutput)
+u08 bfnParseCommand(const u08 *lbCmd, bool *lhandled, const CLS1_StdIOType *lInputOutput)
 {
 	/* Handling help command */
 	if( UTIL1_strcmp((char*)lbCmd, (char*)CLS1_CMD_HELP) == 0)

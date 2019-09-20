@@ -47,11 +47,11 @@
 /*********************						Functions						**********************/
 /*************************************************************************************************/
 void vfnMainDriverInit(void)
-{
-	
+{	
 	vfnShellInit();
 }
 void vfnMainDriverManager(void)
 {
+	/* Shell task */
 	vfnShellTask();
 }

@@ -2,9 +2,9 @@
 <PEproject>
   <Header>
     <Name>Test_WiFiESP8266</Name>
-    <SavedBy>josel</SavedBy>
+    <SavedBy>johernandezpc</SavedBy>
     <ModificationStamp>20</ModificationStamp>
-    <Date>2019-08-17</Date>
+    <Date>2019-09-20</Date>
     <IDE>Eclipse IDE</IDE>
     <PEversion>1.9.2.RT6_b1446-0504</PEversion>
   </Header>
@@ -4529,7 +4529,7 @@
     <UserFolderName />
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.106</BeanVersion>
+    <BeanVersion>01.098</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -5158,7 +5158,7 @@
     <UserFolderName />
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.014</BeanVersion>
+    <BeanVersion>01.013</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -5375,7 +5375,7 @@
     <UserFolderName>Referenced_Components</UserFolderName>
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.160</BeanVersion>
+    <BeanVersion>01.158</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -6247,7 +6247,7 @@
     <UserFolderName>Referenced_Components</UserFolderName>
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.014</BeanVersion>
+    <BeanVersion>01.012</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>
@@ -6346,7 +6346,7 @@
     <UserFolderName />
     <Comment lines_count="0" />
     <Template />
-    <BeanVersion>01.084</BeanVersion>
+    <BeanVersion>01.083</BeanVersion>
     <LightErrorsIgnored>false</LightErrorsIgnored>
     <Properties>
       <ItemState>

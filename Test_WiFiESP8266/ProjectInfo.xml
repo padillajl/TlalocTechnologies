@@ -35,73 +35,73 @@
     <FLASHsize>128k</FLASHsize>
   </PROCESSOR>
   <PATHS>
-    <LinkerCommandFile>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Linker_Files\ProcessorExpert.ld</LinkerCommandFile>
+    <LinkerCommandFile>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Linker_Files\ProcessorExpert.ld</LinkerCommandFile>
     <IncludePaths>
       <Path>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\pdd\inc\</Path>
       <Path>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\iofiles\</Path>
-      <Path>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\</Path>
-      <Path>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\</Path>
+      <Path>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\</Path>
+      <Path>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\</Path>
     </IncludePaths>
     <SourceCodePaths>
-      <Path>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\</Path>
-      <Path>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\</Path>
-      <Path>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\</Path>
+      <Path>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\</Path>
+      <Path>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\</Path>
+      <Path>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\</Path>
     </SourceCodePaths>
   </PATHS>
   <FILES>
     <GeneratedCs>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd2.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CLS1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CS1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\Cpu.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\MCUC1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_LDD.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ShellSerial.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\UTIL1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\Vectors.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WAIT1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WiFiSerial.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\XF1.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\__arm_end.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\__arm_start.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\ESP8266Driver.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\Events.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\MainDriver.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\Shell.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\main.c</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\sa_mtb.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd2.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CLS1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CS1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\Cpu.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\MCUC1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_LDD.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ShellSerial.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\UTIL1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\Vectors.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WAIT1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WiFiSerial.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\XF1.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\__arm_end.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\__arm_start.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\ESP8266Driver.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\Events.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\MainDriver.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\Shell.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\main.c</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\sa_mtb.c</PathName>
     </GeneratedCs>
     <GeneratedHs>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd2.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CLS1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CLS1config.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CS1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CS1config.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\Cpu.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\IO_Map.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\MCUC1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\MCUC1config.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_Const.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_Error.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_LDD.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_Types.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ShellSerial.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\UTIL1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\UTIL1config.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WAIT1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WAIT1config.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WiFiSerial.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\XF1.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\XF1config.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Project_Headers\bme.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\runtime_configuration.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\ESP8266Driver.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\Events.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\MainDriver.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\MyTypes.h</PathName>
-      <PathName>C:\Users\josel\Documents\GitHub\TlalocTechnologies\Test_WiFiESP8266\Sources\Shell.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ASerialLdd2.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CLS1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CLS1config.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CS1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\CS1config.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\Cpu.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\IO_Map.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\MCUC1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\MCUC1config.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_Const.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_Error.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_LDD.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\PE_Types.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\ShellSerial.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\UTIL1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\UTIL1config.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WAIT1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WAIT1config.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\WiFiSerial.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\XF1.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Generated_Code\XF1config.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Project_Headers\bme.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Project_Settings\Startup_Code\runtime_configuration.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\ESP8266Driver.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\Events.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\MainDriver.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\MyTypes.h</PathName>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_WiFiESP8266\Sources\Shell.h</PathName>
       <PathName>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\iofiles\MKL25Z4.h</PathName>
       <PathName>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\pdd\inc\ADC_PDD.h</PathName>
       <PathName>C:\Freescale\CW MCU v10.7\MCU\ProcessorExpert\lib\Kinetis\pdd\inc\CMP_PDD.h</PathName>

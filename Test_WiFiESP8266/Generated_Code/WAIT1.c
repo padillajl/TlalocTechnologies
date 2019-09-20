@@ -4,9 +4,9 @@
 **     Project     : Test_WiFiESP8266
 **     Processor   : MKL25Z128VLK4
 **     Component   : Wait
-**     Version     : Component 01.084, Driver 01.00, CPU db: 3.00.000
+**     Version     : Component 01.083, Driver 01.00, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-08-17, 20:09, # CodeGen: 21
+**     Date/Time   : 2019-09-11, 16:13, # CodeGen: 23
 **     Abstract    :
 **          Implements busy waiting routines.
 **     Settings    :
@@ -27,7 +27,7 @@
 **         Init           - void WAIT1_Init(void);
 **         DeInit         - void WAIT1_DeInit(void);
 **
-**     * Copyright (c) 2013-2019, Erich Styger
+**     * Copyright (c) 2013-2018, Erich Styger
 **      * Web:         https://mcuoneclipse.com
 **      * SourceForge: https://sourceforge.net/projects/mcuoneclipse
 **      * Git:         https://github.com/ErichStyger/McuOnEclipse_PEx
@@ -80,25 +80,16 @@
 ** ===================================================================
 */
 #ifdef __GNUC__
-#if MCUC1_CONFIG_CPU_IS_RISC_V /* naked is ignored for RISC-V gcc */
   #ifdef __cplusplus  /* gcc 4.7.3 in C++ mode does not like no_instrument_function: error: can't set 'no_instrument_function' attribute after definition */
+  __attribute__((naked))
   #else
-    __attribute__((no_instrument_function))
+  __attribute__((naked, no_instrument_function))
   #endif
-#else
-  #ifdef __cplusplus  /* gcc 4.7.3 in C++ mode does not like no_instrument_function: error: can't set 'no_instrument_function' attribute after definition */
-    __attribute__((naked))
-  #else
-    __attribute__((naked, no_instrument_function))
-  #endif
-#endif
 #endif
 void WAIT1_Wait10Cycles(void)
 {
   /* This function will wait 10 CPU cycles (including call overhead). */
   /*lint -save -e522 function lacks side effect. */
-
-#if MCUC1_CONFIG_CPU_IS_ARM_CORTEX_M
   /* NOTE: Cortex-M0 and M4 have 1 cycle for a NOP */
   /* Compiler is GNUC */
   __asm (
@@ -108,15 +99,6 @@ void WAIT1_Wait10Cycles(void)
    "nop   \n\t" /* [1] */
    "bx lr \n\t" /* [3] */
   );
-#elif MCUC1_CONFIG_CPU_IS_RISC_V
-  /* \todo */
-  __asm ( /* assuming [4] for overhead */
-   "nop   \n\t" /* [1] */
-   "nop   \n\t" /* [1] */
-   "nop   \n\t" /* [1] */
-   "nop   \n\t" /* [1] */
-  );
-#endif
   /*lint -restore */
 }
 
@@ -130,24 +112,16 @@ void WAIT1_Wait10Cycles(void)
 ** ===================================================================
 */
 #ifdef __GNUC__
-  #if MCUC1_CONFIG_CPU_IS_RISC_V /* naked is ignored for RISC-V gcc */
-    #ifdef __cplusplus  /* gcc 4.7.3 in C++ mode does not like no_instrument_function: error: can't set 'no_instrument_function' attribute after definition */
-    #else
-      __attribute__((no_instrument_function))
-    #endif
-  #else
-    #ifdef __cplusplus  /* gcc 4.7.3 in C++ mode does not like no_instrument_function: error: can't set 'no_instrument_function' attribute after definition */
-      __attribute__((naked))
-    #else
-      __attribute__((naked, no_instrument_function))
-    #endif
-  #endif
+#ifdef __cplusplus  /* gcc 4.7.3 in C++ mode does not like no_instrument_function: error: can't set 'no_instrument_function' attribute after definition */
+  __attribute__((naked))
+#else
+  __attribute__((naked, no_instrument_function))
+#endif
 #endif
 void WAIT1_Wait100Cycles(void)
 {
   /* This function will spend 100 CPU cycles (including call overhead). */
   /*lint -save -e522 function lacks side effect. */
-#if MCUC1_CONFIG_CPU_IS_ARM_CORTEX_M
   __asm (
    /* bl to here:               [4] */
    "push {r0}   \n\t"        /* [2] */
@@ -170,15 +144,6 @@ void WAIT1_Wait100Cycles(void)
    "pop {r0}    \n\t"        /* [2] */
    "bx lr       \n\t"        /* [3] */
   );
-#elif MCUC1_CONFIG_CPU_IS_RISC_V
-  /* \todo */
-  __asm ( /* assuming [10] for overhead */
-    "  li a5,20        \n\t"
-    "Loop:             \n\t"
-    "  addi a5,a5,-1   \n\t"
-    "  bgtz a5, Loop   \n\t"
-  );
-#endif
   /*lint -restore */
 }
 
