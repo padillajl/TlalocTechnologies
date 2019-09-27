@@ -12,45 +12,48 @@
   </ToolchainSettings>
   <GeneratedFilesList>
     <GeneratedByPE>
-      <File Name="Sources/main.c" FileDate="2019-09-24, 17:23:14" FileAge="1569363794697" FileType="128" />
-      <File Name="Documentation/doxygen/RTC1.txt" FileDate="2019-09-24, 17:29:47" FileAge="1569364187205" FileType="45637" CompNumb="6" />
-      <File Name="Generated_Code/PE_LDD.c" FileDate="2019-09-23, 10:57:28" FileAge="1569254248749" FileType="45637" CompNumb="2" />
+      <File Name="Documentation/doxygen/RTC1.txt" FileDate="2019-09-27, 10:27:30" FileAge="1569598050265" FileType="45637" CompNumb="20" />
+      <File Name="Sources/main.c" FileDate="2019-09-27, 10:27:30" FileAge="1569598050374" FileType="128" />
+      <File Name="Generated_Code/PE_LDD.c" FileDate="2019-09-27, 10:27:30" FileAge="1569598050413" FileType="45637" CompNumb="2" />
       <File Name="Static_Code/PDD/DAC_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/MCM_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/TPM_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/SIM_PDD.h" FileDate="2014-05-14, 13:09:28" FileAge="1400090968000" FileType="262144" />
       <File Name="Project_Settings/Debugger/MKL25Z128.mem" FileDate="2019-09-23, 10:48:43" FileAge="1569253723087" FileType="45637" CompNumb="2" />
-      <File Name="Documentation/doxygen/Test_RTC.txt" FileDate="2019-09-23, 10:57:28" FileAge="1569254248732" FileType="45637" CompNumb="2" />
-      <File Name="Documentation/Test_RTC_Settings.xml" FileDate="2019-09-24, 17:29:47" FileAge="1569364187305" FileType="3072" />
+      <File Name="Documentation/doxygen/CI2C1.txt" FileDate="2019-09-25, 13:47:43" FileAge="1569437263948" FileType="45637" CompNumb="10" />
+      <File Name="Documentation/doxygen/Test_RTC.txt" FileDate="2019-09-27, 10:27:30" FileAge="1569598050403" FileType="45637" CompNumb="2" />
+      <File Name="Documentation/Test_RTC_Settings.xml" FileDate="2019-09-27, 10:25:59" FileAge="1569597959890" FileType="3072" />
       <File Name="Static_Code/PDD/DMAMUX_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Documentation/doxygen/RoutingReport.txt" FileDate="2019-09-23, 10:48:43" FileAge="1569253723097" FileType="45637" CompNumb="2" />
-      <File Name="Sources/Events.h" FileDate="2019-09-23, 11:36:20" FileAge="1569256580679" FileType="131328" />
+      <File Name="Sources/Events.h" FileDate="2019-09-27, 10:27:30" FileAge="1569598050445" FileType="131328" />
+      <File Name="Generated_Code/CI2C1.h" FileDate="2019-09-25, 13:47:43" FileAge="1569437263878" FileType="45637" CompNumb="10" />
       <File Name="Documentation/doxygen/pex.css" FileDate="2019-09-23, 10:48:42" FileAge="1569253722931" FileType="16384" CompNumb="2" />
-      <File Name="Sources/Events.c" FileDate="2019-09-23, 11:33:24" FileAge="1569256404569" FileType="131328" />
-      <File Name="Generated_Code/Vectors.c" FileDate="2019-09-23, 11:31:56" FileAge="1569256316614" FileType="45637" CompNumb="2" />
+      <File Name="Sources/Events.c" FileDate="2019-09-27, 10:27:30" FileAge="1569598050451" FileType="131328" />
+      <File Name="Generated_Code/Vectors.c" FileDate="2019-09-27, 10:27:30" FileAge="1569598050430" FileType="45637" CompNumb="2" />
+      <File Name="Generated_Code/CI2C1.c" FileDate="2019-09-25, 13:47:43" FileAge="1569437263911" FileType="45637" CompNumb="10" />
       <File Name="Project_Settings/Linker_Files/ProcessorExpert.ld" FileDate="2019-09-23, 10:48:43" FileAge="1569253723077" FileType="8" CompNumb="2" />
       <File Name="Generated_Code/PE_Const.h" FileDate="2019-09-23, 10:48:43" FileAge="1569253723142" FileType="45637" />
-      <File Name="Generated_Code/PE_Types.h" FileDate="2019-09-23, 10:57:28" FileAge="1569254248653" FileType="45637" />
+      <File Name="Generated_Code/PE_Types.h" FileDate="2019-09-27, 10:27:30" FileAge="1569598050361" FileType="45637" />
       <File Name="Generated_Code/PE_Error.h" FileDate="2019-09-23, 10:48:43" FileAge="1569253723145" FileType="45637" />
-      <File Name="Documentation/Test_RTC.txt" FileDate="2019-09-23, 11:48:10" FileAge="1569257290150" FileType="3072" />
+      <File Name="Documentation/Test_RTC.txt" FileDate="2019-09-27, 10:26:00" FileAge="1569597960191" FileType="3072" />
       <File Name="Generated_Code/Cpu.h" FileDate="2019-09-23, 10:57:28" FileAge="1569254248698" FileType="45637" CompNumb="2" />
       <File Name="Static_Code/PDD/RTC_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/SysTick_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/I2C_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
-      <File Name="Generated_Code/Cpu.c" FileDate="2019-09-23, 10:57:28" FileAge="1569254248717" FileType="45637" CompNumb="2" />
+      <File Name="Generated_Code/Cpu.c" FileDate="2019-09-27, 10:27:30" FileAge="1569598050390" FileType="45637" CompNumb="2" />
       <File Name="Static_Code/PDD/LPTMR_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
-      <File Name="Generated_Code/RTC1.h" FileDate="2019-09-24, 17:29:47" FileAge="1569364187153" FileType="45637" CompNumb="6" />
+      <File Name="Generated_Code/RTC1.h" FileDate="2019-09-27, 10:27:30" FileAge="1569598050277" FileType="45637" CompNumb="20" />
       <File Name="Static_Code/PDD/CMP_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Generated_Code/IO_Map.h" FileDate="2019-09-23, 10:48:43" FileAge="1569253723132" FileType="45637" />
       <File Name="Static_Code/PDD/GPIO_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/SPI_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
-      <File Name="Generated_Code/RTC1.c" FileDate="2019-09-24, 17:29:47" FileAge="1569364187180" FileType="45637" CompNumb="6" />
+      <File Name="Generated_Code/RTC1.c" FileDate="2019-09-27, 10:27:30" FileAge="1569598050271" FileType="45637" CompNumb="20" />
       <File Name="Static_Code/PDD/USB_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
-      <File Name="ProjectInfo.xml" FileDate="2019-09-23, 11:48:10" FileAge="1569257290126" FileType="45637" />
+      <File Name="ProjectInfo.xml" FileDate="2019-09-27, 10:27:32" FileAge="1569598052847" FileType="45637" />
       <File Name="Static_Code/PDD/PORT_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/COP_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/IO_Map/MKL25Z4.h" FileDate="2013-04-18, 01:55:42" FileAge="1366268142000" FileType="262144" />
-      <File Name="Documentation/Test_RTC_SIGNALS.txt" FileDate="2019-09-24, 17:29:47" FileAge="1569364187237" FileType="3072" />
+      <File Name="Documentation/Test_RTC_SIGNALS.txt" FileDate="2019-09-27, 10:27:30" FileAge="1569598050493" FileType="3072" />
       <File Name="Static_Code/PDD/FTFA_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/PIT_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
       <File Name="Static_Code/PDD/UART_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
@@ -58,9 +61,9 @@
       <File Name="Documentation/doxygen/pex.doxyfile" FileDate="2019-09-23, 10:48:43" FileAge="1569253723094" FileType="45637" CompNumb="2" />
       <File Name="Static_Code/PDD/PDD_Types.h" FileDate="2013-04-18, 01:55:42" FileAge="1366268142000" FileType="262144" />
       <File Name="Static_Code/PDD/DMA_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
-      <File Name="Generated_Code/PE_LDD.h" FileDate="2019-09-23, 10:57:28" FileAge="1569254248771" FileType="45637" CompNumb="2" />
+      <File Name="Generated_Code/PE_LDD.h" FileDate="2019-09-27, 10:27:30" FileAge="1569598050418" FileType="45637" CompNumb="2" />
       <File Name="Static_Code/PDD/ADC_PDD.h" FileDate="2014-02-20, 14:18:46" FileAge="1392927526000" FileType="262144" />
     </GeneratedByPE>
   </GeneratedFilesList>
-  <CodeGenReference>9</CodeGenReference>
+  <CodeGenReference>13</CodeGenReference>
 </CodeGenerationInfo>

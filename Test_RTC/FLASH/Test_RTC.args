@@ -2,6 +2,7 @@
 "./Generated_Code/RTC1.o"
 "./Generated_Code/PE_LDD.o"
 "./Generated_Code/Cpu.o"
+"./Generated_Code/CI2C1.o"
 "./Project_Settings/Startup_Code/__arm_start.o"
 "./Project_Settings/Startup_Code/__arm_end.o"
 "./Sources/sa_mtb.o"

@@ -6,7 +6,7 @@
 **     Component   : RTC_LDD
 **     Version     : Component 01.165, Driver 01.07, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-09-24, 17:29, # CodeGen: 8
+**     Date/Time   : 2019-09-27, 10:27, # CodeGen: 12
 **     Abstract    :
 **         This component implements a real time clock (RTC). Actual date may also be
 **         obtained and an alarm function is included.
@@ -48,11 +48,9 @@
 **            Clock configuration 6                        : This component disabled
 **            Clock configuration 7                        : This component disabled
 **     Contents    :
-**         Init         - LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit);
-**         GetEventMask - LDD_TEventMask RTC1_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
-**         SetEventMask - LDD_TError RTC1_SetEventMask(LDD_TDeviceData *DeviceDataPtr, LDD_TEventMask...
-**         GetTime      - void RTC1_GetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
-**         SetTime      - LDD_TError RTC1_SetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
+**         Init    - LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit);
+**         GetTime - void RTC1_GetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
+**         SetTime - LDD_TError RTC1_SetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
 **
 **     Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **     All Rights Reserved.
@@ -107,14 +105,7 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-#define RTC1_AVAILABLE_EVENTS_MASK ((LDD_TEventMask)( \
-          LDD_RTC_ON_SECOND))
-
-#define RTC1_INIT_EVENTS_MASK ((LDD_TEventMask)( \
-          LDD_RTC_ON_SECOND))
-
 typedef struct {
-  LDD_TEventMask           EventMask;            /* Event Mask */
   LDD_TUserData           *UserDataPtr;          /* Device mode user device data structure */
 } RTC1_TDeviceData, *RTC1_TDeviceDataPtr; /* Device data structure type */
 
@@ -175,7 +166,6 @@ LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit)
   /* {Default RTOS Adapter} Driver memory allocation: Dynamic allocation is simulated by a pointer to the static object */
   DevDataPtr = &DevDataPtr__DEFAULT_RTOS_ALLOC;
   DevDataPtr->UserDataPtr = UserDataPtr; /* Store the user data */
-  DevDataPtr->EventMask = RTC1_INIT_EVENTS_MASK; /* Initialize EventMask variable */
   /* Allocate interrupt vector(s) */
   /* {Default RTOS Adapter} Set interrupt vector: IVT is static, ISR parameter is passed by the global variable */
   INT_RTC__DEFAULT_RTOS_ISRPARAM = DevDataPtr;
@@ -217,71 +207,6 @@ LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit)
   /* NVIC_ISER: SETENA|=0x00200000 */
   NVIC_ISER |= NVIC_ISER_SETENA(0x00200000);
   return DevDataPtr;
-}
-
-/*
-** ===================================================================
-**     Method      :  RTC1_GetEventMask (component RTC_LDD)
-*/
-/*!
-**     @brief
-**         Returns current events mask. Note: Event that are not
-**         generated (See the "Method" tab in the Component inspector)
-**         are not handled by this method. Pair method to [SetEventMask].
-**     @param
-**         DeviceDataPtr   - Pointer to device data
-**                           structure pointer returned by [Init] method.
-**     @return
-**                         - Current EventMask. The component event masks
-**                           are defined in the PE_HAL.h file.
-*/
-/* ===================================================================*/
-LDD_TEventMask RTC1_GetEventMask(LDD_TDeviceData *DeviceDataPtr)
-{
-  return ((RTC1_TDeviceDataPtr)DeviceDataPtr)->EventMask;
-}
-
-/*
-** ===================================================================
-**     Method      :  RTC1_SetEventMask (component RTC_LDD)
-*/
-/*!
-**     @brief
-**         Enables/disables event(s). The events contained within the
-**         mask are enabled. Events not contained within the mask are
-**         disabled. The component event masks are defined in the
-**         PE_Types.h file. Note: Event that are not generated (See the
-**         "Method" tab in the Component inspector) are not handled by
-**         this method. In this case the method returns ERR_VALUE error
-**         code. Pair method to [GetEventMask].
-**     @param
-**         DeviceDataPtr   - Pointer to device data
-**                           structure pointer returned by [Init] method.
-**     @param
-**         EventMask       - Event mask
-**     @return
-**                         - Error code, possible codes: 
-**                           - ERR_OK - OK. 
-**                           - ERR_DISABLED - Component is disabled. 
-**                           - ERR_SPEED - Component does not work in
-**                           the active clock configuration. 
-**                           - ERR_PARAM_MASK - Invalid event mask.
-*/
-/* ===================================================================*/
-LDD_TError RTC1_SetEventMask(LDD_TDeviceData *DeviceDataPtr, LDD_TEventMask EventMask)
-{
-  RTC1_TDeviceDataPtr DevDataPtr = (RTC1_TDeviceDataPtr)DeviceDataPtr;
-
-  if (EventMask & ~(RTC1_AVAILABLE_EVENTS_MASK)) {
-    return(ERR_RANGE);
-  }
-  DevDataPtr->EventMask = EventMask;
-  if (EventMask & LDD_RTC_ON_SECOND) {
-    RTC_PDD_EnableSecondsInterrupt(RTC_BASE_PTR);
-  } else {
-    RTC_PDD_DisableSecondsInterrupt(RTC_BASE_PTR);
-  }
-  return ERR_OK;
 }
 
 /*
@@ -438,9 +363,7 @@ PE_ISR(RTC1_SecondsInterrupt)
 {
   /* {Default RTOS Adapter} ISR parameter is passed through the global variable */
   RTC1_TDeviceDataPtr DevDataPtr = INT_RTC_Seconds__DEFAULT_RTOS_ISRPARAM;
-  if (DevDataPtr->EventMask & LDD_RTC_ON_SECOND) {
-    RTC1_OnSecond(DevDataPtr->UserDataPtr);
-  }
+  RTC1_OnSecond(DevDataPtr->UserDataPtr);
 }
 /* END RTC1. */
 

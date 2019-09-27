@@ -50,6 +50,7 @@
   </PATHS>
   <FILES>
     <GeneratedCs>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\CI2C1.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\Cpu.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\PE_LDD.c</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\RTC1.c</PathName>
@@ -61,6 +62,7 @@
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Sources\sa_mtb.c</PathName>
     </GeneratedCs>
     <GeneratedHs>
+      <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\CI2C1.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\Cpu.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\IO_Map.h</PathName>
       <PathName>C:\Users\johernandezpc\Desktop\Home\Workspace TT\TlalocTechnologies\Test_RTC\Generated_Code\PE_Const.h</PathName>

@@ -28,6 +28,7 @@
 
 \page page_components Components 
 
+- \subpage CI2C1
 - \subpage RTC1
 
 

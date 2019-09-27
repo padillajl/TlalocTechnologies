@@ -6,7 +6,7 @@
 **     Component   : RTC_LDD
 **     Version     : Component 01.165, Driver 01.07, CPU db: 3.00.000
 **     Compiler    : GNU C Compiler
-**     Date/Time   : 2019-09-24, 17:29, # CodeGen: 8
+**     Date/Time   : 2019-09-27, 10:27, # CodeGen: 12
 **     Abstract    :
 **         This component implements a real time clock (RTC). Actual date may also be
 **         obtained and an alarm function is included.
@@ -48,11 +48,9 @@
 **            Clock configuration 6                        : This component disabled
 **            Clock configuration 7                        : This component disabled
 **     Contents    :
-**         Init         - LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit);
-**         GetEventMask - LDD_TEventMask RTC1_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
-**         SetEventMask - LDD_TError RTC1_SetEventMask(LDD_TDeviceData *DeviceDataPtr, LDD_TEventMask...
-**         GetTime      - void RTC1_GetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
-**         SetTime      - LDD_TError RTC1_SetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
+**         Init    - LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit);
+**         GetTime - void RTC1_GetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
+**         SetTime - LDD_TError RTC1_SetTime(LDD_TDeviceData *DeviceDataPtr, LDD_RTC_TTime *TimePtr);
 **
 **Copyright : 1997 - 2014 Freescale Semiconductor, Inc. 
 **All Rights Reserved.
@@ -117,8 +115,6 @@ extern "C" {
   
 /* Methods configuration constants - generated for all enabled component's methods */
 #define RTC1_Init_METHOD_ENABLED       /*!< Init method of the component RTC1 is enabled (generated) */
-#define RTC1_GetEventMask_METHOD_ENABLED /*!< GetEventMask method of the component RTC1 is enabled (generated) */
-#define RTC1_SetEventMask_METHOD_ENABLED /*!< SetEventMask method of the component RTC1 is enabled (generated) */
 #define RTC1_GetTime_METHOD_ENABLED    /*!< GetTime method of the component RTC1 is enabled (generated) */
 #define RTC1_SetTime_METHOD_ENABLED    /*!< SetTime method of the component RTC1 is enabled (generated) */
 
@@ -163,54 +159,6 @@ extern "C" {
 */
 /* ===================================================================*/
 LDD_TDeviceData * RTC1_Init(LDD_TUserData *UserDataPtr, bool SoftInit);
-
-/*
-** ===================================================================
-**     Method      :  RTC1_GetEventMask (component RTC_LDD)
-*/
-/*!
-**     @brief
-**         Returns current events mask. Note: Event that are not
-**         generated (See the "Method" tab in the Component inspector)
-**         are not handled by this method. Pair method to [SetEventMask].
-**     @param
-**         DeviceDataPtr   - Pointer to device data
-**                           structure pointer returned by [Init] method.
-**     @return
-**                         - Current EventMask. The component event masks
-**                           are defined in the PE_HAL.h file.
-*/
-/* ===================================================================*/
-LDD_TEventMask RTC1_GetEventMask(LDD_TDeviceData *DeviceDataPtr);
-
-/*
-** ===================================================================
-**     Method      :  RTC1_SetEventMask (component RTC_LDD)
-*/
-/*!
-**     @brief
-**         Enables/disables event(s). The events contained within the
-**         mask are enabled. Events not contained within the mask are
-**         disabled. The component event masks are defined in the
-**         PE_Types.h file. Note: Event that are not generated (See the
-**         "Method" tab in the Component inspector) are not handled by
-**         this method. In this case the method returns ERR_VALUE error
-**         code. Pair method to [GetEventMask].
-**     @param
-**         DeviceDataPtr   - Pointer to device data
-**                           structure pointer returned by [Init] method.
-**     @param
-**         EventMask       - Event mask
-**     @return
-**                         - Error code, possible codes: 
-**                           - ERR_OK - OK. 
-**                           - ERR_DISABLED - Component is disabled. 
-**                           - ERR_SPEED - Component does not work in
-**                           the active clock configuration. 
-**                           - ERR_PARAM_MASK - Invalid event mask.
-*/
-/* ===================================================================*/
-LDD_TError RTC1_SetEventMask(LDD_TDeviceData *DeviceDataPtr, LDD_TEventMask EventMask);
 
 /*
 ** ===================================================================

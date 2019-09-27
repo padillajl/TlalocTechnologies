@@ -30,6 +30,7 @@
 /* Including needed modules to compile this module/procedure */
 #include "Cpu.h"
 #include "Events.h"
+#include "CI2C1.h"
 #include "RTC1.h"
 /* Including shared modules, which are used for whole project */
 #include "PE_Types.h"
@@ -39,6 +40,7 @@
 
 /* User includes (#include below this line is not maintained by Processor Expert) */
 #include "MyTypes.h"
+
 void vfnRTCGetTime(void);
 
 typedef struct
@@ -49,11 +51,15 @@ typedef struct
 	u08 bDay;
 	u08 bMonth;
 	u08 bYear;
+	
 }sTime;
 
-LDD_TUserData *ptrLDD_RTC;
-LDD_RTC_TTime LDD_RTC_TIME;
-u08 bRTCOneSecondFlag;
+u08 bDataTransmittedFlag = FALSE;
+u08 baTxDataBuffer[4] = {0x00,0x01,0x02,0x03};
+
+LDD_TDeviceData *RTC_ptr;
+LDD_RTC_TTime Time;
+LDD_TError Error;
 
 sTime RTCTime;
 /*lint -save  -e970 Disable MISRA rule (6.3) checking. */
@@ -65,24 +71,24 @@ int main(void)
   /*** Processor Expert internal initialization. DON'T REMOVE THIS CODE!!! ***/
   PE_low_level_init();
   /*** End of Processor Expert internal initialization.                    ***/
-  ptrLDD_RTC = RTC1_Init((LDD_TUserData*)NULL,TRUE);
-  
-  RTC_CR |= RTC_CR_OSCE_MASK;
-  
-  /* Obtain time for the first time */
-  (void)RTC1_GetTime(ptrLDD_RTC,&LDD_RTC_TIME);
-  vfnRTCGetTime();
   /* Write your code here */
+  RTC_ptr = RTC1_Init((LDD_TUserData *)NULL,FALSE);
+  RTC1_GetTime(RTC_ptr,&Time);
+  /* Set new time */
+  Time.Hour = 19;
+  Time.Minute = 00;
+  Time.Second = 30;
+  Time.Day = 16;
+  Time.Month = 04;
+  Time.Year = 2019;
+  RTC1_SetTime(RTC_ptr,&Time);
   /* For example: for(;;) { } */
   for(;;)
   {
-	  /* Obtain time every second */
-	  if( 1 )
+	  if( bEverySecondFlag )
 	  {
-		  (void)RTC1_GetTime(ptrLDD_RTC,&LDD_RTC_TIME);
-		  vfnRTCGetTime();
-		  
-		  bRTCOneSecondFlag = 0;
+		  RTC1_GetTime(RTC_ptr,&Time);
+		  bEverySecondFlag = FALSE;
 	  }
   }
   /*** Don't write any code pass this line, or it will be deleted during code generation. ***/
@@ -110,11 +116,11 @@ int main(void)
 */
 void vfnRTCGetTime(void)
 {
-	RTCTime.bHour = LDD_RTC_TIME.Hour;
-	RTCTime.bMinutes = LDD_RTC_TIME.Minute;
-	RTCTime.bSeconds = LDD_RTC_TIME.Second;
+	RTCTime.bHour = 0;
+	RTCTime.bMinutes = 0;
+	RTCTime.bSeconds = 0; 
 	
-	RTCTime.bYear = LDD_RTC_TIME.Year;
-	RTCTime.bMonth = LDD_RTC_TIME.Month;
-	RTCTime.bDay = LDD_RTC_TIME.Day;
+	RTCTime.bYear = 0;
+	RTCTime.bMonth = 0;
+	RTCTime.bDay = 0;
 }
