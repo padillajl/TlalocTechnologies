@@ -87,7 +87,7 @@ CLS1_DefaultShellBuffer
 ASerialLdd2_DeviceDataPtr
                     0x4               ./Generated_Code/WiFiSerial.o
 SR_reg              0x1               ./Generated_Code/Cpu.o
-baCmdBuffer         0x20              ./Sources/Shell.o
+baCmdBuffer         0x40              ./Sources/Shell.o
 bEchoEnabled        0x1               ./Sources/Shell.o
 
 Discarded input sections
@@ -1100,7 +1100,7 @@ END GROUP
  .igot.plt      0x00000000        0x0 ./Generated_Code/XF1.o
                 0x1ffff008                . = ALIGN (0x4)
 
-.bss            0x1ffff008      0x9b4 load address 0x00003cfc
+.bss            0x1ffff008      0x9d4 load address 0x00003cfc
                 0x1ffff008                __START_BSS = .
                 0x1ffff008                PROVIDE (__bss_start__, __START_BSS)
  *(.bss)
@@ -1165,34 +1165,34 @@ END GROUP
  COMMON         0x1ffff994        0x1 ./Generated_Code/Cpu.o
                 0x1ffff994                SR_reg
  *fill*         0x1ffff995        0x3 00
- COMMON         0x1ffff998       0x21 ./Sources/Shell.o
+ COMMON         0x1ffff998       0x41 ./Sources/Shell.o
                 0x1ffff998                baCmdBuffer
-                0x1ffff9b8                bEchoEnabled
-                0x1ffff9bc                . = ALIGN (0x4)
- *fill*         0x1ffff9b9        0x3 00
-                0x1ffff9bc                __END_BSS = .
-                0x1ffff9bc                PROVIDE (__bss_end__, __END_BSS)
+                0x1ffff9d8                bEchoEnabled
+                0x1ffff9dc                . = ALIGN (0x4)
+ *fill*         0x1ffff9d9        0x3 00
+                0x1ffff9dc                __END_BSS = .
+                0x1ffff9dc                PROVIDE (__bss_end__, __END_BSS)
                 0x00003cfc                _romp_at = (___ROM_AT + SIZEOF (.data))
 
-.romp           0x1ffff9bc       0x18 load address 0x00003cfc
+.romp           0x1ffff9dc       0x18 load address 0x00003cfc
                 0x00003cfc                __S_romp = _romp_at
-                0x1ffff9bc        0x4 LONG 0x3cf4 ___ROM_AT
-                0x1ffff9c0        0x4 LONG 0x1ffff000 _sdata
-                0x1ffff9c4        0x4 LONG 0x8 ___data_size
-                0x1ffff9c8        0x4 LONG 0x0
-                0x1ffff9cc        0x4 LONG 0x0
-                0x1ffff9d0        0x4 LONG 0x0
+                0x1ffff9dc        0x4 LONG 0x3cf4 ___ROM_AT
+                0x1ffff9e0        0x4 LONG 0x1ffff000 _sdata
+                0x1ffff9e4        0x4 LONG 0x8 ___data_size
+                0x1ffff9e8        0x4 LONG 0x0
+                0x1ffff9ec        0x4 LONG 0x0
+                0x1ffff9f0        0x4 LONG 0x0
 
 ._user_heap_stack
-                0x1ffff9d4      0x400 load address 0x00003d14
-                0x1ffff9d4                . = ALIGN (0x4)
-                0x1ffff9d4                PROVIDE (end, .)
-                0x1ffff9d4                PROVIDE (_end, .)
-                0x1ffff9d4                __heap_addr = .
-                0x1ffff9d4                . = (. + __heap_size)
-                0x1ffffdd4                . = (. + __stack_size)
- *fill*         0x1ffff9d4      0x400 00
-                0x1ffffdd4                . = ALIGN (0x4)
+                0x1ffff9f4      0x400 load address 0x00003d14
+                0x1ffff9f4                . = ALIGN (0x4)
+                0x1ffff9f4                PROVIDE (end, .)
+                0x1ffff9f4                PROVIDE (_end, .)
+                0x1ffff9f4                __heap_addr = .
+                0x1ffff9f4                . = (. + __heap_size)
+                0x1ffffdf4                . = (. + __stack_size)
+ *fill*         0x1ffff9f4      0x400 00
+                0x1ffffdf4                . = ALIGN (0x4)
 
 .ARM.attributes
                 0x00000000       0x31
@@ -1279,7 +1279,7 @@ END GROUP
                 0x0000072b       0x31 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(ROMCopy.o)
 OUTPUT(Test_WiFiESP8266.elf elf32-littlearm)
 
-.debug_info     0x00000000     0x7e6e
+.debug_info     0x00000000     0x7e6f
  .debug_info    0x00000000      0x846 ./Generated_Code/XF1.o
  .debug_info    0x00000846      0x537 ./Generated_Code/WiFiSerial.o
  .debug_info    0x00000d7d      0x165 ./Generated_Code/WAIT1.o
@@ -1299,23 +1299,23 @@ OUTPUT(Test_WiFiESP8266.elf elf32-littlearm)
  .debug_info    0x00005811      0x2c0 ./Sources/Shell.o
  .debug_info    0x00005ad1       0x7d ./Sources/MainDriver.o
  .debug_info    0x00005b4e       0xfb ./Sources/Events.o
- .debug_info    0x00005c49      0x3b8 ./Sources/ESP8266Driver.o
- .debug_info    0x00006001       0xe8 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(exit.o)
- .debug_info    0x000060e9      0x10b C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strchr.o)
- .debug_info    0x000061f4       0xec C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(memset.o)
- .debug_info    0x000062e0      0x141 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strncmp.o)
- .debug_info    0x00006421      0x137 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(__filll_mem.o)
- .debug_info    0x00006558      0x114 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strcmp.o)
- .debug_info    0x0000666c       0xea C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strlen.o)
- .debug_info    0x00006756      0x50d C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(printformat_.o)
- .debug_info    0x00006c63      0x568 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(scanformat_.o)
- .debug_info    0x000071cb      0x313 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(ctype_aeabi.o)
- .debug_info    0x000074de      0x1d6 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(__strtoul.o)
- .debug_info    0x000076b4      0x10f C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(memcpy.o)
- .debug_info    0x000077c3      0x121 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(memchr.o)
- .debug_info    0x000078e4      0x136 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(gcc_ctor_dtor.o)
- .debug_info    0x00007a1a      0x2b9 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(__arm_eabi_init.o)
- .debug_info    0x00007cd3      0x19b C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(ROMCopy.o)
+ .debug_info    0x00005c49      0x3b9 ./Sources/ESP8266Driver.o
+ .debug_info    0x00006002       0xe8 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(exit.o)
+ .debug_info    0x000060ea      0x10b C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strchr.o)
+ .debug_info    0x000061f5       0xec C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(memset.o)
+ .debug_info    0x000062e1      0x141 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strncmp.o)
+ .debug_info    0x00006422      0x137 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(__filll_mem.o)
+ .debug_info    0x00006559      0x114 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strcmp.o)
+ .debug_info    0x0000666d       0xea C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(strlen.o)
+ .debug_info    0x00006757      0x50d C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(printformat_.o)
+ .debug_info    0x00006c64      0x568 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(scanformat_.o)
+ .debug_info    0x000071cc      0x313 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(ctype_aeabi.o)
+ .debug_info    0x000074df      0x1d6 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(__strtoul.o)
+ .debug_info    0x000076b5      0x10f C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(memcpy.o)
+ .debug_info    0x000077c4      0x121 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\libc.a(memchr.o)
+ .debug_info    0x000078e5      0x136 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(gcc_ctor_dtor.o)
+ .debug_info    0x00007a1b      0x2b9 C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(__arm_eabi_init.o)
+ .debug_info    0x00007cd4      0x19b C:/Freescale/CW MCU v10.7/MCU/ARM_GCC_Support/ewl/lib/armv6-m\librt.a(ROMCopy.o)
 
 .debug_abbrev   0x00000000     0x1f62
  .debug_abbrev  0x00000000      0x1bc ./Generated_Code/XF1.o

@@ -93,7 +93,7 @@ u08 ESP8266Driver_ParseCommand(const u08 *lbCmd, bool *lhandled, const CLS1_StdI
 u08 ESP8266Driver_SendString(const u08 *lbString, CLS1_ConstStdIOType *lInputOutput)
 {
 	u16 lwTimeOutMs;
-	u08 lbaStringBuffer[32];
+	u08 lbaStringBuffer[64];
 	u08 lbaRxBuffer[48];	
 	
 	#define RX_TIMEOUT_MS 3000
